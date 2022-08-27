@@ -16,7 +16,6 @@ public class AnswerService {
     public Answer create(Question question, String content, SiteUser author) {
         Answer answer = new Answer();
         answer.setContent(content);
-        answer.setCreateDate(LocalDateTime.now());
         answer.setAuthor(author);
         question.addAnswer(answer);
 
@@ -31,7 +30,6 @@ public class AnswerService {
 
     public void modify(Answer answer, String content) {
         answer.setContent(content);
-        answer.setModifyDate(LocalDateTime.now());
         answerRepository.save(answer);
     }
 

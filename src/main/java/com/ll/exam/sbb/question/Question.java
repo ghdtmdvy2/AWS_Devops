@@ -1,5 +1,6 @@
 package com.ll.exam.sbb.question;
 
+import com.ll.exam.sbb.BaseTimeEntity;
 import com.ll.exam.sbb.answer.Answer;
 import com.ll.exam.sbb.emotion.Emotion;
 import com.ll.exam.sbb.user.SiteUser;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Setter
 @Entity // 아래 Question 클래스는 엔티티 클래스이다.
 // 아래 클래스와 1:1로 매칭되는 테이블이 DB에 없다면, 자동으로 생성되어야 한다.
-public class Question {
+public class Question extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
@@ -24,8 +25,6 @@ public class Question {
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private LocalDateTime createDate;
-    private LocalDateTime modifyDate;
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();

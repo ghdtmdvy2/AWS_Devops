@@ -1,5 +1,6 @@
 package com.ll.exam.sbb.emotion;
 
+import com.ll.exam.sbb.BaseTimeEntity;
 import com.ll.exam.sbb.question.Question;
 import com.ll.exam.sbb.user.SiteUser;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Emotion {
+public class Emotion extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,6 @@ public class Emotion {
 
     @ManyToOne
     private SiteUser author;
-
-    private LocalDateTime createDate;
-    private LocalDateTime modifyDate;
 
     @Column
     private double angry = 24.4;
