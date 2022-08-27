@@ -2,6 +2,7 @@ package com.ll.exam.sbb;
 
 import com.ll.exam.sbb.answer.Answer;
 import com.ll.exam.sbb.answer.AnswerRepository;
+import com.ll.exam.sbb.emotion.EmotionRepository;
 import com.ll.exam.sbb.question.Question;
 import com.ll.exam.sbb.question.QuestionRepository;
 import com.ll.exam.sbb.user.SiteUser;
@@ -31,18 +32,21 @@ public class AnswerRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmotionRepository emotionRepository;
+
     @BeforeEach
     void beforeEach() {
         clearData();
         createSampleData();
     }
 
-    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
-        UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
+    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository, EmotionRepository emotionRepository) {
+        UserServiceTests.clearData(userRepository, answerRepository, questionRepository,emotionRepository);
     }
 
     private void clearData() {
-        clearData(userRepository, answerRepository, questionRepository);
+        clearData(userRepository, answerRepository, questionRepository, emotionRepository);
     }
 
     private void createSampleData() {

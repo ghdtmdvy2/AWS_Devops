@@ -46,4 +46,9 @@ public class Question {
         answer.setQuestion(this);
         getAnswerList().add(answer);
     }
+
+    public void addEmotion(Emotion emotion) {
+        emotion.setQuestion(this);
+        getEmotionList().add(emotion);
+    }
 }

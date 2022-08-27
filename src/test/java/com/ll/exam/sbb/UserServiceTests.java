@@ -1,15 +1,17 @@
 package com.ll.exam.sbb;
 
 import com.ll.exam.sbb.answer.AnswerRepository;
+import com.ll.exam.sbb.emotion.EmotionRepository;
 import com.ll.exam.sbb.question.QuestionRepository;
 import com.ll.exam.sbb.user.UserRepository;
 import com.ll.exam.sbb.user.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@TestClassOrder(ClassOrderer.OrderAnnotation.class)
+@Nested
+@Order(1)
 @SpringBootTest
 public class UserServiceTests {
     @Autowired
@@ -20,6 +22,9 @@ public class UserServiceTests {
 
     @Autowired
     private AnswerRepository answerRepository;
+
+    @Autowired
+    private EmotionRepository emotionRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -39,7 +44,10 @@ public class UserServiceTests {
         createSampleData(userService);
     }
 
-    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository, EmotionRepository emotionRepository) {
+        emotionRepository.deleteAll();
+        emotionRepository.truncateTable();
+
         answerRepository.deleteAll();
         answerRepository.truncateTable();
 
@@ -51,7 +59,7 @@ public class UserServiceTests {
     }
 
     private void clearData() {
-        clearData(userRepository, answerRepository, questionRepository);
+        clearData(userRepository, answerRepository, questionRepository,emotionRepository);
     }
 
     @Test

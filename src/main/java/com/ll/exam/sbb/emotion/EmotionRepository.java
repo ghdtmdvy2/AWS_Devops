@@ -1,11 +1,12 @@
 package com.ll.exam.sbb.emotion;
 
+import com.ll.exam.sbb.base.RepositoryUtil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface EmotionRepository extends JpaRepository<Emotion, Long> {
+public interface EmotionRepository extends JpaRepository<Emotion, Long>, RepositoryUtil {
 
     @Transactional
     @Modifying
