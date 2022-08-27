@@ -4,6 +4,7 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
+
     <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
 
     <div class="card my-3">
@@ -24,6 +25,9 @@
                     <div>
                         HIT : [[${question.hitCount}]]
                     </div>
+                    <span th:text="${#temporals.format(question.createDate, 'HH')}"></span>
+                    [[${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}]]
+
                 </div>
             </div>
 
@@ -69,6 +73,7 @@
                         <span th:text="${answer.author?.username}"></span>
                     </div>
                     <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+
                 </div>
             </div>
 
@@ -105,7 +110,53 @@
         <input sec:authorize="isAnonymous()" disabled type="submit" value="답변등록" class="btn btn-primary my-2">
         <input sec:authorize="isAuthenticated()" type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
-
+<!--    [[20+15, 3, 33],-->
+<!--    0.0,  100.0,0.0],-->
+    <div id="linechart_material" style="width: 900px; height: 500px; margin:20px auto"></div>
 </div>
+<div layout:fragment="script" class="container my-3">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
 
+        google.charts.load('current', {'packages':['line']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('timeofday', 'Time of day');
+            data.addColumn('number', 'Angry');
+            data.addColumn('number', 'Happy');
+            data.addColumn('number', 'Neutral');
+            // Sun Jul 24 12:53:34 KST 2022
+            /*[# th:each="emotion : ${question.emotionList}"]*/
+            data.addRows([
+                [[Number(/*[[${#temporals.format(emotion.createDate, 'HH')}]]*/)+15, Number(/*[[${#temporals.format(emotion.createDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createDate, 'ss')}]]*/)],
+                    /*[[${emotion.angry}]]*/,  /*[[${emotion.happy}]]*/,/*[[${emotion.neutral}]]*/],
+            ]);
+            /*[/]*/
+
+            var options = {
+                chart: {
+                    title: 'Driver sentiment analysis',
+                },
+                vAxes: {
+                    // Adds titles to each axis.
+                    0: {title: 'Emotion (%)'}
+                },
+                width: 900,
+                height: 500
+            };
+
+            var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+            chart.draw(data, google.charts.Line.convertOptions(options));;
+        }
+        function chart__submit(frm){
+            if ( confirm('삭제 하시겠습니까?') ){
+                frm.submit();
+            }
+            return;
+        }
+    </script>
+</div>
 </html>
