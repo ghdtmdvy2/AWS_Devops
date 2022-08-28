@@ -58,13 +58,11 @@ public class AnswerRepositoryTests {
         Answer a1 = new Answer();
         a1.setContent("sbb는 질문답변 게시판 입니다.");
         a1.setAuthor(new SiteUser(1L));
-        a1.setCreateDate(LocalDateTime.now());
         q.addAnswer(a1);
 
         Answer a2 = new Answer();
         a2.setContent("sbb에서는 주로 스프링부트관련 내용을 다룹니다.");
         a2.setAuthor(new SiteUser(2L));
-        a2.setCreateDate(LocalDateTime.now());
         q.addAnswer(a2);
 
         questionRepository.save(q);
@@ -79,13 +77,11 @@ public class AnswerRepositoryTests {
         Answer a1 = new Answer();
         a1.setContent("네 자동으로 생성됩니다.");
         a1.setAuthor(new SiteUser(2L));
-        a1.setCreateDate(LocalDateTime.now());
         q.addAnswer(a1);
 
         Answer a2 = new Answer();
         a2.setContent("네네~ 맞아요!");
         a2.setAuthor(new SiteUser(2L));
-        a2.setCreateDate(LocalDateTime.now());
         q.addAnswer(a2);
 
         questionRepository.save(q);

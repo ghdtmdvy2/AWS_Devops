@@ -1,6 +1,6 @@
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:th="http://thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
@@ -46,7 +46,7 @@
             <td>
                 <span th:text="${question.author?.username}"></span>
             </td>
-            <td th:text="${#temporals.format(question.createDate, 'yy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(question.createdDate, 'yy-MM-dd HH:mm')}"></td>
             <td>
                 <span class="text-danger small ms-2"
                       th:text="${question.hitCount}">

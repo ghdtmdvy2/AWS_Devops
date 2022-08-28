@@ -66,7 +66,6 @@ public class EmotionRepositoryTests {
             e1.setHappy(25.4);
             e1.setNeutral(50.1);
             e1.setAuthor(new SiteUser(1L));
-            e1.setCreateDate(LocalDateTime.now());
             q.addEmotion(e1);
         }
 

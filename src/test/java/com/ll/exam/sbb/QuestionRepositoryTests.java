@@ -53,14 +53,12 @@ public class QuestionRepositoryTests {
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setAuthor(new SiteUser(2L));
-        q1.setCreateDate(LocalDateTime.now());
         questionRepository.save(q1);
 
         Question q2 = new Question();
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setAuthor(new SiteUser(2L));
-        q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);
 
         return q2.getId();
@@ -84,14 +82,12 @@ public class QuestionRepositoryTests {
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setAuthor(new SiteUser(2L));
-        q1.setCreateDate(LocalDateTime.now());
         questionRepository.save(q1);
 
         Question q2 = new Question();
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setAuthor(new SiteUser(2L));
-        q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);
 
         assertThat(q1.getId()).isEqualTo(lastSampleDataId + 1);
@@ -169,7 +165,6 @@ public class QuestionRepositoryTests {
             q.setSubject("%d번 질문".formatted(id));
             q.setContent("%d번 질문의 내용".formatted(id));
             q.setAuthor(new SiteUser(2L));
-            q.setCreateDate(LocalDateTime.now());
             questionRepository.save(q);
         });
     }
