@@ -214,7 +214,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String root() {
-        return "index";
+        return "redirect:/question/list";
     }
 }
 
