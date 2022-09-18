@@ -26,8 +26,6 @@ public class Question extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
-    private List<Answer> answerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Emotion> emotionList = new ArrayList<>();
@@ -41,10 +39,6 @@ public class Question extends BaseTimeEntity {
 
     private Integer hitCount = 0;
 
-    public void addAnswer(Answer answer) {
-        answer.setQuestion(this);
-        getAnswerList().add(answer);
-    }
 
     public void addEmotion(Emotion emotion) {
         emotion.setQuestion(this);

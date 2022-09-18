@@ -35,21 +35,21 @@ public class ArticleController {
         // questionList 라는 이름으로 questionList 변수를 사용할 수 있다.
         model.addAttribute("paging", paging);
 
-        return "question_list";
+        return "article_list";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable long id, AnswerForm answerForm) {
         Article article = articleService.getArticle(id);
 
-        model.addAttribute("question", article);
+        model.addAttribute("article", article);
 
-        return "question_detail";
+        return "article_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(ArticleForm articleForm, @PathVariable("id") Integer id, Principal principal) {
+    public String articleModify(ArticleForm articleForm, @PathVariable("id") Integer id, Principal principal) {
         Article article = this.articleService.getArticle(id);
 
         if (!article.getAuthor().getUsername().equals(principal.getName())) {
@@ -59,14 +59,14 @@ public class ArticleController {
         articleForm.setSubject(article.getSubject());
         articleForm.setContent(article.getContent());
 
-        return "question_form";
+        return "article_form";
     }
 
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid ArticleForm articleForm, BindingResult bindingResult,
+    public String articleModify(@Valid ArticleForm articleForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "article_form";
         }
 
         Article article = this.articleService.getArticle(id);
@@ -75,31 +75,31 @@ public class ArticleController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.articleService.modify(article, articleForm.getSubject(), articleForm.getContent());
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/article/detail/%s", id);
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String questionCreate(ArticleForm articleForm) {
-        return "question_form";
+    public String articleCreate(ArticleForm articleForm) {
+        return "article_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String questionCreate(Principal principal, Model model, @Valid ArticleForm articleForm, BindingResult bindingResult) {
+    public String articleCreate(Principal principal, Model model, @Valid ArticleForm articleForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "article_form";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
 
         articleService.create(articleForm.getSubject(), articleForm.getContent(), siteUser);
-        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
+        return "redirect:/article/list"; // 질문 저장후 질문목록으로 이동
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
+    public String articleDelete(Principal principal, @PathVariable("id") Integer id) {
         Article article = articleService.getArticle(id);
 
         if (!article.getAuthor().getUsername().equals(principal.getName())) {
@@ -108,16 +108,16 @@ public class ArticleController {
 
         articleService.delete(article);
 
-        return "redirect:/";
+        return "redirect:/article/list";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String questionVote(Principal principal, @PathVariable("id") Long id) {
+    public String articleVote(Principal principal, @PathVariable("id") Long id) {
         Article article = articleService.getArticle(id);
         SiteUser siteUser = userService.getUser(principal.getName());
 
         articleService.vote(article, siteUser);
-        return "redirect:/question/detail/%d".formatted(id);
+        return "redirect:/article/detail/%d".formatted(id);
     }
 }

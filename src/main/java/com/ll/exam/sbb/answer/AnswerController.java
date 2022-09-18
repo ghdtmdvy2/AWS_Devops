@@ -1,8 +1,8 @@
 package com.ll.exam.sbb.answer;
 
-import com.ll.exam.sbb.DataNotFoundException;
+import com.ll.exam.sbb.aritlce.Article;
+import com.ll.exam.sbb.aritlce.ArticleService;
 import com.ll.exam.sbb.question.Question;
-import com.ll.exam.sbb.question.QuestionService;
 import com.ll.exam.sbb.user.SiteUser;
 import com.ll.exam.sbb.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,27 +24,27 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class AnswerController {
-    private final QuestionService questionService;
+    private final ArticleService articleService;
     private final AnswerService answerService;
     private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public String detail(Principal principal, Model model, @PathVariable long id, @Valid AnswerForm answerForm, BindingResult bindingResult) {
-        Question question = this.questionService.getQuestion(id);
+        Article article = this.articleService.getArticle(id);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("question", question);
-            return "question_detail";
+            model.addAttribute("article", article);
+            return "article_detail";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
 
         // 답변 등록 시작
-        Answer answer = answerService.create(question, answerForm.getContent(), siteUser);
+        Answer answer = answerService.create(article, answerForm.getContent(), siteUser);
         // 답변 등록 끝
 
-        return "redirect:/question/detail/%d#answer_%d".formatted(id, answer.getId());
+        return "redirect:/article/detail/%d#answer_%d".formatted(id, answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -76,7 +76,7 @@ public class AnswerController {
 
         answerService.modify(answer, answerForm.getContent());
 
-        return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answer.getId());
+        return "redirect:/article/detail/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -90,7 +90,7 @@ public class AnswerController {
 
         answerService.delete(answer);
 
-        return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+        return "redirect:/article/detail/%d".formatted(answer.getArticle().getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -100,6 +100,6 @@ public class AnswerController {
         SiteUser siteUser = userService.getUser(principal.getName());
 
         answerService.vote(answer, siteUser);
-        return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answer.getId());
+        return "redirect:/article/detail/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
     }
 }

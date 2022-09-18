@@ -1,6 +1,7 @@
 package com.ll.exam.sbb.answer;
 
 import com.ll.exam.sbb.BaseTimeEntity;
+import com.ll.exam.sbb.aritlce.Article;
 import com.ll.exam.sbb.question.Question;
 import com.ll.exam.sbb.user.SiteUser;
 import lombok.Getter;
@@ -23,11 +24,13 @@ public class Answer extends BaseTimeEntity {
 
 
     @ManyToOne
-    private Question question;
+    private Article article;
 
     @ManyToOne
     private SiteUser author;
 
     @ManyToMany
     Set<SiteUser> voter;
+
+
 }

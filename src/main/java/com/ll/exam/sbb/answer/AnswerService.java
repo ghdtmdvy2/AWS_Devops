@@ -1,6 +1,7 @@
 package com.ll.exam.sbb.answer;
 
 import com.ll.exam.sbb.DataNotFoundException;
+import com.ll.exam.sbb.aritlce.Article;
 import com.ll.exam.sbb.question.Question;
 import com.ll.exam.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,11 @@ import java.time.LocalDateTime;
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public Answer create(Question question, String content, SiteUser author) {
+    public Answer create(Article article, String content, SiteUser author) {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setAuthor(author);
-        question.addAnswer(answer);
+        article.addAnswer(answer);
 
         answerRepository.save(answer);
 

@@ -24,7 +24,7 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
 
     @ManyToOne
@@ -37,6 +37,8 @@ public class Article extends BaseTimeEntity {
     private Integer hitCount = 0;
 
 
-
-
+    public void addAnswer(Answer answer) {
+        answer.setArticle(this);
+        getAnswerList().add(answer);
+    }
 }
