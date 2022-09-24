@@ -28,7 +28,7 @@ public class ArticleService {
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
 
-        if ( kw == null || kw.trim().length() == 0 ) {
+        if ( kw == null || kw.trim().length() == 0 || kw.equals("null") ) {
             return articleRepository.findAll(pageable);
         }
 

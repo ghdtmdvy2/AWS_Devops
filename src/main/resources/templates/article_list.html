@@ -42,6 +42,9 @@
             <td th:text="${article.id}"></td>
             <td class="text-start">
                 <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.subject}"></a>
+                <span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) > 0}"
+                      th:text="${#lists.size(article.answerList)}">
+                </span>
             </td>
             <td>
                 <span th:text="${article.author?.username}"></span>
@@ -54,7 +57,7 @@
             </td>
             <td>
                 <span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) > 0}"
-                      th:text="${#lists.size(article.answerList)}">
+                      th:text="0">
                 </span>
 
                 <span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) == 0}"
@@ -64,7 +67,6 @@
         </tr>
         </tbody>
     </table>
-
     <!-- 페이징처리 시작 -->
     <div th:if="${!paging.isEmpty()}"
          th:with="queryStrBase = '?kw=' + ${param.kw}, queryStrBase = ${queryStrBase} + '&sortCode=' + ${param.sortCode}">

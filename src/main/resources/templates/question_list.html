@@ -54,7 +54,7 @@
             </td>
             <td>
                 <span class="text-danger small ms-2" th:if="${#lists.size(question.emotionList) > 0}"
-                      th:text="${#lists.size(question.emotionList)}">
+                      th:text="0">
                 </span>
 
                 <span class="text-danger small ms-2" th:if="${#lists.size(question.emotionList) == 0}"
