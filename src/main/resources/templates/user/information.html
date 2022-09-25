@@ -1,12 +1,17 @@
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:th="http://thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
 
     <body>
-    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+        <div id="users_piechart_3d" style="width: 900px; height: 500px; margin:0px auto"></div>
+        <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin:0px auto"></div>
+
+        <p th:text="@{|다른 사람과 angry 수치가 ${diff_emotion_angry}만큼 차이납니다.|}"></p>
+        <p th:text="@{|다른 사람과 happy 수치가 ${diff_emotion_happy}만큼 차이납니다.|}"></p>
+        <p th:text="@{|다른 사람과 neutral 수치가 ${diff_emotion_neutral}만큼 차이납니다.|}"></p>
     </body>
 </div>
 <div layout:fragment="script" class="container my-3">
@@ -17,17 +22,38 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Neutral',  /*[[${neutral}]]*/],
-                ['Angry',     /*[[${angry}]]*/],
-                ['Happy',      /*[[${happy}]]*/]
+                ['Neutral',  /*[[${users_neutral}]]*/],
+                ['Angry',     /*[[${users_angry}]]*/],
+                ['Happy',      /*[[${users_happy}]]*/]
             ]);
 
             var options = {
-                title: 'My Daily Emotions',
+                title: 'My Daily feelings',
                 is3D: true,
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            var chart = new google.visualization.PieChart(document.getElementById('users_piechart_3d'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script type="text/javascript" th:inline="javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Neutral',  /*[[${other_users_neutral}]]*/],
+                ['Angry',     /*[[${other_users_angry}]]*/],
+                ['Happy',      /*[[${other_users_happy}]]*/]
+            ]);
+
+            var options = {
+                title: 'Other People\'s Daily Emotions',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('other_users_piechart_3d'));
             chart.draw(data, options);
         }
     </script>

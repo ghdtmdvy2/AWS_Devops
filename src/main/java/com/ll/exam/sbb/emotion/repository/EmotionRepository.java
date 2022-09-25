@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface EmotionRepository extends JpaRepository<Emotion, Long>, RepositoryUtil {
 
     ArrayList<Emotion> findByAuthor_id(Long id);
+
+
     @Transactional
     @Modifying
     @Query(value = "ALTER TABLE emotion AUTO_INCREMENT = 1", nativeQuery = true)

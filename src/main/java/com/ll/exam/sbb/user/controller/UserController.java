@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -66,21 +67,61 @@ public class UserController {
 
     @GetMapping("/information")
     public String information(@AuthenticationPrincipal UserContext userContext, Model model){
-        ArrayList<Emotion> emotions = emotionService.findByAuthor_id(userContext.getId());
-        double angry = 0;
-        double happy = 0;
-        double neutral = 0;
-        for (Emotion emotion : emotions){
-            angry += emotion.getAngry();
-            happy += emotion.getHappy();
-            neutral += emotion.getNeutral();
+        ArrayList<Emotion> users_emotions = emotionService.findByAuthor_id(userContext.getId());
+        List<Emotion> other_users_emotions = emotionService.findAll();
+        double users_angry = 0;
+        double users_happy = 0;
+        double users_neutral = 0;
+
+        double other_users_angry = 0;
+        double other_users_happy = 0;
+        double other_users_neutral = 0;
+        for (Emotion emotion : users_emotions){
+            users_angry += emotion.getAngry();
+            users_happy += emotion.getHappy();
+            users_neutral += emotion.getNeutral();
         }
-        angry = angry/(emotions.size());
-        happy = happy/(emotions.size());
-        neutral = neutral/(emotions.size());
-        model.addAttribute("angry",angry);
-        model.addAttribute("happy",happy);
-        model.addAttribute("neutral",neutral);
+
+        for (Emotion other_users_emotion : other_users_emotions){
+            other_users_angry += other_users_emotion.getAngry();
+            other_users_happy += other_users_emotion.getHappy();
+            other_users_neutral += other_users_emotion.getNeutral();
+        }
+        users_angry = users_angry/(users_emotions.size());
+        users_happy = users_happy/(users_emotions.size());
+        users_neutral = users_neutral/(users_emotions.size());
+
+        users_angry = Math.round(users_angry * 10) / 10.0;
+        users_happy = Math.round(users_happy * 10) / 10.0;
+        users_neutral = Math.round(users_neutral * 10) / 10.0;
+
+        other_users_angry = other_users_angry/(other_users_emotions.size());
+        other_users_happy = other_users_happy/(other_users_emotions.size());
+        other_users_neutral = other_users_neutral/(other_users_emotions.size());
+
+        other_users_angry = Math.round(other_users_angry * 10) / 10.0;
+        other_users_happy = Math.round(other_users_happy * 10) / 10.0;
+        other_users_neutral = Math.round(other_users_neutral * 10) / 10.0;
+
+        double diff_emotion_angry = other_users_angry - users_angry;
+        double diff_emotion_happy = other_users_happy - users_happy;
+        double diff_emotion_neutral = other_users_neutral - users_neutral;
+
+        diff_emotion_angry = Math.round(diff_emotion_angry * 10) / 10.0 > 0 ? Math.round(diff_emotion_angry * 10) / 10.0 : Math.round(diff_emotion_angry * 10) / 10.0 * (-1.0);
+        diff_emotion_happy = Math.round(diff_emotion_happy * 10) / 10.0 > 0 ? Math.round(diff_emotion_happy * 10) / 10.0 : Math.round(diff_emotion_happy * 10) / 10.0 * (-1.0);
+        diff_emotion_neutral = Math.round(diff_emotion_neutral * 10) / 10.0 > 0 ? Math.round(diff_emotion_neutral * 10) / 10.0 : Math.round(diff_emotion_neutral * 10) / 10.0 * (-1.0);
+
+        model.addAttribute("users_angry",users_angry);
+        model.addAttribute("users_happy",users_happy);
+        model.addAttribute("users_neutral",users_neutral);
+
+        model.addAttribute("other_users_angry",other_users_angry);
+        model.addAttribute("other_users_happy",other_users_happy);
+        model.addAttribute("other_users_neutral",other_users_neutral);
+
+        model.addAttribute("diff_emotion_angry",diff_emotion_angry);
+        model.addAttribute("diff_emotion_happy",diff_emotion_happy);
+        model.addAttribute("diff_emotion_neutral",diff_emotion_neutral);
         return "/user/information";
     }
 }
