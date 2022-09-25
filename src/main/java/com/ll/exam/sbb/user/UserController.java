@@ -1,13 +1,18 @@
 package com.ll.exam.sbb.user;
 
+import com.ll.exam.sbb.emotion.Emotion;
+import com.ll.exam.sbb.emotion.EmotionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @RequiredArgsConstructor
 @Controller
@@ -15,6 +20,8 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+
+    private final EmotionService emotionService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -50,5 +57,25 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login_form";
+    }
+
+    @GetMapping("/information")
+    public String information(@AuthenticationPrincipal UserContext userContext, Model model){
+        ArrayList<Emotion> emotions = emotionService.findByAuthor_id(userContext.getId());
+        double angry = 0;
+        double happy = 0;
+        double neutral = 0;
+        for (Emotion emotion : emotions){
+            angry += emotion.getAngry();
+            happy += emotion.getHappy();
+            neutral += emotion.getNeutral();
+        }
+        angry = angry/(emotions.size());
+        happy = happy/(emotions.size());
+        neutral = neutral/(emotions.size());
+        model.addAttribute("angry",angry);
+        model.addAttribute("happy",happy);
+        model.addAttribute("neutral",neutral);
+        return "user_information";
     }
 }

@@ -6,12 +6,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<SiteUser, Long>, RepositoryUtil {
     boolean existsByUsername(String username);
 
     Optional<SiteUser> findByUsername(String username);
+
+
 
     @Transactional
     @Modifying
