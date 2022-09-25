@@ -30,19 +30,19 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
-        return "signup_form";
+        return "/user/signup_form";
     }
 
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "signup_form";
+            return "/user/signup_form";
         }
 
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordIncorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
-            return "signup_form";
+            return "/user/signup_form";
         }
 
         try {
@@ -50,10 +50,10 @@ public class UserController {
                     userCreateForm.getEmail(), userCreateForm.getPassword1());
         } catch (SignupEmailDuplicatedException e) {
             bindingResult.reject("signupEmailDuplicated", e.getMessage());
-            return "signup_form";
+            return "/user/signup_form";
         } catch (SignupUsernameDuplicatedException e) {
             bindingResult.reject("signupUsernameDuplicated", e.getMessage());
-            return "signup_form";
+            return "/user/signup_form";
         }
 
         return "redirect:/";
@@ -61,7 +61,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "login_form";
+        return "/user/login_form";
     }
 
     @GetMapping("/information")
@@ -81,6 +81,6 @@ public class UserController {
         model.addAttribute("angry",angry);
         model.addAttribute("happy",happy);
         model.addAttribute("neutral",neutral);
-        return "user_information";
+        return "/user/information";
     }
 }

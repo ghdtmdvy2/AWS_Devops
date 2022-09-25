@@ -37,7 +37,7 @@ public class AnswerController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("article", article);
-            return "article_detail";
+            return "/article/article_detail";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
@@ -60,14 +60,14 @@ public class AnswerController {
 
         answerForm.setContent(answer.getContent());
 
-        return "answer_form";
+        return "/answer/write";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String answerModify(@Valid AnswerForm answerForm, BindingResult bindingResult, @PathVariable("id") Long id, Principal principal) {
         if (bindingResult.hasErrors()) {
-            return "answer_form";
+            return "/answer/write";
         }
 
         Answer answer = answerService.getAnswer(id);
