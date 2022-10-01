@@ -36,7 +36,7 @@ public class ArticleController {
         // questionList 라는 이름으로 questionList 변수를 사용할 수 있다.
         model.addAttribute("paging", paging);
 
-        return "/article/article_list";
+        return "article/article_list";
     }
 
     @GetMapping("/detail/{id}")
@@ -45,7 +45,7 @@ public class ArticleController {
 
         model.addAttribute("article", article);
 
-        return "/article/article_detail";
+        return "article/article_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -60,14 +60,14 @@ public class ArticleController {
         articleForm.setSubject(article.getSubject());
         articleForm.setContent(article.getContent());
 
-        return "/article/article_form";
+        return "article/article_form";
     }
 
     @PostMapping("/modify/{id}")
     public String articleModify(@Valid ArticleForm articleForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
-            return "/article/article_form";
+            return "article/article_form";
         }
 
         Article article = this.articleService.getArticle(id);
@@ -82,14 +82,14 @@ public class ArticleController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String articleCreate(ArticleForm articleForm) {
-        return "/article/article_form";
+        return "article/article_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String articleCreate(Principal principal, Model model, @Valid ArticleForm articleForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/article/article_form";
+            return "article/article_form";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());

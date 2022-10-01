@@ -31,19 +31,19 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
-        return "/user/signup_form";
+        return "user/signup_form";
     }
 
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/user/signup_form";
+            return "user/signup_form";
         }
 
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordIncorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
-            return "/user/signup_form";
+            return "user/signup_form";
         }
 
         try {
@@ -51,10 +51,10 @@ public class UserController {
                     userCreateForm.getEmail(), userCreateForm.getPassword1());
         } catch (SignupEmailDuplicatedException e) {
             bindingResult.reject("signupEmailDuplicated", e.getMessage());
-            return "/user/signup_form";
+            return "user/signup_form";
         } catch (SignupUsernameDuplicatedException e) {
             bindingResult.reject("signupUsernameDuplicated", e.getMessage());
-            return "/user/signup_form";
+            return "user/signup_form";
         }
 
         return "redirect:/";
@@ -62,7 +62,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "/user/login_form";
+        return "user/login_form";
     }
 
     @GetMapping("/information")
@@ -122,6 +122,6 @@ public class UserController {
         model.addAttribute("diff_emotion_angry",diff_emotion_angry);
         model.addAttribute("diff_emotion_happy",diff_emotion_happy);
         model.addAttribute("diff_emotion_neutral",diff_emotion_neutral);
-        return "/user/information";
+        return "user/information";
     }
 }

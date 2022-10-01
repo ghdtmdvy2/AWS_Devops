@@ -43,7 +43,7 @@ public class QuestionController {
         // questionList 라는 이름으로 questionList 변수를 사용할 수 있다.
         model.addAttribute("paging", paging);
 
-        return "/question/question_list";
+        return "question/question_list";
     }
 
     @GetMapping("/detail/{id}")
@@ -52,7 +52,7 @@ public class QuestionController {
 
         model.addAttribute("question", question);
 
-        return "/question/question_detail";
+        return "question/question_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -67,14 +67,14 @@ public class QuestionController {
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
 
-        return "/question/question_form";
+        return "question/question_form";
     }
 
     @PostMapping("/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
-            return "/question/question_form";
+            return "question/question_form";
         }
 
         Question question = this.questionService.getQuestion(id);
@@ -96,7 +96,7 @@ public class QuestionController {
     @PostMapping("/create")
     public String questionCreate(Principal principal, Model model, @Valid QuestionForm questionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/question/question_form";
+            return "question/question_form";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
