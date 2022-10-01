@@ -1,0 +1,36 @@
+# DATABASE
+spring:
+  profiles:
+    active: ${activeProfile:dev}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+
+  output:
+    ansi:
+      enabled: always
+
+  thymeleaf:
+    prefix: "classpath:/templates/"
+    cache: false
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+
