@@ -1,30 +1,35 @@
-운전자 주의 경고 시스템에 관한 연구
+<center><h1>운전자 주의 경고 시스템에 관한 연구</h1></center>
+<br>
+<center>전민경1, 홍승표2</center>   
+<center>1인천대학교 임베디드시스템공학과</center>
+<center>2인천대학교 임베디드시스템공학과</center>
+<center>0313alsrud@inu.ac.kr, ghdtmdvy2@inu.ac.kr</center>
 
-전민경1, 홍승표2, 
-1인천대학교 임베디드시스템공학과
-2인천대학교 임베디드시스템공학과
- 0313alsrud@inu.ac.kr, ghdtmdvy2@inu.ac.kr 
+<br>
 
+<center>A Study on the Driving Warning Systems</center>
 
-A Study on the Driving Warning Systems
-
-Seung -Pyo Hong1, Min-Kyung Jun2, 
+<center>Seung -Pyo Hong1, Min-Kyung Jun2, 
 1Dept. of Embedded System Engineering, Incheon University
-2Dept. of Embedded System Engineering, Incheon University
+2Dept. of Embedded System Engineering, Incheon University</center>
 
-요       약
+<center>요       약</center>
 최근 자동차 패러다임이 스마트카의 개념으로 급격히 변화하면서 생체신호를, 기반으로 감정을 인식하는 기술은 졸음에 의한 각종 사고들을 예방하는데 적극 사용되고 있다. 자동차의 안전 시스템의 경우 운전자 주의 경고 기능을 이미 탑재하고 있으므로, 운전자 표정을 인식해 적절한 서비스를 제공하여 자동차의 엔터테인먼트 분야인 인포테이먼트 기술을 더욱 폭넓게 활용할 수 있다.
 
 
  
 1.	서론
  
-(그림 1) 운전사고 유형과 비율
+![img_3.png](img_3.png)
+<center>(그림 1)</center> 
+운전사고 유형과 비율
 운전사고가 매년 증가 하면서 운전자 주의 경고 시스템이 개발되고 있다. 주로 운전 사고 비율이 높은 졸음운전은 서비스가 많이 개발되고 있지만, 난폭운전, 보복운전에 대해서는 서비스가 많이 개발되고 있지 않다. 보복운전과 난폭운전도 운전사고 비율에서 항상 높은 순위를 차지하고 있고 매년 증가하고 있는 추세라는 것을 위의 (그림1)을 보면 알 수 있다. 
 졸음운전은 운전자의 의도와 상관없이 일어나지만 보복운전과 난폭운전은 운전자가 우발적인 감정으로 인해 의도적으로 하게 된다. 그래서 이를 예방하는 서비스를 개발한다면, 교통사고 비율을 줄이는 데 많은 도움이 될 수 있다.
-2.	본론 
+<br><br>
+2.	본론 <br>
 2-1 서비스 구성도
 
+![img_4.png](img_4.png)
  
 (그림 2) 시스템 구성도
 Pi Camera 모듈을 통해 실시간 영상을 수집하여 Open CV로 얼굴 데이터를 가공한다. 그 후 수집된 얼굴 데이터 기반으로 TensorFlow를 이용하여 상황에 맞게 라벨링을 해준다. 가져온 데이터를 Arduino로 전달하여 상황에 맞게 처리하고, Web에서는 가져온 데이터를 그래프화 시켜 사용자의 일일 감정을 기록하게 된다. 이를 사용해 운전자의 데이터를 축적해 웹페이지에서 자신의 운전 상태, 위험도를 파악할 수 있는 서비스를 제공해 운전자의 운전 습관을 파악할 수 있도록 도움을 준다.
