@@ -25,7 +25,7 @@
 
 ## 1. 서론
 
-<p align="center"><img src="img_1.png"></p>
+<p align="center"><img src="readme_img/img_1.png"></p>
 
 **<p align="center">(그림 1) 운전사고 유형과 비율</p>**
 
@@ -40,7 +40,7 @@
 ### 2-1 서비스 구성도
 ---
 
-<p align="center"><img src="img_4.png"></p>
+<p align="center"><img src="readme_img/img_4.png"></p>
 
 **<p align="center">(그림 2) 시스템 구성도</p>**
 
@@ -56,11 +56,11 @@
 
 운전자의 얼굴 표정을 인식하는데 사용된 모델은 Xception이다. Xception 모델은 Inception 모델에서 발전된 것으로 딥러닝 모델 경량화를 목적으로 만들어진 모델이다.
 
-<p align="center"><img src="img_5.png"></p>
+<p align="center"><img src="readme_img/img_5.png"></p>
 
 **<p align="center">(그림 3) Inception module</p>**
 
-<p align="center"><img src="img_6.png"></p>
+<p align="center"><img src="readme_img/img_6.png"></p>
 
 **<p align="center">(그림 4) Xception module</p>**
 
@@ -69,7 +69,7 @@ Xception module은 Input 부분을 대규모 1x1 convolution으로 줄이고 모
 
 이로 인해1개의 kernel cross-channel correlation과 spatial correlation 로 과를 동시에 학습시키는 Inception모델의 단점을 보완하고 위의 두 가지를 독립적으로 살펴볼 수 있게 함으로써 이 프로세스를 좀 더 쉽고 효율적으로 만든다는 장점이 있다.
 
-<p align="center"><img src="img_7.png"></p>
+<p align="center"><img src="readme_img/img_7.png"></p>
 
 **<p align="center">(그림 5) Xception을 이용한 얼굴 인식</p>**
 
@@ -83,7 +83,7 @@ GAN 알고리즘은 적대적 학습을 통해 생성기와 판별기가 동시�
 
 styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들어 내고 styleCLIP을 이용해 text 만으로 이미지 데이터의 표정을 바꿔주는 알고리즘을 사용해 이 연구에 사용되는netural(무표정), happy(웃는 표정), angry(화난 표정)의 데이터들을 만들어 냈다.
 
-<p align="center"><img src="img_8.png"></p>
+<p align="center"><img src="readme_img/img_8.png"></p>
 
 **<p align="center">(그림 6) styleGAN2를 이용한 이미지 생성</p>**
 
@@ -95,7 +95,7 @@ styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들�
 
 서버 내 딥러닝 모델을 통해 얼굴 인식과 감정 분류 후 DB의 site_users 테이블에 결과를 저장하고 Spring Boot 서버로 데이터를 전송한다. DB에 저장된 데이터는 사용자의 일일 감정 그래프 기능을 제공하는 서비스에 사용된다.
 
-<p align="center"><img src="img_9.png"></p>
+<p align="center"><img src="readme_img/img_9.png"></p>
 
 **<p align="center">(그림 7) 데이터 베이스 테이블</p>**
 
@@ -105,7 +105,7 @@ styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들�
 ### 2-5 웹 서버
 ---
 
-<p align="center"><img src="img_10.png"></p>
+<p align="center"><img src="readme_img/img_10.png"></p>
 
 **<p align="center">(그림 8) 웹 서비스 페이지</p>**
 
