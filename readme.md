@@ -1,20 +1,19 @@
-# 운전자 주의 경고 시스템에 관한 연구
+# <p align="center">운전자 주의 경고 시스템에 관한 연구</p>
+### **<p align="center">전민경, 홍승표</p>**
 
-### **전민경, 홍승표**
+**<p align="center">인천대학교 임베디드시스템공학과</p>**
 
-**인천대학교 임베디드시스템공학과**
+**<p align="center">인천대학교 임베디드시스템공학과</p>**
 
-**인천대학교 임베디드시스템공학과**
+**<p align="center">0313alsrud@inu.ac.kr(전민경), ghdtmdvy2@inu.ac.kr(홍승표)</p>**
 
-**0313alsrud@inu.ac.kr, ghdtmdvy2@inu.ac.kr**
+## <p align="center">A Study on the Driving Warning Systems</p>
 
-## A Study on the Driving Warning Systems
+**<p align="center">Seung -Pyo Hong, Min-Kyung Jun,** 
 
-**Seung -Pyo Hong, Min-Kyung Jun,** 
+**<p align="center">Dept. of Embedded System Engineering, Incheon University** 
 
-**Dept. of Embedded System Engineering, Incheon University** 
-
-**Dept. of Embedded System Engineering, Incheon University**
+**<p align="center">Dept. of Embedded System Engineering, Incheon University**
 
 
 ## 요 약
@@ -133,5 +132,5 @@ Spring boot는 딥러닝 서버로부터 표정 결과(angry, happy, neutral),
 
 - 본 논문은 과학기술정보통신부 정보통신창의인재양 성사업의 지원을 통해 수행한 ICT 멘토링 프로젝트 결과물입니다.-
 
-## 이미지 학습을 위한 깃허브 주소
+## 딥러닝 서버 깃허브 주소
 https://github.com/ghdtmdvy2/emotion_python
