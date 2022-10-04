@@ -132,3 +132,6 @@ Spring boot는 딥러닝 서버로부터 표정 결과(angry, happy, neutral),
 [4] Spring Boot Spring Boot, [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
 - 본 논문은 과학기술정보통신부 정보통신창의인재양 성사업의 지원을 통해 수행한 ICT 멘토링 프로젝트 결과물입니다.-
+
+## 이미지 학습을 위한 깃허브 주소
+https://github.com/ghdtmdvy2/emotion_python
