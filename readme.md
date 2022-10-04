@@ -37,7 +37,6 @@
 
 ## 본론
 
----
 ### 2-1 서비스 구성도
 ---
 
@@ -51,7 +50,6 @@
 
 이를 사용해 운전자의 데이터를 축적해 웹페이지에서 자신의 운전 상태, 위험도를 파악할 수 있는 서비스를 제공해 운전자의 운전 습관을 파악할 수 있도록 도움을 준다.
 
----
 ### 2-2 얼굴인식 모델 Xception
 ---
 
@@ -74,7 +72,6 @@ Xception module은 Input 부분을 대규모 1x1 convolution으로 줄이고 모
 
 **<p align="center">(그림 5) Xception을 이용한 얼굴 인식</p>**
 
----
 ### **2-3 데이터 생성**
 ---
 
@@ -88,7 +85,6 @@ styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들�
 
 **<p align="center">(그림 6) styleGAN2를 이용한 이미지 생성</p>**
 
----
 ### 2-4 딥러닝 서버
 ---
 
@@ -102,7 +98,6 @@ styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들�
 
 (그림 7)에서 사용자를 구분하는 고유한 값인 id, 감정이 기록된 날짜인 created_date, 각 감정의 백분율을 기록하는 angry, happy, neutral의 감정들이 기록 되고, 작성자의 id를 알려주는 author_id, 어떤 게시판에 기록된 id를 알려주는 question_id 를 나타냈다.
 
----
 ### 2-5 웹 서버
 ---
 
@@ -126,7 +121,7 @@ Spring boot는 딥러닝 서버로부터 표정 결과(angry, happy, neutral),
 
 [2] Google Chart API, [https://developers.google.com/chart](https://developers.google.com/chart)
 
- [3] JPA Library, [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa) 
+[3] JPA Library, [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa) 
 
 [4] Spring Boot Spring Boot, [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
