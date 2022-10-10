@@ -7,17 +7,15 @@
 
     <div class="row my-3">
         <div class="col-6">
-            <h1>운전자 감정 분석 게시판</h1>
+            <h1>운전자의 일일 감정 분석 그래프</h1>
         </div>
         <div class="col-6">
             <form class="input-group">
-                <input class="form-control" type="text" name="kw" placeholder="검색어를 입력해주세요." th:value="${param.kw}">
                 <select onchange="$(this).closest('form').submit();" class="form-select" name="sortCode"
                         th:value="${param.sortCode}">
                     <option value="NEW">최신순</option>
                     <option value="OLD">오래된순</option>
                 </select>
-                <button type="submit" class="btn btn-outline-secondary">검색</button>
             </form>
         </div>
     </div>

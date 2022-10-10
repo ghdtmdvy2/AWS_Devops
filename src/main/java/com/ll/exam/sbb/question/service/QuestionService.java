@@ -19,7 +19,7 @@ import java.util.List;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public Page<Question> getList(String kw, int page, String sortCode) {
+    public Page<Question> getList(String kw, int page, String sortCode, long id) {
         List<Sort.Order> sorts = new ArrayList<>();
 
         switch (sortCode) {
@@ -30,10 +30,10 @@ public class QuestionService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
 
         if ( kw == null || kw.trim().length() == 0 || kw.equals("null")) {
-            return questionRepository.findAll(pageable);
+            return questionRepository.findAllByAuthor_Id(pageable,id);
         }
 
-        return questionRepository.findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContains(kw, kw, kw, pageable);
+        return questionRepository.findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
     }
 
     public Question getQuestion(long id) {
