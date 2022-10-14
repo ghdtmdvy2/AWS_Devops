@@ -4,8 +4,11 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
+    <h2>
+        <i class="fa-solid fa-chart-line"></i>
+        <span th:text="@{|${#temporals.format(question.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${question.author.username} 님의 감정|}"></span>
+    </h2>
 
-    <h2 th:text="@{|${#temporals.format(question.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${question.author.username} 님의 감정|}"></h2>
 <!--    [[20+15, 3, 33],-->
 <!--    0.0,  100.0,0.0],-->
     <div id="linechart_material" style="width: 900px; height: 500px; margin:20px auto"></div>

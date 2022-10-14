@@ -7,7 +7,7 @@
 
     <div class="row my-3">
         <div class="col-6">
-            <h1>운전자의 일일 감정 분석 그래프</h1>
+            <h1><i class="fa-regular fa-face-smile"></i> 운전자의 일일 감정 분석 그래프</h1>
         </div>
         <div class="col-6">
             <form class="input-group">
@@ -30,9 +30,8 @@
             <th>번호</th>
             <th>제목</th>
             <th>글쓴이</th>
-            <th>작성일시</th>
+            <th>분석일</th>
             <th>조회</th>
-            <th>추천</th>
         </tr>
         </thead>
         <tbody>
@@ -48,15 +47,6 @@
             <td>
                 <span class="text-danger small ms-2"
                       th:text="${question.hitCount}">
-                </span>
-            </td>
-            <td>
-                <span class="text-danger small ms-2" th:if="${#lists.size(question.emotionList) > 0}"
-                      th:text="0">
-                </span>
-
-                <span class="text-danger small ms-2" th:if="${#lists.size(question.emotionList) == 0}"
-                      th:text="0">
                 </span>
             </td>
         </tr>

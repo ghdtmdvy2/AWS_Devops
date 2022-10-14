@@ -1,9 +1,9 @@
 package com.ll.exam.sbb.user.service;
 
-import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.base.config.UserContext;
-import com.ll.exam.sbb.user.repository.UserRepository;
+import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.entity.UserRole;
+import com.ll.exam.sbb.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

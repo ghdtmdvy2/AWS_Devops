@@ -1,6 +1,5 @@
 package com.ll.exam.sbb.question.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

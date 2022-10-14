@@ -1,7 +1,7 @@
 package com.ll.exam.sbb.answer.entity;
 
-import com.ll.exam.sbb.base.config.BaseTimeEntity;
 import com.ll.exam.sbb.aritlce.entity.Article;
+import com.ll.exam.sbb.base.config.BaseTimeEntity;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import lombok.Getter;
 import lombok.Setter;

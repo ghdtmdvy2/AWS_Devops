@@ -2,8 +2,8 @@ package com.ll.exam.sbb.answer.service;
 
 import com.ll.exam.sbb.answer.entity.Answer;
 import com.ll.exam.sbb.answer.repository.AnswerRepository;
-import com.ll.exam.sbb.base.exception.DataNotFoundException;
 import com.ll.exam.sbb.aritlce.entity.Article;
+import com.ll.exam.sbb.base.exception.DataNotFoundException;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
