@@ -1,4 +1,4 @@
-package com.ll.exam.sbb.question.entity;
+package com.ll.exam.sbb.analysis.entity;
 
 import com.ll.exam.sbb.base.config.BaseTimeEntity;
 import com.ll.exam.sbb.emotion.entity.Emotion;
@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @Entity // 아래 Question 클래스는 엔티티 클래스이다.
 // 아래 클래스와 1:1로 매칭되는 테이블이 DB에 없다면, 자동으로 생성되어야 한다.
-public class Question extends BaseTimeEntity {
+public class Analysis extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
@@ -25,7 +25,7 @@ public class Question extends BaseTimeEntity {
     private String content;
 
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "analysis", cascade = {CascadeType.ALL})
     private List<Emotion> emotionList = new ArrayList<>();
 
     @ManyToOne
@@ -39,7 +39,7 @@ public class Question extends BaseTimeEntity {
 
 
     public void addEmotion(Emotion emotion) {
-        emotion.setQuestion(this);
+        emotion.setAnalysis(this);
         getEmotionList().add(emotion);
     }
 }

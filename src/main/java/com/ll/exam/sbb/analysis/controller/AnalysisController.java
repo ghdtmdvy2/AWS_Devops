@@ -1,9 +1,9 @@
-package com.ll.exam.sbb.question.controller;
+package com.ll.exam.sbb.analysis.controller;
 
+import com.ll.exam.sbb.analysis.dto.AnalysisForm;
+import com.ll.exam.sbb.analysis.entity.Analysis;
+import com.ll.exam.sbb.analysis.service.AnalysisService;
 import com.ll.exam.sbb.answer.dto.AnswerForm;
-import com.ll.exam.sbb.question.dto.QuestionForm;
-import com.ll.exam.sbb.question.entity.Question;
-import com.ll.exam.sbb.question.service.QuestionService;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@RequestMapping("/question")
+@RequestMapping("/analysis")
 @Controller
 @RequiredArgsConstructor // 생성자 주입
 // 컨트롤러는 Repository가 있는지 몰라야 한다.
@@ -29,15 +29,15 @@ import java.security.Principal;
 // DB는 리포지터리를 몰라야 한다.
 // SPRING DATA JPA는 MySQL을 몰라야 한다.
 // SPRING DATA JPA(리포지터리) -> JPA -> 하이버네이트 -> JDBC -> MySQL Driver -> MySQL
-public class QuestionController {
+public class AnalysisController {
     // @Autowired // 필드 주입
-    private final QuestionService questionService;
+    private final AnalysisService analysisService;
     private final UserService userService;
 
     @GetMapping("/list/{id}")
     // 이 자리에 @ResponseBody가 없으면 resources/question_list/question_list.html 파일을 뷰로 삼는다.
     public String list(@RequestParam(defaultValue = "") String kw, @RequestParam(defaultValue = "") String sortCode, Model model, @RequestParam(defaultValue = "0") int page,@PathVariable long id) {
-        Page<Question> paging = questionService.getList(kw, page, sortCode, id);
+        Page<Analysis> paging = analysisService.getList(kw, page, sortCode, id);
 
         // 미래에 실행된 question_list.html 에서
         // questionList 라는 이름으로 questionList 변수를 사용할 수 있다.
@@ -48,73 +48,73 @@ public class QuestionController {
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable long id, AnswerForm answerForm) {
-        Question question = questionService.getQuestion(id);
+        Analysis analysis = analysisService.getAnalysis(id);
 
-        model.addAttribute("question", question);
+        model.addAttribute("question", analysis);
 
         return "question/question_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
-        Question question = this.questionService.getQuestion(id);
+    public String analysisModify(AnalysisForm analysisForm, @PathVariable("id") Integer id, Principal principal) {
+        Analysis analysis = this.analysisService.getAnalysis(id);
 
-        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
-        questionForm.setSubject(question.getSubject());
-        questionForm.setContent(question.getContent());
+        analysisForm.setSubject(analysis.getSubject());
+        analysisForm.setContent(analysis.getContent());
 
         return "question/question_form";
     }
 
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+    public String analysisModify(@Valid AnalysisForm analysisForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "question/question_form";
         }
 
-        Question question = this.questionService.getQuestion(id);
+        Analysis analysis = this.analysisService.getAnalysis(id);
 
-        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+        this.analysisService.modify(analysis, analysisForm.getSubject(), analysisForm.getContent());
         return String.format("redirect:/question/detail/%s", id);
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String questionCreate(QuestionForm questionForm) {
+    public String analysisCreate(AnalysisForm analysisForm) {
         return "/question/question_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String questionCreate(Principal principal, Model model, @Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String analysisCreate(Principal principal, Model model, @Valid AnalysisForm analysisForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "question/question_form";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
 
-        questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+        analysisService.create(analysisForm.getSubject(), analysisForm.getContent(), siteUser);
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
-        Question question = questionService.getQuestion(id);
+    public String analysisDelete(Principal principal, @PathVariable("id") Integer id) {
+        Analysis analysis = analysisService.getAnalysis(id);
 
-        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
 
-        questionService.delete(question);
+        analysisService.delete(analysis);
 
         return "redirect:/";
     }
@@ -122,10 +122,10 @@ public class QuestionController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     public String questionVote(Principal principal, @PathVariable("id") Long id) {
-        Question question = questionService.getQuestion(id);
+        Analysis analysis = analysisService.getAnalysis(id);
         SiteUser siteUser = userService.getUser(principal.getName());
 
-        questionService.vote(question, siteUser);
+        analysisService.vote(analysis, siteUser);
         return "redirect:/question/detail/%d".formatted(id);
     }
 }

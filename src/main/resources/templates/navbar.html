@@ -24,7 +24,7 @@
                 </li>
                 <li class="nav-item">
 
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{|/question/list/${#authentication.principal.getId()}|}">나의 감정</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{|/analysis/list/${#authentication.principal.getId()}|}">나의 감정</a>
                 </li>
 
                 <li class="nav-item">

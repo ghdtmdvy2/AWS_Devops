@@ -1,7 +1,7 @@
 package com.ll.exam.sbb.emotion.entity;
 
+import com.ll.exam.sbb.analysis.entity.Analysis;
 import com.ll.exam.sbb.base.config.BaseTimeEntity;
-import com.ll.exam.sbb.question.entity.Question;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class Emotion extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    private Question question;
+    private Analysis analysis;
 
     @ManyToOne
     private SiteUser author;
