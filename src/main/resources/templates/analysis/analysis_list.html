@@ -35,18 +35,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="question, loop : ${paging}">
-            <td th:text="${question.id}"></td>
+        <tr th:each="analysis, loop : ${paging}">
+            <td th:text="${analysis.id}"></td>
             <td class="text-start">
-                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="${analysis.subject}"></a>
             </td>
             <td>
-                <span th:text="${question.author?.username}"></span>
+                <span th:text="${analysis.author?.username}"></span>
             </td>
-            <td th:text="${#temporals.format(question.createdDate, 'yy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm')}"></td>
             <td>
                 <span class="text-danger small ms-2"
-                      th:text="${question.hitCount}">
+                      th:text="${analysis.hitCount}">
                 </span>
             </td>
         </tr>

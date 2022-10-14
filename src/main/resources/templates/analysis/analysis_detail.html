@@ -6,7 +6,7 @@
 <div layout:fragment="content" class="container my-3">
     <h2>
         <i class="fa-solid fa-chart-line"></i>
-        <span th:text="@{|${#temporals.format(question.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${question.author.username} 님의 감정|}"></span>
+        <span th:text="@{|${#temporals.format(analysis.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${analysis.author.username} 님의 감정|}"></span>
     </h2>
 
 <!--    [[20+15, 3, 33],-->
@@ -27,7 +27,7 @@
             data.addColumn('number', 'Happy');
             data.addColumn('number', 'Neutral');
             // Sun Jul 24 12:53:34 KST 2022
-            /*[# th:each="emotion : ${question.emotionList}"]*/
+            /*[# th:each="emotion : ${analysis.emotionList}"]*/
             data.addRows([
                 [[Number(/*[[${#temporals.format(emotion.createdDate, 'HH')}]]*/)+15, Number(/*[[${#temporals.format(emotion.createdDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'ss')}]]*/)],
                     /*[[${emotion.angry}]]*/,  /*[[${emotion.happy}]]*/,/*[[${emotion.neutral}]]*/],
