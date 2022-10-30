@@ -1,0 +1,29 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org"
+        layout:decorate="~{layout}">
+
+<div layout:fragment="content" class="container my-3">
+    <div class="my-3 border-bottom">
+        <div>
+            <h4>회원정보 수정</h4>
+        </div>
+    </div>
+    <form th:action="@{/user/information/update}" th:object="${userUpdateForm}" method="post">
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+        <div class="mb-3">
+            <label class="form-label">현재 비밀번호</label>
+            <input type="password" th:name="oldPassword" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">신규 비밀번호</label>
+            <input type="password" th:name="password" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">신규 비밀번호 확인</label>
+            <input type="password" th:name="confirmPassword" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+</div>
+</html>

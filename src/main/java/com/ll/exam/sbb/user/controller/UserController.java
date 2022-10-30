@@ -6,17 +6,25 @@ import com.ll.exam.sbb.base.exception.SignupUsernameDuplicatedException;
 import com.ll.exam.sbb.emotion.entity.Emotion;
 import com.ll.exam.sbb.emotion.service.EmotionService;
 import com.ll.exam.sbb.user.dto.UserCreateForm;
+import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +36,8 @@ public class UserController {
     private final UserService userService;
 
     private final EmotionService emotionService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -57,6 +67,37 @@ public class UserController {
             return "user/signup_form";
         }
 
+        return "redirect:/";
+    }
+    @GetMapping("/information/update")
+    @PreAuthorize("isAuthenticated()")
+    String show_information_update(Model model, UserUpdateForm userUpdateForm, @AuthenticationPrincipal UserDetails userContext){
+        SiteUser users = userService.getUser(userContext.getUsername());
+
+        model.addAttribute("users",users);
+        return "/user/information_update";
+    }
+
+    @PostMapping("/information/update")
+    @PreAuthorize("isAuthenticated()")
+    String information_update(Model model, @Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, @AuthenticationPrincipal UserContext userContext, HttpSession session){
+        SiteUser users = userService.getUser(userContext.getUsername());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("users",users);
+            return "/user/information_update";
+        }
+        if (!passwordEncoder.matches(userUpdateForm.getOldPassword(),users.getPassword())){
+            bindingResult.reject("oldPassword", "현재 비밀번호가 일치하지 않습니다.");
+            model.addAttribute("users",users);
+            return "/user/information_update";
+        }
+        if (!userUpdateForm.getConfirmPassword().equals(userUpdateForm.getPassword())){
+            bindingResult.reject("password", "비밀번호 확인이 일치하지 않습니다.");
+            model.addAttribute("users",users);
+            return "/user/information_update";
+        }
+        userService.update(users,userUpdateForm.getPassword());
+        session.invalidate();
         return "redirect:/";
     }
 

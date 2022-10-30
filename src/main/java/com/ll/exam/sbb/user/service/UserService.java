@@ -41,4 +41,9 @@ public class UserService {
     public SiteUser getUser(String username) {
         return this.userRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
     }
+
+    public void update(SiteUser users, String password) {
+        users.setPassword(passwordEncoder.encode(password));
+        userRepository.save(users);
+    }
 }

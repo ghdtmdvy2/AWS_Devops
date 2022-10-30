@@ -12,6 +12,7 @@ public class UserContext extends User {
     private final Long id;
     private final String email;
     private final String username;
+
     public UserContext(SiteUser users, List<GrantedAuthority> authorities) {
         super(users.getUsername(), users.getPassword(), authorities);
         this.id = users.getId();

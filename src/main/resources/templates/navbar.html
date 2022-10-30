@@ -30,6 +30,10 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/user/information}" sec:authorize="isAuthenticated()">마이페이지</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/information/update}" sec:authorize="isAuthenticated()">회원정보 수정</a>
+                </li>
             </ul>
         </div>
     </div>
