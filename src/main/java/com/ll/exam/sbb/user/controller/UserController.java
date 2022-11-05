@@ -92,7 +92,7 @@ public class UserController {
             return "/user/information_update";
         }
         if (!userUpdateForm.getConfirmPassword().equals(userUpdateForm.getPassword())){
-            bindingResult.reject("password", "비밀번호 확인이 일치하지 않습니다.");
+            bindingResult.reject("password", "두 비밀번호가 일치하지 않습니다.");
             model.addAttribute("users",users);
             return "/user/information_update";
         }
