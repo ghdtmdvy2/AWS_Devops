@@ -19,4 +19,6 @@ public interface EmotionRepository extends JpaRepository<Emotion, Long>, Reposit
     @Modifying
     @Query(value = "ALTER TABLE emotion AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate(); // 이거 지우면 안됨, truncateTable 하면 자동으로 이게 실행됨
+
+    List<Emotion> findAllByAuthor_id(Long id);
 }

@@ -113,7 +113,7 @@ public class AnalysisController {
 
         analysisService.delete(analysis);
 
-        return "redirect:/";
+        return "redirect:/analysis/list/%d".formatted(analysis.getAuthor().getId());
     }
 
     @PreAuthorize("isAuthenticated()")

@@ -4,14 +4,21 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
-    <h2>
-        <i class="fa-solid fa-chart-line"></i>
-        <span th:text="@{|${#temporals.format(analysis.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${analysis.author.username} 님의 감정|}"></span>
-    </h2>
+    <section th:unless="${analysis.emotionList.size > 0}"
+             class="section section-cart-items flex-grow flex items-center justify-center">
+        <div class="text-center">
+            <div>해당 데이터가 오류로 생긴 데이터 입니다.</div>
+            <a th:href="@{|/analysis/delete/${analysis.id}|}" class="block text-link mt-2"><i class="fa-solid fa-chart-line"></i>해당 데이터 삭제하기</a>
+        </div>
+    </section>
+    <div th:if="${analysis.emotionList.size > 0}">
+        <h2>
+            <i class="fa-solid fa-chart-line"></i>
+            <span th:text="@{|${#temporals.format(analysis.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${analysis.author.username} 님의 감정|}"></span>
+        </h2>
 
-<!--    [[20+15, 3, 33],-->
-<!--    0.0,  100.0,0.0],-->
-    <div id="linechart_material" style="width: 900px; height: 500px; margin:20px auto"></div>
+        <div id="linechart_material" style="width: 900px; height: 500px; margin:20px auto"></div>
+    </div>
 </div>
 <div layout:fragment="script" class="container my-3">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -29,7 +36,7 @@
             // Sun Jul 24 12:53:34 KST 2022
             /*[# th:each="emotion : ${analysis.emotionList}"]*/
             data.addRows([
-                [[Number(/*[[${#temporals.format(emotion.createdDate, 'HH')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'ss')}]]*/)],
+                [[Number(/*[[${#temporals.format(emotion.createdDate, 'HH')}]]*/)+15, Number(/*[[${#temporals.format(emotion.createdDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'ss')}]]*/)],
                     /*[[${emotion.angry}]]*/,  /*[[${emotion.happy}]]*/,/*[[${emotion.neutral}]]*/],
             ]);
             /*[/]*/

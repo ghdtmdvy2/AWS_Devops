@@ -14,6 +14,9 @@ import java.util.List;
 public class EmotionService {
     private final EmotionRepository emotionRepository;
     public List<Emotion> findByAuthor_id(Long id, String yearMonth) {
+        if (yearMonth == null || yearMonth.trim().length() == 0){
+            return emotionRepository.findAllByAuthor_id(id);
+        }
         int monthEndDay = Ut.date.getEndDayOf(yearMonth);
 
         String fromDateStr = yearMonth + "-01 00:00:00.000000";
@@ -25,6 +28,9 @@ public class EmotionService {
     }
 
     public List<Emotion> findAll(String yearMonth) {
+        if (yearMonth == null || yearMonth.trim().length() == 0){
+            return emotionRepository.findAll();
+        }
         int monthEndDay = Ut.date.getEndDayOf(yearMonth);
 
         String fromDateStr = yearMonth + "-01 00:00:00.000000";

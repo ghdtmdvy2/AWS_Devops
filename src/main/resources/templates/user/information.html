@@ -10,7 +10,7 @@
             <h1><i class="fa-solid fa-chart-pie"></i> 통계 데이터</h1>
             <form method="get" th:action>
                 <select name="yearMonth" class="select select-bordered">
-                    <option value="2022-11">전체</option>
+                    <option value="">전체</option>
                     <option value="2022-11">2022-11</option>
                     <option value="2022-10">2022-10</option>
                     <option value="2022-09">2022-09</option>
@@ -25,7 +25,7 @@
     <section th:unless="${users_angry != 0 && users_happy != 0 && users_neutral != 0}"
              class="section section-cart-items flex-grow flex items-center justify-center">
         <div class="text-center">
-            <div>감정 데이터가 존재하지 않습니다.</div>
+            <div>해당 날짜의 감정 데이터가 존재하지 않습니다.</div>
         </div>
     </section>
     <div th:if="${users_angry != 0 && users_happy != 0 && users_neutral != 0}">
