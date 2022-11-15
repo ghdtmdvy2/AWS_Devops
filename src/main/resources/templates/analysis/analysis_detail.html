@@ -29,7 +29,7 @@
             // Sun Jul 24 12:53:34 KST 2022
             /*[# th:each="emotion : ${analysis.emotionList}"]*/
             data.addRows([
-                [[Number(/*[[${#temporals.format(emotion.createdDate, 'HH')}]]*/)+15, Number(/*[[${#temporals.format(emotion.createdDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'ss')}]]*/)],
+                [[Number(/*[[${#temporals.format(emotion.createdDate, 'HH')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'mm')}]]*/), Number(/*[[${#temporals.format(emotion.createdDate, 'ss')}]]*/)],
                     /*[[${emotion.angry}]]*/,  /*[[${emotion.happy}]]*/,/*[[${emotion.neutral}]]*/],
             ]);
             /*[/]*/

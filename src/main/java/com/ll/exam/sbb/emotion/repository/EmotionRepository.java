@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface EmotionRepository extends JpaRepository<Emotion, Long>, RepositoryUtil {
 
-    ArrayList<Emotion> findByAuthor_id(Long id);
-
+    List<Emotion> findAllByCreatedDateBetweenAndAuthor_id(LocalDateTime fromDate, LocalDateTime toDate, Long id);
+    List<Emotion> findAllByCreatedDateBetween(LocalDateTime fromDate, LocalDateTime toDate);
 
     @Transactional
     @Modifying

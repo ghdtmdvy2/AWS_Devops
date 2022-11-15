@@ -75,7 +75,7 @@ public class UserController {
         SiteUser users = userService.getUser(userContext.getUsername());
 
         model.addAttribute("users",users);
-        return "/user/information_update";
+        return "user/information_update";
     }
 
     @PostMapping("/information/update")
@@ -84,17 +84,17 @@ public class UserController {
         SiteUser users = userService.getUser(userContext.getUsername());
         if (bindingResult.hasErrors()) {
             model.addAttribute("users",users);
-            return "/user/information_update";
+            return "user/information_update";
         }
         if (!passwordEncoder.matches(userUpdateForm.getOldPassword(),users.getPassword())){
             bindingResult.reject("oldPassword", "현재 비밀번호가 일치하지 않습니다.");
             model.addAttribute("users",users);
-            return "/user/information_update";
+            return "user/information_update";
         }
         if (!userUpdateForm.getConfirmPassword().equals(userUpdateForm.getPassword())){
             bindingResult.reject("password", "두 비밀번호가 일치하지 않습니다.");
             model.addAttribute("users",users);
-            return "/user/information_update";
+            return "user/information_update";
         }
         userService.update(users,userUpdateForm.getPassword());
         session.invalidate();
@@ -107,9 +107,13 @@ public class UserController {
     }
 
     @GetMapping("/information")
-    public String information(@AuthenticationPrincipal UserContext userContext, Model model){
-        ArrayList<Emotion> users_emotions = emotionService.findByAuthor_id(userContext.getId());
-        List<Emotion> other_users_emotions = emotionService.findAll();
+    public String information(@AuthenticationPrincipal UserContext userContext, Model model, String yearMonth){
+        if (yearMonth == null) {
+            yearMonth = "2022-11";
+        }
+        List<Emotion> users_emotions = emotionService.findByAuthor_id(userContext.getId(),yearMonth);
+        List<Emotion> other_users_emotions = emotionService.findAll(yearMonth);
+
         double users_angry = 0;
         double users_happy = 0;
         double users_neutral = 0;

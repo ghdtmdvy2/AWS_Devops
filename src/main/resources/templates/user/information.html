@@ -8,9 +8,10 @@
     <div class="container mx-auto flex-grow flex items-center justify-center">
         <div>
             <h1><i class="fa-solid fa-chart-pie"></i> 통계 데이터</h1>
-            <form method="post" th:action>
+            <form method="get" th:action>
                 <select name="yearMonth" class="select select-bordered">
-                    <option value="2022-10">전체</option>
+                    <option value="2022-11">전체</option>
+                    <option value="2022-11">2022-11</option>
                     <option value="2022-10">2022-10</option>
                     <option value="2022-09">2022-09</option>
                     <option value="2022-08">2022-08</option>
@@ -21,14 +22,22 @@
             </form>
         </div>
     </div>
-    <section style="display:flex; justify-content: center">
-        <div id="users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
-        <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+    <section th:unless="${users_angry != 0 && users_happy != 0 && users_neutral != 0}"
+             class="section section-cart-items flex-grow flex items-center justify-center">
+        <div class="text-center">
+            <div>감정 데이터가 존재하지 않습니다.</div>
+        </div>
     </section>
-    <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
-    <div th:text="@{|다른 사람과 angry 수치가 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; margin-top: 100px"></div>
-    <div th:text="@{|다른 사람과 happy 수치가 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center"></div>
-    <div th:text="@{|다른 사람과 neutral 수치가 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block"></div>
+    <div th:if="${users_angry != 0 && users_happy != 0 && users_neutral != 0}">
+        <section style="display:flex; justify-content: center">
+            <div id="users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+            <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+        </section>
+        <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
+        <div th:text="@{|다른 사람과 angry 수치가 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; margin-top: 100px"></div>
+        <div th:text="@{|다른 사람과 happy 수치가 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center"></div>
+        <div th:text="@{|다른 사람과 neutral 수치가 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block"></div>
+    </div>
     </body>
 </div>
 <div layout:fragment="script" class="container my-3">
