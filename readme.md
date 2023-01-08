@@ -16,6 +16,32 @@
 **<p align="center">Dept. of Embedded System Engineering, Incheon University**
 
 
+# <p align="center">도커 서버 배포/운영 하는법</p>
+
+## git clone 하기
+```bash
+git clone https://github.com/ghdtmdvy2/Drive_Analysis_Web
+```
+
+## 프로젝트 폴더 이동
+```bash
+cd /Drive_Analysis_Web
+```
+## 현재 실행중인 컨테이너 중지 및 삭제
+```bash
+docker stop sb-server
+# 안되면 : docker kill sb-server
+docker rm -f sb-server
+```
+## 새 sb-sever 이미지 만들기 및 이미지 실행
+```docker
+# 이미지 만들기
+docker build --force-rm -t sb-server .
+# 이미지 실행
+docker run -d --rm -it -p 8080:8080 --name sb-server sb-server
+```
+# <p align="center">아이디어 기능별 설명 및 목표</p>
+
 ## 요 약
 
 
