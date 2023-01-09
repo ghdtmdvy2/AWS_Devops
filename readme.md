@@ -66,7 +66,7 @@ docker run -d --rm -it -p 8080:8080 --name sb-server sb-server
 ### 2-1 서비스 구성도
 ---
 
-<p align="center"><img src="readme_img/img_4.png"></p>
+<p align="center"><img src="readme_img/img_11.png"></p>
 
 **<p align="center">(그림 2) 시스템 구성도</p>**
 
@@ -131,7 +131,7 @@ styleGAN2로 이미지들을 합성하여 새로운 얼굴 이미지를 만들�
 ### 2-5 웹 서버
 ---
 
-<p align="center"><img src="readme_img/img_10.png"></p>
+<p align="center"><img src="readme_img/img_12.png"></p>
 
 **<p align="center">(그림 8) 웹 서비스 페이지</p>**
 
