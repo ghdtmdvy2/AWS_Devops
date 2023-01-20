@@ -4,7 +4,7 @@ def region="ap-northeast-2"
 def ecrUrl="152011405160.dkr.ecr.ap-northeast-2.amazonaws.com"
 def repository="jenkins"
 def deployHost="172.32.20.250"
-def aws_crendential_name="aws-key"
+def aws_credential_name="aws-key"
 
 pipeline {
     agent any
@@ -64,7 +64,9 @@ pipeline {
              steps {
                 script{   	
                     // cleanup current user docker credentials
-                    sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
+                    sh """
+		    rm -f ~/.dockercfg ~/.docker/config.json || true
+		    """
                     
 		    docker.withRegistry("https://${ecrUrl}", "ecr:${region}:${aws_credential_name}") {
                       docker.image("${ecrUrl}/${repository}:${currentBuild.number}").push()
