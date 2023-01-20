@@ -1,3 +1,6 @@
+// run:
+// 	docker run --name jenkins -d -p 8080:8080 -p 50000:50000 -v ~/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -u root jenkins/jenkins:latest
+
 def mainDir="./"
 def ecrLoginHelper="docker-credential-ecr-login"
 def region="ap-northeast-2"
