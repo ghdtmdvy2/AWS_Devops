@@ -27,6 +27,7 @@ pipeline {
             steps {
                 sh """
                 cd ${mainDir}
+		chmod +x ./gradlew 
                 ./gradlew bootJar
                 """
             }
