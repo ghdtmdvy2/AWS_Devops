@@ -63,24 +63,6 @@ pipeline {
                 }
             }
         }
-	stage('Docker Rm') {
-            steps {
-                sh 'echo "Docker Rm Start"'
-                sh """
-                docker stop sb-server && docker kill sb-server
-                docker rm -f sb-server
-                """
-            }
-            
-            post {
-                success { 
-                    sh 'echo "Docker Rm Success"'
-                }
-                failure {
-                    sh 'echo "Docker Rm Fail"'
-                }
-            }
-        }
 	stage('upload aws ECR') {
              steps {
                 script{   	
@@ -108,7 +90,9 @@ pipeline {
             steps{
                 sshagent(credentials : ["deploy-key"]) {
                     sh """
-			ssh -i 01_20_jenkins_deploy.pem -o StrictHostKeyChecking=no ubuntu@${deployHost} \
+			ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
+			'docker stop sb-server && docker kill sb-server' \
+                	'docker rm -f sb-server' \
 			'aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${ecrUrl};' \
 			'docker run -d -p 80:8080 --name sb-server -t ${ecrUrl}/${repository}:${currentBuild.number}'
 		    """
