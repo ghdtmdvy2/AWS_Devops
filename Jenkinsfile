@@ -8,7 +8,9 @@ def aws_crendential_name="aws-key"
 
 pipeline {
     agent any
-
+    tools {
+    	jdk("docker -java")
+    }
     stages {
         stage('Pull Codes from Github'){
             steps{
