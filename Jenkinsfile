@@ -88,7 +88,7 @@ pipeline {
                 sshagent(credentials : ["deploy-key"]) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
                      'aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrUrl}; \
-		     sudo chmod 666 /var/run/docker.sock; \ 
+		     chmod 666 /var/run/docker.sock; \ 
                      docker run -d -p 80:8080 -t ${ecrUrl}/${repository}:${currentBuild.number};'"
                 }
             }
