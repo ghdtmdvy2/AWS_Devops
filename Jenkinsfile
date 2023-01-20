@@ -21,10 +21,10 @@ pipeline {
             }
 	    post {
                 success {
-                    echo 'success clone project'
+                    echo 'success pull project'
                 }
                 failure {
-                    error 'fail clone project' // exit pipeline
+                    error 'fail pull project' // exit pipeline
                 }
             }
         }
@@ -100,10 +100,10 @@ pipeline {
             }
 	    post {
                 success {
-                    echo 'success upload image'
+                    echo 'success Deploy'
                 }
                 failure {
-                    error 'fail upload image' // exit pipeline
+                    error 'fail Deploy' // exit pipeline
                 }
             }
 
