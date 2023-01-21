@@ -11,11 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface AnalysisRepository extends JpaRepository<Analysis, Long> {
-    Analysis findBySubject(String subject);
-
-    Analysis findBySubjectAndContent(String subject, String content);
-
-    List<Analysis> findBySubjectLike(String s);
 
     @Transactional
     @Modifying
