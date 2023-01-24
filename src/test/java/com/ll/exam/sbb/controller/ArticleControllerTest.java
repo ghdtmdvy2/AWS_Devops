@@ -1,5 +1,6 @@
-package com.ll.exam.sbb.aritlce.controller;
+package com.ll.exam.sbb.controller;
 
+import com.ll.exam.sbb.aritlce.controller.ArticleController;
 import com.ll.exam.sbb.user.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
