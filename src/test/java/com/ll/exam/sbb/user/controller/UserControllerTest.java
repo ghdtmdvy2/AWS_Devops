@@ -83,12 +83,30 @@ class UserControllerTest {
     @WithUserDetails("user1")
     void get_information_update() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/user/information/update"))
+                .perform(get("/user/information/update")                )
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(UserController.class))
                 .andExpect(handler().methodName("show_information_update"))
                 .andExpect(content().string(containsString("<h4>회원정보 수정</h4>")));
+    }
+
+    @Test
+    @WithUserDetails("user1")
+    void post_information_update() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(post("/user/information/update")
+                        .with(csrf())
+                        .param("oldPassword", "1234")
+                        .param("password", "4231")
+                        .param("confirmPassword", "4231")
+                )
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(UserController.class))
+                .andExpect(handler().methodName("information_update"))
+                .andExpect(redirectedUrl("/"));
     }
 }
