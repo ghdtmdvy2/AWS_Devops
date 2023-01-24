@@ -100,4 +100,21 @@ class ArticleControllerTest {
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("articleCreate"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void post_create_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(post("/article/create")
+                        .with(csrf())
+                        .param("subject", "제목1")
+                        .param("content", "내용1")
+                )
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleCreate"))
+                .andExpect(redirectedUrl("/article/list"));
+    }
 }
