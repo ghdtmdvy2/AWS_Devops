@@ -53,56 +53,6 @@ public class AnalysisController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify/{id}")
-    public String analysisModify(AnalysisForm analysisForm, @PathVariable("id") Integer id, Principal principal) {
-        Analysis analysis = this.analysisService.getAnalysis(id);
-
-        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-        }
-
-        analysisForm.setSubject(analysis.getSubject());
-        analysisForm.setContent(analysis.getContent());
-
-        return "analysis/analysis_form";
-    }
-
-    @PostMapping("/modify/{id}")
-    public String analysisModify(@Valid AnalysisForm analysisForm, BindingResult bindingResult,
-                                 Principal principal, @PathVariable("id") Integer id) {
-        if (bindingResult.hasErrors()) {
-            return "analysis/analysis_form";
-        }
-
-        Analysis analysis = this.analysisService.getAnalysis(id);
-
-        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-        }
-        this.analysisService.modify(analysis, analysisForm.getSubject(), analysisForm.getContent());
-        return String.format("redirect:/analysis/detail/%s", id);
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
-    public String analysisCreate(AnalysisForm analysisForm) {
-        return "/analysis/analysis_form";
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
-    public String analysisCreate(Principal principal, Model model, @Valid AnalysisForm analysisForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "analysis/analysis_form";
-        }
-
-        SiteUser siteUser = userService.getUser(principal.getName());
-
-        analysisService.create(analysisForm.getSubject(), analysisForm.getContent(), siteUser);
-        return "redirect:/analysis/list"; // 질문 저장후 질문목록으로 이동
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String analysisDelete(Principal principal, @PathVariable("id") Integer id) {
         Analysis analysis = analysisService.getAnalysis(id);

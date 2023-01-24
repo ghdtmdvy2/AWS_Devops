@@ -41,12 +41,13 @@ public class AnalysisService {
                 .orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
     }
 
-    public void create(String subject, String content, SiteUser author) {
-        Analysis q = new Analysis();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setAuthor(author);
-        analysisRepository.save(q);
+    public Analysis create(String subject, String content, SiteUser author) {
+        Analysis analysis = new Analysis();
+        analysis.setSubject(subject);
+        analysis.setContent(content);
+        analysis.setAuthor(author);
+        analysisRepository.save(analysis);
+        return analysis;
     }
 
     public void modify(Analysis analysis, String subject, String content) {

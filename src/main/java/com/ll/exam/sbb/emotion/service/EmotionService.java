@@ -1,5 +1,6 @@
 package com.ll.exam.sbb.emotion.service;
 
+import com.ll.exam.sbb.analysis.entity.Analysis;
 import com.ll.exam.sbb.base.util.Ut;
 import com.ll.exam.sbb.emotion.entity.Emotion;
 import com.ll.exam.sbb.emotion.repository.EmotionRepository;
@@ -39,5 +40,15 @@ public class EmotionService {
         LocalDateTime toDate = Ut.date.parse(toDateStr);
 
         return emotionRepository.findAllByCreatedDateBetween(fromDate,toDate);
+    }
+
+    public void create(Analysis analysis, double angry, double happy, double neutral) {
+        Emotion emotion = new Emotion();
+        emotion.setAnalysis(analysis);
+        emotion.setAuthor(analysis.getAuthor());
+        emotion.setAngry(angry);
+        emotion.setHappy(happy);
+        emotion.setNeutral(neutral);
+        emotionRepository.save(emotion);
     }
 }

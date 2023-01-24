@@ -1,5 +1,6 @@
 package com.ll.exam.sbb.base.initData;
 
+import com.ll.exam.sbb.analysis.entity.Analysis;
 import com.ll.exam.sbb.analysis.service.AnalysisService;
 import com.ll.exam.sbb.answer.service.AnswerService;
 import com.ll.exam.sbb.aritlce.entity.Article;
@@ -19,5 +20,15 @@ public interface InitDataBefore {
         Article article4 = articleService.create("제목4","내용4", user1);
 
         answerService.create(article1,"댓글 내용1",user1);
+
+        Analysis analysis = analysisService.create("감정 기록 제목1", "감정 기록 내용1", user1);
+
+        for (int i = 0; i<100; i++){
+            double angryRatio = Math.random();
+            double angry = 100 * angryRatio;
+            double happy = 100 * ((1 - angryRatio) * 0.25);
+            double neutral = 100 * ((1 - angryRatio) * 0.75);
+            emotionService.create(analysis,angry,happy,neutral);
+        }
     }
 }

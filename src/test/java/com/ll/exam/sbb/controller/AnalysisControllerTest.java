@@ -1,10 +1,12 @@
-package com.ll.exam.sbb.analysis.controller;
+package com.ll.exam.sbb.controller;
 
+import com.ll.exam.sbb.analysis.controller.AnalysisController;
 import com.ll.exam.sbb.aritlce.controller.ArticleController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -13,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -25,7 +26,7 @@ class AnalysisControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void get_article_list() throws Exception {
+    void get_analysis_list() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/list/1"))
                 .andDo(print());
@@ -33,5 +34,29 @@ class AnalysisControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(AnalysisController.class))
                 .andExpect(handler().methodName("list"));
+    }
+
+    @Test
+    void get_detail_analysis() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/analysis/detail/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(AnalysisController.class))
+                .andExpect(handler().methodName("detail"));
+    }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_delete_analysis() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/analysis/delete/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(AnalysisController.class))
+                .andExpect(handler().methodName("analysisDelete"))
+                .andExpect(redirectedUrl("/analysis/list/1"));
     }
 }
