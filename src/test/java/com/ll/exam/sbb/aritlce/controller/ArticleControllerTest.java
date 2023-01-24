@@ -88,4 +88,16 @@ class ArticleControllerTest {
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("articleCreate"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_create_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/create"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleCreate"));
+    }
 }
