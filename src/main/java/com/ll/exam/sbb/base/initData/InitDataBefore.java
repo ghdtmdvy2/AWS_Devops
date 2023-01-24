@@ -11,5 +11,10 @@ public interface InitDataBefore {
     default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService, EmotionService emotionService) {
         SiteUser user1 = userService.create("user1", "user1@test.com", "1234");
         SiteUser user2 = userService.create("user2", "user2@test.com", "1234");
+
+        articleService.create("제목1","내용1", user1);
+        articleService.create("제목2","내용2", user1);
+        articleService.create("제목3","내용3", user1);
+        articleService.create("제목4","내용4", user1);
     }
 }
