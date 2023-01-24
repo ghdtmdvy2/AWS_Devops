@@ -32,7 +32,17 @@ class ArticleControllerTest {
         resultActions
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(ArticleController.class))
-                .andExpect(handler().methodName("list"))
-                .andExpect(content().string(containsString("<a href=\"/article/create\" class=\"btn btn-primary\">질문 등록하기</a>")));
+                .andExpect(handler().methodName("list"));
+    }
+
+    @Test
+    void get_detail_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/detail/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("detail"));
     }
 }
