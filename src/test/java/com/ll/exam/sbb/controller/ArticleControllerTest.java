@@ -87,7 +87,8 @@ class ArticleControllerTest {
         resultActions
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ArticleController.class))
-                .andExpect(handler().methodName("articleCreate"));
+                .andExpect(handler().methodName("articleCreate"))
+                .andExpect(redirectedUrlPattern("**/user/login"));
     }
 
     @Test
