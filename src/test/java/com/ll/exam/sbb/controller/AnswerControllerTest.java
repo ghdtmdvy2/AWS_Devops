@@ -51,4 +51,20 @@ class AnswerControllerTest {
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("answerModify"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void post_modify_answer() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(post("/answer/modify/1")
+                        .with(csrf())
+                        .param("content", "댓글 수정 내용1")
+                )
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(AnswerController.class))
+                .andExpect(handler().methodName("answerModify"))
+                .andExpect(redirectedUrlPattern("/article/detail/1#*"));
+    }
 }
