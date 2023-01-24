@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -57,5 +59,33 @@ class ArticleControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("articleModify"));
+    }
+
+    @Test
+    @WithUserDetails("user1")
+    void post_modify_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(post("/article/modify/1")
+                        .with(csrf())
+                        .param("subject", "수정된 제목1")
+                        .param("content", "수정된 내용1")
+                )
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleModify"))
+                .andExpect(redirectedUrl("/article/detail/1"));
+    }
+
+    @Test
+    void get_non_member_create_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/create"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleCreate"));
     }
 }
