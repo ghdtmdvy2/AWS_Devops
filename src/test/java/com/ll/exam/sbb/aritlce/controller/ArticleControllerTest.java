@@ -117,4 +117,17 @@ class ArticleControllerTest {
                 .andExpect(handler().methodName("articleCreate"))
                 .andExpect(redirectedUrl("/article/list"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_delete_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/delete/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleDelete"))
+                .andExpect(redirectedUrl("/article/list"));
+    }
 }
