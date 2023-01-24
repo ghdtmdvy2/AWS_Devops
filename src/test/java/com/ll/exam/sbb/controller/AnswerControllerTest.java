@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -38,5 +38,17 @@ class AnswerControllerTest {
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("detail"))
                 .andExpect(redirectedUrlPattern("/article/detail/1#*"));
+    }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_modify_answer() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/answer/modify/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(AnswerController.class))
+                .andExpect(handler().methodName("answerModify"));
     }
 }

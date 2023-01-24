@@ -41,12 +41,13 @@ public class ArticleService {
                 .orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
     }
 
-    public void create(String subject, String content, SiteUser author) {
+    public Article create(String subject, String content, SiteUser author) {
         Article a = new Article();
         a.setSubject(subject);
         a.setContent(content);
         a.setAuthor(author);
         articleRepository.save(a);
+        return a;
     }
 
     public void modify(Article article, String subject, String content) {
