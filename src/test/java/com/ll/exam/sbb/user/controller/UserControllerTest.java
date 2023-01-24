@@ -61,4 +61,22 @@ class UserControllerTest {
 
     }
 
+    @Test
+    void two_password_mismatch_signup() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(post("/user/signup")
+                        .with(csrf())
+                        .param("username", "user888")
+                        .param("password1", "1234")
+                        .param("password2", "1238")
+                        .param("email", "user888@test.com")
+                )
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(UserController.class))
+                .andExpect(handler().methodName("signup"))
+                .andExpect(content().string(containsString("2개의 패스워드가 일치하지 않습니다.")));
+    }
+
 }
