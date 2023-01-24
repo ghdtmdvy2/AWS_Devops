@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -78,5 +79,16 @@ class UserControllerTest {
                 .andExpect(handler().methodName("signup"))
                 .andExpect(content().string(containsString("2개의 패스워드가 일치하지 않습니다.")));
     }
-
+    @Test
+    @WithUserDetails("user1")
+    void get_information_update() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/user/information/update"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(UserController.class))
+                .andExpect(handler().methodName("show_information_update"))
+                .andExpect(content().string(containsString("<h4>회원정보 수정</h4>")));
+    }
 }
