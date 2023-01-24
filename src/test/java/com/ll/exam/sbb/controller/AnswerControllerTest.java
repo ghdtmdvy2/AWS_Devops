@@ -67,4 +67,17 @@ class AnswerControllerTest {
                 .andExpect(handler().methodName("answerModify"))
                 .andExpect(redirectedUrlPattern("/article/detail/1#*"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_delete_answer() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/answer/delete/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(AnswerController.class))
+                .andExpect(handler().methodName("answerDelete"))
+                .andExpect(redirectedUrl("/article/detail/1"));
+    }
 }
