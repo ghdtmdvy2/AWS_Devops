@@ -49,6 +49,19 @@ public class EmotionService {
         emotion.setAngry(angry);
         emotion.setHappy(happy);
         emotion.setNeutral(neutral);
+        emotion.setCreatedDate(LocalDateTime.now());
+        emotionRepository.save(emotion);
+    }
+
+    public void testDataEmotionCreate(Analysis analysis, double angry, double happy, double neutral, String createDate) {
+        Emotion emotion = new Emotion();
+        emotion.setAnalysis(analysis);
+        emotion.setAuthor(analysis.getAuthor());
+        emotion.setAngry(angry);
+        emotion.setHappy(happy);
+        emotion.setNeutral(neutral);
+        LocalDateTime createDateEmotion = Ut.date.parse(createDate);
+        emotion.setCreatedDate(createDateEmotion);
         emotionRepository.save(emotion);
     }
 }

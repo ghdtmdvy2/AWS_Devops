@@ -5,13 +5,15 @@ import com.ll.exam.sbb.base.config.BaseTimeEntity;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-public class Emotion extends BaseTimeEntity {
+public class Emotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +26,14 @@ public class Emotion extends BaseTimeEntity {
     private SiteUser author;
 
     @Column
-    private double angry = 24.4;
+    private double angry;
 
     @Column
-    private double neutral = 25.5;
+    private double neutral;
 
     @Column
-    private double happy = 50.1;
+    private double happy;
+
+    @Column
+    private LocalDateTime createdDate;
 }

@@ -30,12 +30,21 @@ public interface InitDataBefore {
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {
+        int sec = 0;
+        int min = 0;
+        String createDate;
         for (int i = 0; i<100; i++){
+            sec++;
+            if (sec == 60) {
+                min++;
+                sec = 0;
+            }
+            createDate = "2023-01-01 00:%02d:%02d.000000".formatted(min,sec);
             double angryRatio = Math.random();
             double angry = 100 * angryRatio;
             double happy = 100 * ((1 - angryRatio) * 0.25);
             double neutral = 100 * ((1 - angryRatio) * 0.75);
-            emotionService.emotionCreate(analysis1,angry,happy,neutral);
+            emotionService.testDataEmotionCreate(analysis1,angry,happy,neutral,createDate);
         }
     }
 }
