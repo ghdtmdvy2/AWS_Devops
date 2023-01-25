@@ -24,7 +24,7 @@ class AnalysisServiceTest {
     UserService userService;
 
     @Test
-    public void get_analysis(){
+    public void get_analysis_list(){
         SiteUser user = userService.getUser("user1");
         Page<Analysis> articles = analysisService.getAnalysisList("", 0, "",user.getId());
         assertThat(articles.getSize()).isGreaterThan(0);
@@ -40,5 +40,18 @@ class AnalysisServiceTest {
         assertThat(analysis.getSubject()).isEqualTo(subject);
         assertThat(analysis.getContent()).isEqualTo(content);
         assertThat(analysis.getAuthor()).isEqualTo(user);
+    }
+
+    @Test
+    public void get_analysis(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "제목1";
+        String content = "내용1";
+        Analysis analysis = analysisService.create(subject,content,user);
+        Analysis findAnalysis = analysisService.getAnalysis(analysis.getId());
+        assertThat(findAnalysis).isNotNull();
+        assertThat(findAnalysis.getSubject()).isEqualTo(subject);
+        assertThat(findAnalysis.getContent()).isEqualTo(content);
+        assertThat(findAnalysis.getAuthor()).isEqualTo(user);
     }
 }
