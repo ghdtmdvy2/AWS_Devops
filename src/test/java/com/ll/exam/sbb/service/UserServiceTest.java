@@ -21,8 +21,8 @@ class UserServiceTest {
     UserService userService;
     @Test
     public void user_signup(){
-        String username = "user3";
-        String email = "user3@test.com";
+        String username = "test";
+        String email = "test3@test.com";
         String password = "1234";
         userService.create(username,email,password);
 

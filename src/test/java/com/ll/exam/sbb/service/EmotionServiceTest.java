@@ -1,5 +1,7 @@
 package com.ll.exam.sbb.service;
 
+import com.ll.exam.sbb.analysis.entity.Analysis;
+import com.ll.exam.sbb.analysis.service.AnalysisService;
 import com.ll.exam.sbb.base.util.Ut;
 import com.ll.exam.sbb.emotion.entity.Emotion;
 import com.ll.exam.sbb.emotion.service.EmotionService;
@@ -25,6 +27,9 @@ class EmotionServiceTest {
     UserService userService;
     @Autowired
     EmotionService emotionService;
+
+    @Autowired
+    AnalysisService analysisService;
     @Test
     public void current_user_emotion_find(){
         SiteUser user1 = userService.getUser("user1");
@@ -55,5 +60,19 @@ class EmotionServiceTest {
         assertThat(emotionsAvgEntireUser[0] == emotionsAvgUser1[0]).isFalse();
         assertThat(emotionsAvgEntireUser[1] == emotionsAvgUser1[1]).isFalse();
         assertThat(emotionsAvgEntireUser[2] == emotionsAvgUser1[2]).isFalse();
+    }
+
+    @Test
+    public void emotion_create(){
+        SiteUser user = userService.getUser("user3");
+        Analysis analysis = analysisService.create("user3의 감정 기록 제목1", "user3의 감정 기록 내용1", user);
+        emotionService.emotionCreate(analysis,30,50,20);
+        emotionService.emotionCreate(analysis,30,50,20);
+        emotionService.emotionCreate(analysis,30,50,20);
+        List<Emotion> emotions = emotionService.currentUserFindEmotions(user.getId(), "");
+        double[] emotionsAvgUser = Ut.emotionsAvgCreate(emotions);
+        assertThat(emotionsAvgUser[0]).isEqualTo(30);
+        assertThat(emotionsAvgUser[1]).isEqualTo(50);
+        assertThat(emotionsAvgUser[2]).isEqualTo(20);
     }
 }
