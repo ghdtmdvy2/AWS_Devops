@@ -9,14 +9,8 @@
         <div>
             <h1><i class="fa-solid fa-chart-pie"></i> 통계 데이터</h1>
             <form method="get" th:action>
-                <select name="yearMonth" class="select select-bordered">
+                <select name="yearMonth" id="yearMonth" class="select select-bordered">
                     <option value="">전체</option>
-                    <option value="2022-11">2022-11</option>
-                    <option value="2022-10">2022-10</option>
-                    <option value="2022-09">2022-09</option>
-                    <option value="2022-08">2022-08</option>
-                    <option value="2022-07">2022-07</option>
-                    <option value="2022-06">2022-06</option>
                 </select>
                 <input class="btn btn-primary" type="submit" value="확인">
             </form>
@@ -41,6 +35,24 @@
     </body>
 </div>
 <div layout:fragment="script" class="container my-3">
+    <script>
+        const now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        for (let i = 0; i < 3; i++) {
+            if (month <= 0) {
+                year--;
+                month = 12;
+            }
+            if (month < 10) {
+                $("#yearMonth").append("<option value='"+ year.toString() +"-0" + month.toString() +"'>"+year.toString() +"-0" + month.toString()+"</option>");
+            } else {
+                $("#yearMonth").append("<option value='"+ year.toString() +"-" + month.toString() +"'>"+year.toString() +"-" + month.toString()+"</option>");
+            }
+            month--;
+        }
+
+    </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" th:inline="javascript">
         google.charts.load("current", {packages:["corechart"]});
