@@ -29,8 +29,25 @@ class ArticleServiceTest {
     @Test
     public void create_article(){
         SiteUser user = userService.getUser("user1");
+        String subject = "제목1";
+        String content = "내용1";
         Article article = articleService.create("제목1","내용1",user);
         assertThat(article).isNotNull();
+        assertThat(article.getSubject()).isEqualTo(subject);
+        assertThat(article.getContent()).isEqualTo(content);
+        assertThat(article.getAuthor()).isEqualTo(user);
     }
 
+    @Test
+    public void get_article(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "제목1";
+        String content = "내용1";
+        Article article = articleService.create(subject,content,user);
+        Article findArticle = articleService.getArticle(article.getId());
+        assertThat(findArticle).isNotNull();
+        assertThat(findArticle.getSubject()).isEqualTo(subject);
+        assertThat(findArticle.getContent()).isEqualTo(content);
+        assertThat(findArticle.getAuthor()).isEqualTo(user);
+    }
 }
