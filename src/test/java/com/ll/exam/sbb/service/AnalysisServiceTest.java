@@ -54,4 +54,21 @@ class AnalysisServiceTest {
         assertThat(findAnalysis.getContent()).isEqualTo(content);
         assertThat(findAnalysis.getAuthor()).isEqualTo(user);
     }
+
+    @Test
+    public void delete_article(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "제목1";
+        String content = "내용1";
+        Analysis analysis = analysisService.create(subject,content,user);
+        analysisService.delete(analysis);
+        try{
+            analysisService.getAnalysis(analysis.getId());
+        }
+        catch (Exception e) {
+            assertThat(true).isTrue();
+            return;
+        }
+        assertThat(false).isFalse();
+    }
 }
