@@ -65,14 +65,4 @@ public class AnalysisController {
 
         return "redirect:/analysis/list/%d".formatted(analysis.getAuthor().getId());
     }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}")
-    public String analysisVote(Principal principal, @PathVariable("id") Long id) {
-        Analysis analysis = analysisService.getAnalysis(id);
-        SiteUser siteUser = userService.getUser(principal.getName());
-
-        analysisService.vote(analysis, siteUser);
-        return "redirect:/analysis/detail/%d".formatted(id);
-    }
 }

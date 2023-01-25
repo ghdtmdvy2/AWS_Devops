@@ -38,7 +38,7 @@ public class AnalysisService {
 
     public Analysis getAnalysis(long id) {
         return analysisRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
+                .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(id)));
     }
 
     public Analysis create(String subject, String content, SiteUser author) {
@@ -50,19 +50,8 @@ public class AnalysisService {
         return analysis;
     }
 
-    public void modify(Analysis analysis, String subject, String content) {
-        analysis.setSubject(subject);
-        analysis.setContent(content);
-        analysisRepository.save(analysis);
-    }
-
     public void delete(Analysis analysis) {
         this.analysisRepository.delete(analysis);
     }
 
-    public void vote(Analysis analysis, SiteUser siteUser) {
-        analysis.getVoter().add(siteUser);
-
-        analysisRepository.save(analysis);
-    }
 }
