@@ -1,10 +1,8 @@
 package com.ll.exam.sbb.analysis.controller;
 
-import com.ll.exam.sbb.analysis.dto.AnalysisForm;
 import com.ll.exam.sbb.analysis.entity.Analysis;
 import com.ll.exam.sbb.analysis.service.AnalysisService;
 import com.ll.exam.sbb.answer.dto.AnswerForm;
-import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,11 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @RequestMapping("/analysis")
@@ -36,7 +32,7 @@ public class AnalysisController {
 
     @GetMapping("/list/{id}")
     public String list(@RequestParam(defaultValue = "") String kw, @RequestParam(defaultValue = "") String sortCode, Model model, @RequestParam(defaultValue = "0") int page,@PathVariable long id) {
-        Page<Analysis> paging = analysisService.getList(kw, page, sortCode, id);
+        Page<Analysis> paging = analysisService.getAnalysisList(kw, page, sortCode, id);
 
         model.addAttribute("paging", paging);
 

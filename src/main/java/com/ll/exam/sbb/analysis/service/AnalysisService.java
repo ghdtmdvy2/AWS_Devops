@@ -19,7 +19,7 @@ import java.util.List;
 public class AnalysisService {
     private final AnalysisRepository analysisRepository;
 
-    public Page<Analysis> getList(String kw, int page, String sortCode, long id) {
+    public Page<Analysis> getAnalysisList(String kw, int page, String sortCode, long id) {
         List<Sort.Order> sorts = new ArrayList<>();
 
         switch (sortCode) {
