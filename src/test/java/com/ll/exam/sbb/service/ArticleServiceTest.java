@@ -50,4 +50,22 @@ class ArticleServiceTest {
         assertThat(findArticle.getContent()).isEqualTo(content);
         assertThat(findArticle.getAuthor()).isEqualTo(user);
     }
+
+    @Test
+    public void modify_article(){
+        SiteUser user = userService.getUser("user1");
+        String oldSubject = "제목1";
+        String oldContent = "내용1";
+        Article article = articleService.create(oldSubject,oldContent,user);
+        assertThat(article).isNotNull();
+        String modifySubject = "수정된 제목1";
+        String modifyContent = "수정된 내용1";
+        articleService.modify(article,modifySubject,modifyContent);
+        Article modifyArticle = articleService.getArticle(article.getId());
+        assertThat(modifyArticle.getSubject().equals(oldSubject)).isFalse();
+        assertThat(modifyArticle.getContent().equals(oldContent)).isFalse();
+        assertThat(modifyArticle.getSubject().equals(modifySubject)).isTrue();
+        assertThat(modifyArticle.getContent().equals(modifyContent)).isTrue();
+        assertThat(modifyArticle.getModifiedDate()).isNotNull();
+    }
 }
