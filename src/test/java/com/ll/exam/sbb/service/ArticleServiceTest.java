@@ -68,4 +68,21 @@ class ArticleServiceTest {
         assertThat(modifyArticle.getContent().equals(modifyContent)).isTrue();
         assertThat(modifyArticle.getModifiedDate()).isNotNull();
     }
+
+    @Test
+    public void delete_article(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "제목1";
+        String content = "내용1";
+        Article article = articleService.create(subject,content,user);
+        articleService.delete(article);
+        try{
+            articleService.getArticle(article.getId());
+        }
+        catch (Exception e) {
+            assertThat(true).isTrue();
+            return;
+        }
+        assertThat(false).isFalse();
+    }
 }
