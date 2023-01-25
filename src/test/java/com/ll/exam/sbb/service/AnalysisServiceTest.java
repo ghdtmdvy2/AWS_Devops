@@ -2,6 +2,7 @@ package com.ll.exam.sbb.service;
 
 import com.ll.exam.sbb.analysis.entity.Analysis;
 import com.ll.exam.sbb.analysis.service.AnalysisService;
+import com.ll.exam.sbb.aritlce.entity.Article;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -27,5 +28,17 @@ class AnalysisServiceTest {
         SiteUser user = userService.getUser("user1");
         Page<Analysis> articles = analysisService.getAnalysisList("", 0, "",user.getId());
         assertThat(articles.getSize()).isGreaterThan(0);
+    }
+
+    @Test
+    public void create_analysis(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "user1의 감정 기록 제목1";
+        String content = "user1의 감정 기록 내용1";
+        Analysis analysis = analysisService.create(subject,content,user);
+        assertThat(analysis).isNotNull();
+        assertThat(analysis.getSubject()).isEqualTo(subject);
+        assertThat(analysis.getContent()).isEqualTo(content);
+        assertThat(analysis.getAuthor()).isEqualTo(user);
     }
 }
