@@ -104,8 +104,8 @@ public class UserController {
     @GetMapping("/information")
     public String information(@AuthenticationPrincipal UserContext userContext, Model model, @RequestParam(defaultValue = "")String yearMonth){
 
-        List<Emotion> users_emotions = emotionService.findByAuthor_id(userContext.getId(),yearMonth);
-        List<Emotion> other_users_emotions = emotionService.findAll(yearMonth);
+        List<Emotion> users_emotions = emotionService.currentUserFindEmotions(userContext.getId(),yearMonth);
+        List<Emotion> other_users_emotions = emotionService.AllUsersFindEmotions(yearMonth);
 
         double[] currentUserEmotionAvg = Ut.emotionsAvgCreate(users_emotions);
         double[] otherUserEmotionAvg = Ut.emotionsAvgCreate(other_users_emotions);

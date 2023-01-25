@@ -28,7 +28,7 @@ public interface InitDataBefore {
             double angry = 100 * angryRatio;
             double happy = 100 * ((1 - angryRatio) * 0.25);
             double neutral = 100 * ((1 - angryRatio) * 0.75);
-            emotionService.create(analysis,angry,happy,neutral);
+            emotionService.emotionCreate(analysis,angry,happy,neutral);
         }
     }
 }

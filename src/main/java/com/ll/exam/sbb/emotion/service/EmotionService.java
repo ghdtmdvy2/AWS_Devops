@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmotionService {
     private final EmotionRepository emotionRepository;
-    public List<Emotion> findByAuthor_id(Long id, String yearMonth) {
+    public List<Emotion> currentUserFindEmotions(Long id, String yearMonth) {
         if (yearMonth == null || yearMonth.trim().length() == 0){
             return emotionRepository.findAllByAuthor_id(id);
         }
@@ -28,7 +28,7 @@ public class EmotionService {
         return emotionRepository.findAllByCreatedDateBetweenAndAuthor_id(fromDate,toDate,id);
     }
 
-    public List<Emotion> findAll(String yearMonth) {
+    public List<Emotion> AllUsersFindEmotions(String yearMonth) {
         if (yearMonth == null || yearMonth.trim().length() == 0){
             return emotionRepository.findAll();
         }
@@ -42,7 +42,7 @@ public class EmotionService {
         return emotionRepository.findAllByCreatedDateBetween(fromDate,toDate);
     }
 
-    public void create(Analysis analysis, double angry, double happy, double neutral) {
+    public void emotionCreate(Analysis analysis, double angry, double happy, double neutral) {
         Emotion emotion = new Emotion();
         emotion.setAnalysis(analysis);
         emotion.setAuthor(analysis.getAuthor());
