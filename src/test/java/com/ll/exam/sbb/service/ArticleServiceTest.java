@@ -26,4 +26,11 @@ class ArticleServiceTest {
         Page<Article> articles = articleService.getList("", 0, "");
         assertThat(articles.getSize()).isGreaterThan(0);
     }
+    @Test
+    public void create_article(){
+        SiteUser user = userService.getUser("user1");
+        Article article = articleService.create("제목1","내용1",user);
+        assertThat(article).isNotNull();
+    }
+
 }
