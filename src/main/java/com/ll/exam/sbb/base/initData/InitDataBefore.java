@@ -21,14 +21,20 @@ public interface InitDataBefore {
 
         answerService.create(article1,"댓글 내용1",user1);
 
-        Analysis analysis = analysisService.create("감정 기록 제목1", "감정 기록 내용1", user1);
+        Analysis analysis1 = analysisService.create("user1의 감정 기록 제목1", "user1의 감정 기록 내용1", user1);
+        Analysis analysis2 = analysisService.create("user2의 감정 기록 제목1", "user2의 감정 기록 내용1", user2);
 
+        testEmotionsCreate(emotionService, analysis1);
+        testEmotionsCreate(emotionService, analysis2);
+    }
+
+    private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {
         for (int i = 0; i<100; i++){
             double angryRatio = Math.random();
             double angry = 100 * angryRatio;
             double happy = 100 * ((1 - angryRatio) * 0.25);
             double neutral = 100 * ((1 - angryRatio) * 0.75);
-            emotionService.emotionCreate(analysis,angry,happy,neutral);
+            emotionService.emotionCreate(analysis1,angry,happy,neutral);
         }
     }
 }
