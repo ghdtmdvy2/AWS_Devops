@@ -6,7 +6,7 @@ def ecrLoginHelper="docker-credential-ecr-login"
 def region="ap-northeast-2"
 def ecrUrl="152011405160.dkr.ecr.ap-northeast-2.amazonaws.com"
 def repository="jenkins"
-def deployHost="172.32.25.252"
+def deployHost="172.32.28.240"
 def aws_credential_name="aws-key"
 
 pipeline {
