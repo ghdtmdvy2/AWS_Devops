@@ -94,7 +94,7 @@ pipeline {
 			'docker stop sb-server && docker kill sb-server;' \
                 	'docker rm -f sb-server;' \
 			'aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${ecrUrl};' \
-			'docker run -d -p 80:8080 --name sb-server -t ${ecrUrl}/${repository}:${currentBuild.number}'
+			'docker run -d -p 8080:8080 --name sb-server -t ${ecrUrl}/${repository}:${currentBuild.number}'
 		    """
                 }
             }
