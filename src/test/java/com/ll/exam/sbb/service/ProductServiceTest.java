@@ -11,9 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -43,5 +43,14 @@ class ProductServiceTest {
         SiteUser user = userService.getUser("user1");
         List<Product> products = productService.getProducts(user);
         assertThat(products.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void product_find(){
+        SiteUser user = userService.getUser("user1");
+        List<Product> products = productService.getProducts(user);
+        Optional<Product> O_product = productService.getProduct(products.get(0));
+        Product product = O_product.get();
+        assertThat(product).isNotNull();
     }
 }
