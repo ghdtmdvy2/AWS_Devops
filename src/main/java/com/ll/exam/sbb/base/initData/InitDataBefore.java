@@ -6,11 +6,12 @@ import com.ll.exam.sbb.answer.service.AnswerService;
 import com.ll.exam.sbb.aritlce.entity.Article;
 import com.ll.exam.sbb.aritlce.service.ArticleService;
 import com.ll.exam.sbb.emotion.service.EmotionService;
+import com.ll.exam.sbb.product.service.ProductService;
 import com.ll.exam.sbb.user.entity.SiteUser;
 import com.ll.exam.sbb.user.service.UserService;
 
 public interface InitDataBefore {
-    default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService, EmotionService emotionService) {
+    default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService, EmotionService emotionService, ProductService productService) {
         SiteUser user1 = userService.create("user1", "user1@test.com", "1234");
         SiteUser user2 = userService.create("user2", "user2@test.com", "1234");
         SiteUser user3 = userService.create("user3", "user3@test.com", "1234");
@@ -27,6 +28,11 @@ public interface InitDataBefore {
 
         testEmotionsCreate(emotionService, analysis1);
         testEmotionsCreate(emotionService, analysis2);
+
+        productService.create("user1 상품1", "user1 상품 내용1", 100_000, user1);
+        productService.create("user1 상품2", "user1 상품 내용2", 150_000, user1);
+        productService.create("user2 상품1", "user2 상품 내용1", 200_000, user2);
+        productService.create("user2 상품2", "user2 상품 내용2", 250_000, user2);
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {

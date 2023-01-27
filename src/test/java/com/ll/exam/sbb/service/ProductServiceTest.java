@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,5 +36,12 @@ class ProductServiceTest {
         assertThat(product.getContent()).isEqualTo(content);
         assertThat(product.getPrice()).isEqualTo(price);
         assertThat(product.getAuthor()).isEqualTo(user);
+    }
+
+    @Test
+    public void product_list_find(){
+        SiteUser user = userService.getUser("user1");
+        List<Product> products = productService.getProducts(user);
+        assertThat(products.size()).isEqualTo(2);
     }
 }

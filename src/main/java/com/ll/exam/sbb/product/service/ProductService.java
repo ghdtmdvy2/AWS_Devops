@@ -6,6 +6,8 @@ import com.ll.exam.sbb.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -19,5 +21,9 @@ public class ProductService {
         product.setPrice(price);
         productRepository.save(product);
         return product;
+    }
+
+    public List<Product> getProducts(SiteUser user) {
+        return productRepository.findByAuthorId(user.getId());
     }
 }

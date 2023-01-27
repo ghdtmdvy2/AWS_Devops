@@ -4,6 +4,7 @@ import com.ll.exam.sbb.analysis.service.AnalysisService;
 import com.ll.exam.sbb.answer.service.AnswerService;
 import com.ll.exam.sbb.aritlce.service.ArticleService;
 import com.ll.exam.sbb.emotion.service.EmotionService;
+import com.ll.exam.sbb.product.service.ProductService;
 import com.ll.exam.sbb.user.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +20,10 @@ public class TestInitData implements InitDataBefore {
             ArticleService articleService,
             AnswerService answerService,
             AnalysisService analysisService,
-            EmotionService emotionService) {
+            EmotionService emotionService,
+            ProductService productService) {
         return args -> {
-            before(userService, articleService, answerService, analysisService, emotionService);
+            before(userService, articleService, answerService, analysisService, emotionService, productService);
         };
     }
 
