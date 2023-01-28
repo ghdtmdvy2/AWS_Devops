@@ -56,11 +56,11 @@
                 </span>
             </td>
             <td>
-                <span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) > 0}"
-                      th:text="0">
+                <span class="text-danger small ms-2" th:if="${#lists.size(article.voter) > 0}"
+                      th:text="${article.voter.size()}">
                 </span>
 
-                <span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) == 0}"
+                <span class="text-danger small ms-2" th:if="${#lists.size(article.voter) == 0}"
                       th:text="0">
                 </span>
             </td>
