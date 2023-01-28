@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +38,12 @@ public class ArticleService {
     }
 
     public Article getArticle(long id) {
-        return articleRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
+        Optional<Article> o_article = articleRepository.findById(id);
+        o_article.orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
+        Article article = o_article.get();
+        article.setHitCount(article.getHitCount() + 1);
+        articleRepository.save(article);
+        return article;
     }
 
     public Article create(String subject, String content, SiteUser author) {
@@ -46,6 +51,7 @@ public class ArticleService {
         a.setSubject(subject);
         a.setContent(content);
         a.setAuthor(author);
+        a.setHitCount(0);
         articleRepository.save(a);
         return a;
     }

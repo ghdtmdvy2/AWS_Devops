@@ -35,6 +35,7 @@ class ArticleServiceTest {
         assertThat(article).isNotNull();
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
+        assertThat(article.getHitCount()).isEqualTo(0);
         assertThat(article.getAuthor()).isEqualTo(user);
     }
 
@@ -44,10 +45,12 @@ class ArticleServiceTest {
         String subject = "제목1";
         String content = "내용1";
         Article article = articleService.create(subject,content,user);
+        assertThat(article.getHitCount()).isEqualTo(0);
         Article findArticle = articleService.getArticle(article.getId());
         assertThat(findArticle).isNotNull();
         assertThat(findArticle.getSubject()).isEqualTo(subject);
         assertThat(findArticle.getContent()).isEqualTo(content);
+        assertThat(article.getHitCount()).isEqualTo(1);
         assertThat(findArticle.getAuthor()).isEqualTo(user);
     }
 
@@ -85,4 +88,5 @@ class ArticleServiceTest {
         }
         assertThat(false).isFalse();
     }
+
 }

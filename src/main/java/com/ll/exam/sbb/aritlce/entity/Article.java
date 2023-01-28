@@ -32,8 +32,7 @@ public class Article extends BaseTimeEntity {
     @ManyToMany
     Set<SiteUser> voter;
 
-
-    private Integer hitCount = 0;
+    private Integer hitCount;
 
 
     public void addAnswer(Answer answer) {
