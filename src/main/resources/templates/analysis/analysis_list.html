@@ -28,26 +28,18 @@
         <thead class="table-dark">
         <tr>
             <th>번호</th>
-            <th>제목</th>
-            <th>글쓴이</th>
             <th>분석일</th>
-            <th>조회</th>
+            <th>분석한 유저</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="analysis, loop : ${paging}">
             <td th:text="${analysis.id}"></td>
             <td class="text-start">
-                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="${analysis.subject}"></a>
+                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm ')} + 분석그래프"></a>
             </td>
             <td>
                 <span th:text="${analysis.author?.username}"></span>
-            </td>
-            <td th:text="${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm')}"></td>
-            <td>
-                <span class="text-danger small ms-2"
-                      th:text="${analysis.hitCount}">
-                </span>
             </td>
         </tr>
         </tbody>

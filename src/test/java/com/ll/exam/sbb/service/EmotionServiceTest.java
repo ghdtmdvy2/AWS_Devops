@@ -65,7 +65,7 @@ class EmotionServiceTest {
     @Test
     public void emotion_create(){
         SiteUser user = userService.getUser("user3");
-        Analysis analysis = analysisService.create("user3의 감정 기록 제목1", "user3의 감정 기록 내용1", user);
+        Analysis analysis = analysisService.create(user);
         emotionService.emotionCreate(analysis,30,50,20);
         emotionService.emotionCreate(analysis,30,50,20);
         emotionService.emotionCreate(analysis,30,50,20);

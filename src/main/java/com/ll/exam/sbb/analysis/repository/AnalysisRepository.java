@@ -17,7 +17,7 @@ public interface AnalysisRepository extends JpaRepository<Analysis, Long> {
     @Query(value = "ALTER TABLE analysis AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate(); // 이거 지우면 안됨, truncateTable 하면 자동으로 이게 실행됨
 
-    Page<Analysis> findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAuthor_Id(String kw, String kw_, String kw__, long id, Pageable pageable);
-
     Page<Analysis> findAllByAuthor_Id(Pageable pageable, long id);
+
+    Page<Analysis> findDistinctByAuthor_usernameContainsOrAuthor_Id(String kw, String kw1, String kw2, long id, Pageable pageable);
 }

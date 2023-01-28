@@ -19,11 +19,6 @@ public class Analysis extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
-    @Column(length = 200) // varchar(200)
-    private String subject;
-    @Column(columnDefinition = "TEXT")
-    private String content;
-
 
     @OneToMany(mappedBy = "analysis", cascade = {CascadeType.ALL})
     private List<Emotion> emotionList = new ArrayList<>();
@@ -31,15 +26,4 @@ public class Analysis extends BaseTimeEntity {
     @ManyToOne
     private SiteUser author;
 
-    @ManyToMany
-    Set<SiteUser> voter;
-
-
-    private Integer hitCount = 0;
-
-
-    public void addEmotion(Emotion emotion) {
-        emotion.setAnalysis(this);
-        getEmotionList().add(emotion);
-    }
 }

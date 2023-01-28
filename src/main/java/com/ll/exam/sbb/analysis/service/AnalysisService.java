@@ -33,7 +33,7 @@ public class AnalysisService {
             return analysisRepository.findAllByAuthor_Id(pageable,id);
         }
 
-        return analysisRepository.findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
+        return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
     }
 
     public Analysis getAnalysis(long id) {
@@ -41,10 +41,8 @@ public class AnalysisService {
                 .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(id)));
     }
 
-    public Analysis create(String subject, String content, SiteUser author) {
+    public Analysis create(SiteUser author) {
         Analysis analysis = new Analysis();
-        analysis.setSubject(subject);
-        analysis.setContent(content);
         analysis.setAuthor(author);
         analysisRepository.save(analysis);
         return analysis;

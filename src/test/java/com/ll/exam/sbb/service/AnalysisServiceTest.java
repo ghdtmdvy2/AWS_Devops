@@ -33,34 +33,24 @@ class AnalysisServiceTest {
     @Test
     public void create_analysis(){
         SiteUser user = userService.getUser("user1");
-        String subject = "user1의 감정 기록 제목1";
-        String content = "user1의 감정 기록 내용1";
-        Analysis analysis = analysisService.create(subject,content,user);
+        Analysis analysis = analysisService.create(user);
         assertThat(analysis).isNotNull();
-        assertThat(analysis.getSubject()).isEqualTo(subject);
-        assertThat(analysis.getContent()).isEqualTo(content);
         assertThat(analysis.getAuthor()).isEqualTo(user);
     }
 
     @Test
     public void get_analysis(){
         SiteUser user = userService.getUser("user1");
-        String subject = "제목1";
-        String content = "내용1";
-        Analysis analysis = analysisService.create(subject,content,user);
+        Analysis analysis = analysisService.create(user);
         Analysis findAnalysis = analysisService.getAnalysis(analysis.getId());
         assertThat(findAnalysis).isNotNull();
-        assertThat(findAnalysis.getSubject()).isEqualTo(subject);
-        assertThat(findAnalysis.getContent()).isEqualTo(content);
         assertThat(findAnalysis.getAuthor()).isEqualTo(user);
     }
 
     @Test
     public void delete_article(){
         SiteUser user = userService.getUser("user1");
-        String subject = "제목1";
-        String content = "내용1";
-        Analysis analysis = analysisService.create(subject,content,user);
+        Analysis analysis = analysisService.create(user);
         analysisService.delete(analysis);
         try{
             analysisService.getAnalysis(analysis.getId());
