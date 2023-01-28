@@ -39,7 +39,7 @@ public class ArticleController {
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable long id, AnswerForm answerForm) {
         Article article = articleService.getArticle(id);
-
+        articleService.articleIncreaseHitCount(article);
         model.addAttribute("article", article);
 
         return "article/article_detail";
@@ -114,7 +114,6 @@ public class ArticleController {
     public String articleVote(Principal principal, @PathVariable("id") Long id) {
         Article article = articleService.getArticle(id);
         SiteUser siteUser = userService.getUser(principal.getName());
-
         articleService.vote(article, siteUser);
         return "redirect:/article/detail/%d".formatted(id);
     }

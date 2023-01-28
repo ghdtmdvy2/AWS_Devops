@@ -23,6 +23,8 @@ public interface InitDataBefore {
 
         answerService.create(article1,"댓글 내용1",user1);
 
+        articleService.vote(article2,user1);
+
         Analysis analysis1 = analysisService.create("user1의 감정 기록 제목1", "user1의 감정 기록 내용1", user1);
         Analysis analysis2 = analysisService.create("user2의 감정 기록 제목1", "user2의 감정 기록 내용1", user2);
 

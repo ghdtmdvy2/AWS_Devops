@@ -132,4 +132,29 @@ class ArticleControllerTest {
                 .andExpect(handler().methodName("articleDelete"))
                 .andExpect(redirectedUrl("/article/list"));
     }
+
+    @Test
+    void get_non_member_vote_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/vote/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleVote"))
+                .andExpect(redirectedUrlPattern("**/user/login"));
+    }
+
+    @Test
+    @WithUserDetails("user1")
+    void get_vote_article() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/article/vote/1"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("articleVote"))
+                .andExpect(redirectedUrl("/article/detail/1"));
+    }
 }

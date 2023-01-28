@@ -42,9 +42,11 @@ public class ArticleService {
         Optional<Article> o_article = articleRepository.findById(id);
         o_article.orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
         Article article = o_article.get();
+        return article;
+    }
+    public void articleIncreaseHitCount(Article article){
         article.setHitCount(article.getHitCount() + 1);
         articleRepository.save(article);
-        return article;
     }
 
     public Article create(String subject, String content, SiteUser author) {
