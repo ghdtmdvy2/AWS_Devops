@@ -36,6 +36,7 @@ class ArticleServiceTest {
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
         assertThat(article.getHitCount()).isEqualTo(0);
+        assertThat(article.getVoter().size()).isEqualTo(0);
         assertThat(article.getAuthor()).isEqualTo(user);
     }
 
@@ -51,6 +52,7 @@ class ArticleServiceTest {
         assertThat(findArticle.getSubject()).isEqualTo(subject);
         assertThat(findArticle.getContent()).isEqualTo(content);
         assertThat(article.getHitCount()).isEqualTo(1);
+        assertThat(article.getVoter().size()).isEqualTo(0);
         assertThat(findArticle.getAuthor()).isEqualTo(user);
     }
 
@@ -88,5 +90,22 @@ class ArticleServiceTest {
         }
         assertThat(false).isFalse();
     }
-
+    @Test
+    public void increase_article_voter(){
+        SiteUser user1 = userService.getUser("user1");
+        SiteUser user2 = userService.getUser("user2");
+        String subject = "제목1";
+        String content = "내용1";
+        Article article = articleService.create(subject,content,user1);
+        assertThat(article.getSubject()).isEqualTo(subject);
+        assertThat(article.getContent()).isEqualTo(content);
+        assertThat(article.getHitCount()).isEqualTo(0);
+        assertThat(article.getVoter().size()).isEqualTo(0);
+        articleService.vote(article,user1);
+        assertThat(article.getVoter().size()).isEqualTo(1);
+        articleService.vote(article,user2);
+        assertThat(article.getVoter().size()).isEqualTo(2);
+        articleService.vote(article,user2);
+        assertThat(article.getVoter().size()).isEqualTo(2);
+    }
 }

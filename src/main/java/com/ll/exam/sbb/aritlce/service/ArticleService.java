@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,7 @@ public class ArticleService {
         a.setContent(content);
         a.setAuthor(author);
         a.setHitCount(0);
+        a.setVoter(new HashSet<>());
         articleRepository.save(a);
         return a;
     }
