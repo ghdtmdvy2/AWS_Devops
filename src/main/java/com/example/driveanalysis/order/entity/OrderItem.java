@@ -2,11 +2,15 @@ package com.example.driveanalysis.order.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.product.entity.Product;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 public class OrderItem extends BaseTimeEntity {
     @Id // primary key
