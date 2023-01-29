@@ -35,4 +35,8 @@ public class CartItemService {
     public List<CartItem> findCartItems(SiteUser user) {
         return cartItemRepository.findAllByBuyerId(user.getId());
     }
+
+    public void deleteCartItem(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
+    }
 }

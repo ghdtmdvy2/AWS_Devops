@@ -58,4 +58,20 @@ class CartItemServiceTest {
         }
         assertThat(cartItemAmount).isEqualTo(3);
     }
+
+    @Test
+    public void delete_cartItem(){
+        SiteUser user = userService.getUser("user2");
+        List<Product> products = productService.getProducts(user);
+        for (Product product : products) {
+            CartItem cartItem = cartItemService.addCartItem(product, user);
+            cartItemService.deleteCartItem(cartItem);
+        }
+        List<CartItem> cartItems = cartItemService.findCartItems(user);
+        int cartItemAmount = 0;
+        for (CartItem cartItem : cartItems) {
+            cartItemAmount += cartItem.getAmount();
+        }
+        assertThat(cartItemAmount).isEqualTo(0);
+    }
 }
