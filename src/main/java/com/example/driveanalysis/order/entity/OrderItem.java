@@ -29,6 +29,9 @@ public class OrderItem extends BaseTimeEntity {
     @ManyToOne
     private Product product;
 
+    // 개수
+    private int amount; // 개수
+
     // 가격
     private int price; // 권장판매가
     private int salePrice; // 실제판매가
@@ -38,11 +41,13 @@ public class OrderItem extends BaseTimeEntity {
     private int refundPrice; // 환불금액
     private boolean isPaid; // 결제여부
 
-    public OrderItem(Product product) {
-        this.product = product;
-    }
 
     public OrderItem() {
 
+    }
+
+    public OrderItem(Product product, int amount) {
+        this.product = product;
+        this.amount = amount;
     }
 }

@@ -20,7 +20,6 @@ import java.util.List;
 public class ProductOrderService {
     private final ProductOrderRepository productOrderRepository;
     private final CartItemRepository cartItemRepository;
-    private final ProductRepository productRepository;
     public ProductOrder createFromCartProductOrder(SiteUser orderer){
 
         List<CartItem> cartItems = cartItemRepository.findAllByBuyerId(orderer.getId());
@@ -30,20 +29,13 @@ public class ProductOrderService {
             Product product = cartItem.getProduct();
             int productAmount = cartItem.getAmount();
             if (product.isOrderable() && product.getStock() - productAmount > 0){
-                product.setStock(product.getStock() - productAmount);
-                orderItems.add(new OrderItem(product));
-                productRepository.save(product);
+                orderItems.add(new OrderItem(product, productAmount));
             }
         }
         cartItemRepository.deleteAll(cartItems);
 
         ProductOrder productOrder = new ProductOrder();
         productOrder.setOrderer(orderer);
-        productOrder.setCanceled(false);
-        productOrder.setPaid(false);
-        productOrder.setPayDate(LocalDateTime.now());
-        productOrder.setReadyStatus(false);
-        productOrder.setRefunded(false);
         productOrder.setOrderItems(orderItems);
         productOrderRepository.save(productOrder);
         return productOrder;
