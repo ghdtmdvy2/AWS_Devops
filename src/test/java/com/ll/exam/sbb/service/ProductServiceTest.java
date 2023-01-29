@@ -78,4 +78,21 @@ class ProductServiceTest {
         assertThat(currentProduct.getAuthor()).isEqualTo(user);
     }
 
+    @Test
+    public void product_delete(){
+        SiteUser user = userService.getUser("user1");
+        String subject = "상품1";
+        String content = "상품 이름";
+        int price = 10_000;
+        Product product = productService.create(subject, content, price, user);
+        assertThat(product).isNotNull();
+        assertThat(product.getSubject()).isEqualTo(subject);
+        assertThat(product.getContent()).isEqualTo(content);
+        assertThat(product.getPrice()).isEqualTo(price);
+        assertThat(product.getAuthor()).isEqualTo(user);
+        productService.delete(product);
+        Optional<Product> deletedProduct = productService.getProduct(product);
+        assertThat(deletedProduct.isEmpty()).isTrue();
+    }
+
 }
