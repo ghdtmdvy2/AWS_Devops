@@ -3,7 +3,9 @@ package com.example.driveanalysis.base.initData;
 import com.example.driveanalysis.analysis.entity.Analysis;
 import com.example.driveanalysis.answer.service.AnswerService;
 import com.example.driveanalysis.aritlce.service.ArticleService;
+import com.example.driveanalysis.cartitem.service.CartItemService;
 import com.example.driveanalysis.emotion.service.EmotionService;
+import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
 import com.example.driveanalysis.analysis.service.AnalysisService;
@@ -11,7 +13,8 @@ import com.example.driveanalysis.aritlce.entity.Article;
 import com.example.driveanalysis.product.service.ProductService;
 
 public interface InitDataBefore {
-    default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService, EmotionService emotionService, ProductService productService) {
+    default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService,
+                        EmotionService emotionService, ProductService productService, CartItemService cartItemService) {
         SiteUser user1 = userService.create("user1", "user1@test.com", "1234");
         SiteUser user2 = userService.create("user2", "user2@test.com", "1234");
         SiteUser user3 = userService.create("user3", "user3@test.com", "1234");
@@ -31,10 +34,15 @@ public interface InitDataBefore {
         testEmotionsCreate(emotionService, analysis1);
         testEmotionsCreate(emotionService, analysis2);
 
-        productService.create("user1 상품1", "user1 상품 내용1", 100_000, user1);
-        productService.create("user1 상품2", "user1 상품 내용2", 150_000, user1);
-        productService.create("user2 상품1", "user2 상품 내용1", 200_000, user2);
-        productService.create("user2 상품2", "user2 상품 내용2", 250_000, user2);
+        Product product1 = productService.create("user1 상품1", "user1 상품 내용1", 100_000, user1);
+        Product product2 = productService.create("user1 상품2", "user1 상품 내용2", 150_000, user1);
+        Product product3 = productService.create("user2 상품1", "user2 상품 내용1", 200_000, user2);
+        Product product4 = productService.create("user2 상품2", "user2 상품 내용2", 250_000, user2);
+
+        cartItemService.addCartItem(product1,user1);
+        cartItemService.addCartItem(product1,user1);
+        cartItemService.addCartItem(product2,user1);
+        cartItemService.addCartItem(product3,user1);
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {
