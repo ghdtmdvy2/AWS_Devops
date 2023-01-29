@@ -14,12 +14,14 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Product create(String subject, String content, int price, SiteUser user){
+    public Product create(String subject, String content, int price, SiteUser user, int stock){
         Product product = new Product();
         product.setAuthor(user);
         product.setContent(content);
         product.setSubject(subject);
         product.setPrice(price);
+        product.setStock(stock);
+        product.setOrderable(true);
         productRepository.save(product);
         return product;
     }

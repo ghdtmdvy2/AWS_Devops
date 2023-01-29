@@ -17,6 +17,8 @@ public class Product extends BaseTimeEntity {
     private String subject;
     private String content;
     private int price;
+    private boolean isOrderable;
+    private int stock;
     @ManyToOne
     private SiteUser author;
 }

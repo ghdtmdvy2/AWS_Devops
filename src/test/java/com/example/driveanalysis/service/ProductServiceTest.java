@@ -30,10 +30,12 @@ class ProductServiceTest {
         String subject = "상품1";
         String content = "상품 이름";
         int price = 10_000;
-        Product product = productService.create(subject, content, price, user);
+        Product product = productService.create(subject, content, price, user,150);
         assertThat(product).isNotNull();
         assertThat(product.getSubject()).isEqualTo(subject);
         assertThat(product.getContent()).isEqualTo(content);
+        assertThat(product.getStock()).isEqualTo(150);
+        assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(product.getPrice()).isEqualTo(price);
         assertThat(product.getAuthor()).isEqualTo(user);
     }
@@ -60,11 +62,13 @@ class ProductServiceTest {
         String oldSubject = "상품1";
         String oldContent = "상품 이름";
         int oldPrice = 10_000;
-        Product product = productService.create(oldSubject, oldContent, oldPrice, user);
+        Product product = productService.create(oldSubject, oldContent, oldPrice, user, 150);
         assertThat(product).isNotNull();
         assertThat(product.getSubject()).isEqualTo(oldSubject);
         assertThat(product.getContent()).isEqualTo(oldContent);
         assertThat(product.getPrice()).isEqualTo(oldPrice);
+        assertThat(product.getStock()).isEqualTo(150);
+        assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(product.getAuthor()).isEqualTo(user);
         String subject = "수정 상품1";
         String content = "수정 상품 이름";
@@ -74,6 +78,8 @@ class ProductServiceTest {
         assertThat(currentProduct).isNotNull();
         assertThat(currentProduct.getSubject()).isEqualTo(subject);
         assertThat(currentProduct.getContent()).isEqualTo(content);
+        assertThat(product.getStock()).isEqualTo(150);
+        assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(currentProduct.getPrice()).isEqualTo(price);
         assertThat(currentProduct.getAuthor()).isEqualTo(user);
     }
@@ -84,11 +90,13 @@ class ProductServiceTest {
         String subject = "상품1";
         String content = "상품 이름";
         int price = 10_000;
-        Product product = productService.create(subject, content, price, user);
+        Product product = productService.create(subject, content, price, user, 150);
         assertThat(product).isNotNull();
         assertThat(product.getSubject()).isEqualTo(subject);
         assertThat(product.getContent()).isEqualTo(content);
         assertThat(product.getPrice()).isEqualTo(price);
+        assertThat(product.getStock()).isEqualTo(150);
+        assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(product.getAuthor()).isEqualTo(user);
         productService.delete(product);
         Optional<Product> deletedProduct = productService.getProduct(product);
