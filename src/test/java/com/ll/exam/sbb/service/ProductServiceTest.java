@@ -53,4 +53,29 @@ class ProductServiceTest {
         Product product = O_product.get();
         assertThat(product).isNotNull();
     }
+
+    @Test
+    public void product_modify(){
+        SiteUser user = userService.getUser("user1");
+        String oldSubject = "상품1";
+        String oldContent = "상품 이름";
+        int oldPrice = 10_000;
+        Product product = productService.create(oldSubject, oldContent, oldPrice, user);
+        assertThat(product).isNotNull();
+        assertThat(product.getSubject()).isEqualTo(oldSubject);
+        assertThat(product.getContent()).isEqualTo(oldContent);
+        assertThat(product.getPrice()).isEqualTo(oldPrice);
+        assertThat(product.getAuthor()).isEqualTo(user);
+        String subject = "수정 상품1";
+        String content = "수정 상품 이름";
+        int price = 100_000;
+        productService.modify(product, subject,content,price);
+        Product currentProduct = productService.getProduct(product).get();
+        assertThat(currentProduct).isNotNull();
+        assertThat(currentProduct.getSubject()).isEqualTo(subject);
+        assertThat(currentProduct.getContent()).isEqualTo(content);
+        assertThat(currentProduct.getPrice()).isEqualTo(price);
+        assertThat(currentProduct.getAuthor()).isEqualTo(user);
+    }
+
 }

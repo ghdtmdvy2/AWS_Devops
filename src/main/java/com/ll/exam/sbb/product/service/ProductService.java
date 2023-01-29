@@ -31,4 +31,12 @@ public class ProductService {
     public Optional<Product> getProduct(Product product) {
         return productRepository.findById(product.getId());
     }
+
+    public Product modify(Product product, String subject, String content, int price) {
+        product.setSubject(subject);
+        product.setContent(content);
+        product.setPrice(price);
+        productRepository.save(product);
+        return product;
+    }
 }
