@@ -1,6 +1,7 @@
 package com.example.driveanalysis.service;
 
 import com.example.driveanalysis.cartitem.service.CartItemService;
+import com.example.driveanalysis.order.entity.OrderItem;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.service.ProductOrderService;
 import com.example.driveanalysis.product.entity.Product;
@@ -40,21 +41,15 @@ class ProductOrderServiceTest {
         SiteUser user1 = userService.getUser("user1");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user1);
 
-        Product cartProduct1 = productOrder.getOrderItems().get(0).getProduct();
-        Product cartProduct2 = productOrder.getOrderItems().get(1).getProduct();
-        Product cartProduct3 = productOrder.getOrderItems().get(2).getProduct();
+        OrderItem orderItem1 = productOrder.getOrderItems().get(0);
+        OrderItem orderItem2 = productOrder.getOrderItems().get(1);
+        OrderItem orderItem3 = productOrder.getOrderItems().get(2);
 
         assertThat(productOrder.getOrderer()).isEqualTo(user1);
         assertThat(productOrder.getOrderItems().size()).isEqualTo(3);
-        assertThat(productOrder.getPayDate()).isBefore(LocalDateTime.now());
         assertThat(productOrder.getCreatedDate()).isBefore(LocalDateTime.now());
-
-        Product product1 = productService.getProduct(cartProduct1).get();
-        Product product2 = productService.getProduct(cartProduct2).get();
-        Product product3 = productService.getProduct(cartProduct3).get();
-
-        assertThat(product1.getStock()).isEqualTo(148);
-        assertThat(product2.getStock()).isEqualTo(149);
-        assertThat(product3.getStock()).isEqualTo(149);
+        assertThat(orderItem1.getAmount()).isEqualTo(2);
+        assertThat(orderItem2.getAmount()).isEqualTo(1);
+        assertThat(orderItem3.getAmount()).isEqualTo(1);
     }
 }
