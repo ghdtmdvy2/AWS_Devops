@@ -40,9 +40,9 @@ public class ProductOrderService {
         ProductOrder productOrder = new ProductOrder();
         productOrder.setOrderer(orderer);
         productOrder.setCanceled(false);
-        productOrder.setPaid(true);
+        productOrder.setPaid(false);
         productOrder.setPayDate(LocalDateTime.now());
-        productOrder.setReadyStatus(true);
+        productOrder.setReadyStatus(false);
         productOrder.setRefunded(false);
         productOrder.setOrderItems(orderItems);
         productOrderRepository.save(productOrder);
