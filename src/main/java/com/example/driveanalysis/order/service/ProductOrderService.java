@@ -1,5 +1,6 @@
 package com.example.driveanalysis.order.service;
 
+import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.cartitem.entity.CartItem;
 import com.example.driveanalysis.cartitem.repository.CartItemRepository;
 import com.example.driveanalysis.order.entity.OrderItem;
@@ -39,5 +40,9 @@ public class ProductOrderService {
         productOrder.setOrderItems(orderItems);
         productOrderRepository.save(productOrder);
         return productOrder;
+    }
+
+    public ProductOrder findProductOrder(long orderId) {
+        return productOrderRepository.findById(orderId).orElseThrow(() -> new DataNotFoundException("order not found"));
     }
 }
