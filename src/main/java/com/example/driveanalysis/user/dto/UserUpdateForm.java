@@ -1,4 +1,4 @@
-package com.example.driveanalysis.user.controller;
+package com.example.driveanalysis.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;

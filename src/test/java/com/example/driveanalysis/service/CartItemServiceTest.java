@@ -35,7 +35,7 @@ class CartItemServiceTest {
     @Test
     public void find_cartItem(){
         SiteUser user = userService.getUser("user1");
-        List<CartItem> cartItems = cartItemService.findCartItems(user);
+        List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
@@ -51,7 +51,7 @@ class CartItemServiceTest {
             cartItemService.addCartItem(product, user);
         }
         cartItemService.addCartItem(products.get(0), user);
-        List<CartItem> cartItems = cartItemService.findCartItems(user);
+        List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
@@ -67,7 +67,7 @@ class CartItemServiceTest {
             CartItem cartItem = cartItemService.addCartItem(product, user);
             cartItemService.deleteCartItem(cartItem);
         }
-        List<CartItem> cartItems = cartItemService.findCartItems(user);
+        List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();

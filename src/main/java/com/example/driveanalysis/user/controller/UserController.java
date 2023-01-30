@@ -2,6 +2,7 @@ package com.example.driveanalysis.user.controller;
 
 import com.example.driveanalysis.base.config.UserContext;
 import com.example.driveanalysis.base.util.Ut;
+import com.example.driveanalysis.user.dto.UserUpdateForm;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.base.exception.SignupEmailDuplicatedException;
 import com.example.driveanalysis.base.exception.SignupUsernameDuplicatedException;

@@ -32,8 +32,8 @@ public class CartItemService {
         return cartItem;
     }
 
-    public List<CartItem> findCartItems(SiteUser user) {
-        return cartItemRepository.findAllByBuyerId(user.getId());
+    public List<CartItem> findCartItems(long userId) {
+        return cartItemRepository.findAllByBuyerId(userId);
     }
 
     public void deleteCartItem(CartItem cartItem) {
