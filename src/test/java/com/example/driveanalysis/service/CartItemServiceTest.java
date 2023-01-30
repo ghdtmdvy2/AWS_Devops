@@ -48,9 +48,9 @@ class CartItemServiceTest {
         SiteUser user = userService.getUser("user2");
         List<Product> products = productService.getProducts(user);
         for (Product product : products) {
-            cartItemService.addCartItem(product, user);
+            cartItemService.addCartItem(product, user, 1);
         }
-        cartItemService.addCartItem(products.get(0), user);
+        cartItemService.addCartItem(products.get(0), user, 1);
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
@@ -64,7 +64,7 @@ class CartItemServiceTest {
         SiteUser user = userService.getUser("user2");
         List<Product> products = productService.getProducts(user);
         for (Product product : products) {
-            CartItem cartItem = cartItemService.addCartItem(product, user);
+            CartItem cartItem = cartItemService.addCartItem(product, user,1);
             cartItemService.deleteCartItem(cartItem);
         }
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());

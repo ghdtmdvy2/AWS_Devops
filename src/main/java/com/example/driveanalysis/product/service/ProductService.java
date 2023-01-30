@@ -1,5 +1,6 @@
 package com.example.driveanalysis.product.service;
 
+import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.product.repository.ProductRepository;
@@ -30,8 +31,8 @@ public class ProductService {
         return productRepository.findByAuthorId(user.getId());
     }
 
-    public Optional<Product> getProduct(Product product) {
-        return productRepository.findById(product.getId());
+    public Product getProduct(long productId) {
+        return productRepository.findById(productId).orElseThrow(() -> new DataNotFoundException("product not found"));
     }
 
     public Product modify(Product product, String subject, String content, int price) {

@@ -39,10 +39,10 @@ public interface InitDataBefore {
         Product product3 = productService.create("user2 상품1", "user2 상품 내용1", 200_000, user2, 150);
         Product product4 = productService.create("user2 상품2", "user2 상품 내용2", 250_000, user2, 150);
 
-        cartItemService.addCartItem(product1,user1);
-        cartItemService.addCartItem(product1,user1);
-        cartItemService.addCartItem(product2,user1);
-        cartItemService.addCartItem(product3,user1);
+        cartItemService.addCartItem(product1,user1,1);
+        cartItemService.addCartItem(product1,user1,1);
+        cartItemService.addCartItem(product2,user1,1);
+        cartItemService.addCartItem(product3,user1,1);
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {

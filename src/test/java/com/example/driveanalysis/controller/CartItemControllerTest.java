@@ -46,4 +46,16 @@ class CartItemControllerTest {
                 .andExpect(handler().handlerType(CartItemController.class))
                 .andExpect(handler().methodName("showCartItem"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    public void member_cartItem_add() throws Exception {
+        ResultActions resultActions = mockMvc.
+                perform(get("/cartItem/create"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(CartItemController.class))
+                .andExpect(handler().methodName("createCartItem"));
+    }
 }

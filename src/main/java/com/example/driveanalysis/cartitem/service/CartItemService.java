@@ -14,17 +14,17 @@ import java.util.List;
 public class CartItemService {
     private final CartItemRepository cartItemRepository;
 
-    public CartItem addCartItem(Product product, SiteUser buyer) {
+    public CartItem addCartItem(Product product, SiteUser buyer, int amount) {
         CartItem oldCartItem = cartItemRepository.findByProductIdAndBuyerId(product.getId(), buyer.getId());
 
         if (oldCartItem != null) {
-            oldCartItem.setAmount(oldCartItem.getAmount() + 1);
+            oldCartItem.setAmount(oldCartItem.getAmount() + amount);
             cartItemRepository.save(oldCartItem);
             return oldCartItem;
         }
 
         CartItem cartItem = new CartItem();
-        cartItem.setAmount(1);
+        cartItem.setAmount(amount);
         cartItem.setBuyer(buyer);
         cartItem.setProduct(product);
         cartItemRepository.save(cartItem);

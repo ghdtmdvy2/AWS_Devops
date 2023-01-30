@@ -1,5 +1,6 @@
 package com.example.driveanalysis.service;
 
+import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.product.service.ProductService;
 import com.example.driveanalysis.user.entity.SiteUser;
@@ -51,8 +52,7 @@ class ProductServiceTest {
     public void product_find(){
         SiteUser user = userService.getUser("user1");
         List<Product> products = productService.getProducts(user);
-        Optional<Product> O_product = productService.getProduct(products.get(0));
-        Product product = O_product.get();
+        Product product = productService.getProduct(products.get(0).getId());
         assertThat(product).isNotNull();
     }
 
@@ -74,7 +74,7 @@ class ProductServiceTest {
         String content = "수정 상품 이름";
         int price = 100_000;
         productService.modify(product, subject,content,price);
-        Product currentProduct = productService.getProduct(product).get();
+        Product currentProduct = productService.getProduct(product.getId());
         assertThat(currentProduct).isNotNull();
         assertThat(currentProduct.getSubject()).isEqualTo(subject);
         assertThat(currentProduct.getContent()).isEqualTo(content);
@@ -99,8 +99,13 @@ class ProductServiceTest {
         assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(product.getAuthor()).isEqualTo(user);
         productService.delete(product);
-        Optional<Product> deletedProduct = productService.getProduct(product);
-        assertThat(deletedProduct.isEmpty()).isTrue();
+        try {
+            Product deletedProduct = productService.getProduct(product.getId());
+        }catch (DataNotFoundException e) {
+            assertThat(true);
+            return;
+        }
+        assertThat(false);
     }
 
 }
