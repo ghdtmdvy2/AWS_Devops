@@ -55,6 +55,6 @@ class AnalysisControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnalysisController.class))
                 .andExpect(handler().methodName("analysisDelete"))
-                .andExpect(redirectedUrl("/analysis/list/1"));
+                .andExpect(redirectedUrl("/analysis/list/2"));
     }
 }

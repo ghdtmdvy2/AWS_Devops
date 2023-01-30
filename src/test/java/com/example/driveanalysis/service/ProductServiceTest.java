@@ -97,7 +97,7 @@ class ProductServiceTest {
         assertThat(product.getStock()).isEqualTo(150);
         assertThat(product.isOrderable()).isEqualTo(true);
         assertThat(product.getAuthor()).isEqualTo(user);
-        productService.delete(product);
+        productService.delete(product.getId());
         try {
             Product deletedProduct = productService.getProduct(product.getId());
         }catch (DataNotFoundException e) {
