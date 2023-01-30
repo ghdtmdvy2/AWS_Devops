@@ -46,7 +46,7 @@ class CartItemServiceTest {
     @Test
     public void product_add_cartItem() {
         SiteUser user = userService.getUser("user2");
-        List<Product> products = productService.getProducts(user);
+        List<Product> products = productService.getUserProducts(user);
         for (Product product : products) {
             cartItemService.addCartItem(product, user, 1);
         }
@@ -62,7 +62,7 @@ class CartItemServiceTest {
     @Test
     public void delete_cartItem(){
         SiteUser user = userService.getUser("user2");
-        List<Product> products = productService.getProducts(user);
+        List<Product> products = productService.getUserProducts(user);
         for (Product product : products) {
             CartItem cartItem = cartItemService.addCartItem(product, user,1);
             cartItemService.deleteCartItem(cartItem);

@@ -15,6 +15,7 @@ import com.example.driveanalysis.product.service.ProductService;
 public interface InitDataBefore {
     default void before(UserService userService, ArticleService articleService, AnswerService answerService, AnalysisService analysisService,
                         EmotionService emotionService, ProductService productService, CartItemService cartItemService) {
+        SiteUser admin = userService.create("admin", "admin@test.com", "1234");
         SiteUser user1 = userService.create("user1", "user1@test.com", "1234");
         SiteUser user2 = userService.create("user2", "user2@test.com", "1234");
         SiteUser user3 = userService.create("user3", "user3@test.com", "1234");

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class ProductService {
         return product;
     }
 
-    public List<Product> getProducts(SiteUser user) {
+    public List<Product> getUserProducts(SiteUser user) {
         return productRepository.findByAuthorId(user.getId());
     }
 
@@ -45,5 +44,9 @@ public class ProductService {
 
     public void delete(Product product) {
         productRepository.delete(product);
+    }
+
+    public List<Product> getAllProduct() {
+        return productRepository.findAll();
     }
 }
