@@ -22,6 +22,8 @@ public class UserService {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setEmail(email);
+        user.setProductPaid(false);
+        user.setRestCash(0);
         user.setPassword(passwordEncoder.encode(password));
 
         try {

@@ -23,7 +23,9 @@ public class SiteUser {
 
     @Column(unique = true)
     private String email;
+    private boolean isProductPaid;
 
+    private long restCash;
     public SiteUser(long id) {
         this.id = id;
     }
