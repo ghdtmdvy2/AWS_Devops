@@ -25,7 +25,6 @@ spring:
     restart:
       enabled: true
 
-
 logging:
   level:
     org:
@@ -33,5 +32,9 @@ logging:
         type:
           descriptor:
             sql: trace
+
+tosspayments:
+  secretkey: "test_sk_dP9BRQmyarYaNnnkNDXrJ07KzLNk"
+
 
 
