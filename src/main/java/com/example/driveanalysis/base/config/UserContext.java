@@ -25,7 +25,6 @@ public class UserContext extends User {
 
     public SiteUser getUser() {
         SiteUser user = new SiteUser();
-        user.setRestCash(restCash);
         user.setProductPaid(isProductPaid);
         user.setEmail(email);
         user.setUsername(username);

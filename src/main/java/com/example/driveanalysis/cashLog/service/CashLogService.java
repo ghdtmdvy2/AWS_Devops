@@ -7,6 +7,8 @@ import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CashLogService {
@@ -21,7 +23,7 @@ public class CashLogService {
         return cashLog;
     }
 
-    public CashLog getCashLog(CashLog cashLog) {
-        return cashLogRepository.findById(cashLog.getId()).orElseThrow(() -> new DataNotFoundException("cashLog not found"));
+    public List<CashLog> getCashLog(long userId) {
+        return cashLogRepository.findAllByUserId(userId);
     }
 }

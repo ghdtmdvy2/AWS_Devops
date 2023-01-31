@@ -50,4 +50,9 @@ public class OrderItem extends BaseTimeEntity {
         this.product = product;
         this.amount = amount;
     }
+
+    public void setPaymentDone() {
+        this.payDate = LocalDateTime.now();
+        this.isPaid = true;
+    }
 }

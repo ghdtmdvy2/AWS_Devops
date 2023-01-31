@@ -3,11 +3,11 @@ package com.example.driveanalysis.order.service;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.cartitem.entity.CartItem;
 import com.example.driveanalysis.cartitem.repository.CartItemRepository;
+import com.example.driveanalysis.cashLog.service.CashLogService;
 import com.example.driveanalysis.order.entity.OrderItem;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.repository.ProductOrderRepository;
 import com.example.driveanalysis.product.entity.Product;
-import com.example.driveanalysis.product.repository.ProductRepository;
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import java.util.List;
 public class ProductOrderService {
     private final ProductOrderRepository productOrderRepository;
     private final CartItemRepository cartItemRepository;
+    private final CashLogService cashLogService;
     public ProductOrder createFromCartProductOrder(SiteUser orderer){
 
         List<CartItem> cartItems = cartItemRepository.findAllByBuyerId(orderer.getId());
@@ -44,5 +45,14 @@ public class ProductOrderService {
 
     public ProductOrder findProductOrder(long orderId) {
         return productOrderRepository.findById(orderId).orElseThrow(() -> new DataNotFoundException("order not found"));
+    }
+
+    public void payTossPayments(ProductOrder productOrder){
+        int pgPay = productOrder.calculatePay();
+        cashLogService.addCash(productOrder.getOrderer(),pgPay,"주문__%d__충전__토스페이먼츠".formatted(productOrder.getId()));
+        cashLogService.addCash(productOrder.getOrderer(),pgPay * -1,"주문__%d__사용__토스페이먼츠".formatted(productOrder.getId()));
+
+        productOrder.setPaymentDone();
+        productOrderRepository.save(productOrder);
     }
 }

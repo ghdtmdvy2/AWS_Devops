@@ -23,7 +23,6 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         user.setProductPaid(false);
-        user.setRestCash(0);
         user.setPassword(passwordEncoder.encode(password));
 
         try {

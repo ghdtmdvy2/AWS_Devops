@@ -29,4 +29,20 @@ public class ProductOrder extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public int calculatePay(){
+        int price = 0;
+        for (OrderItem orderItem : orderItems) {
+            price += orderItem.getPrice() * orderItem.getAmount();
+        }
+        return price;
+    }
+
+    public void setPaymentDone(){
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setPaymentDone();
+        }
+        this.setPayDate(LocalDateTime.now());
+        this.setPaid(true);
+    }
 }
