@@ -21,4 +21,9 @@ public class Product extends BaseTimeEntity {
     private int stock;
     @ManyToOne
     private SiteUser author;
+
+    public String getJdenticon() {
+        return "product__" + getId();
+    }
+
 }

@@ -10,6 +10,7 @@
             <div>해당 데이터가 오류로 생긴 데이터 입니다.</div>
             <a th:href="@{|/analysis/delete/${analysis.id}|}" class="block text-link mt-2"><i class="fa-solid fa-chart-line"></i>해당 데이터 삭제하기</a>
         </div>
+
     </section>
     <div th:if="${analysis.emotionList.size > 0}">
         <h2>

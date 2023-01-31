@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-dark bg-white border-bottom">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">DSA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -33,6 +33,12 @@
 
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/user/information/update}" sec:authorize="isAuthenticated()">회원정보 수정</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/product/create}" sec:authorize="hasAuthority('ROLE_ADMIN')">상품 등록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/product/list}" sec:authorize="hasAuthority('ROLE_ADMIN')">상품 리스트</a>
                 </li>
             </ul>
         </div>

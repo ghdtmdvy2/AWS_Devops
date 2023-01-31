@@ -8,4 +8,13 @@
 html > body {
     font-family: "GmarketSansMedium";
     text-underline-position: under;
+    color: #444;
+}
+
+.text-link {
+    color:skyblue;
+}
+
+.text-link:hover {
+    text-decoration: underline;
 }

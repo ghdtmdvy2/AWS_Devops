@@ -32,9 +32,11 @@ public interface InitDataBefore {
 
         Analysis analysis1 = analysisService.create(user1);
         Analysis analysis2 = analysisService.create(user2);
+        Analysis analysis3 = analysisService.create(user2);
 
-        testEmotionsCreate(emotionService, analysis1);
-        testEmotionsCreate(emotionService, analysis2);
+        boolean createConfirm = false;
+        testEmotionsCreate(emotionService, analysis1, createConfirm);
+        testEmotionsCreate(emotionService, analysis2, createConfirm);
 
         Product product1 = productService.create("user1 상품1", "user1 상품 내용1", 100_000, user1, 150);
         Product product2 = productService.create("user1 상품2", "user1 상품 내용2", 150_000, user1, 150);
@@ -59,22 +61,24 @@ public interface InitDataBefore {
         cartItemService.addCartItem(product3,user3,1);
     }
 
-    private void testEmotionsCreate(EmotionService emotionService, Analysis analysis1) {
+    private void testEmotionsCreate(EmotionService emotionService, Analysis analysis, boolean createConfirm) {
         int sec = 0;
         int min = 0;
         String createDate;
-        for (int i = 0; i<100; i++){
-            sec++;
-            if (sec == 60) {
-                min++;
-                sec = 0;
+        if (createConfirm) {
+            for (int i = 0; i<100; i++){
+                sec++;
+                if (sec == 60) {
+                    min++;
+                    sec = 0;
+                }
+                createDate = "2023-01-01 00:%02d:%02d.000000".formatted(min,sec);
+                double angryRatio = Math.random();
+                double angry = 100 * angryRatio;
+                double happy = 100 * ((1 - angryRatio) * 0.25);
+                double neutral = 100 * ((1 - angryRatio) * 0.75);
+                emotionService.testDataEmotionCreate(analysis,angry,happy,neutral,createDate);
             }
-            createDate = "2023-01-01 00:%02d:%02d.000000".formatted(min,sec);
-            double angryRatio = Math.random();
-            double angry = 100 * angryRatio;
-            double happy = 100 * ((1 - angryRatio) * 0.25);
-            double neutral = 100 * ((1 - angryRatio) * 0.75);
-            emotionService.testDataEmotionCreate(analysis1,angry,happy,neutral,createDate);
         }
     }
 }

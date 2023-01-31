@@ -13,6 +13,7 @@
             <form class="input-group">
                 <select onchange="$(this).closest('form').submit();" class="form-select" name="sortCode"
                         th:value="${param.sortCode}">
+                    <option value="">정렬</option>
                     <option value="NEW">최신순</option>
                     <option value="OLD">오래된순</option>
                 </select>

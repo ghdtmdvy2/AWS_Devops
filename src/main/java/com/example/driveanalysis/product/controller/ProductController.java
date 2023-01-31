@@ -7,6 +7,7 @@ import com.example.driveanalysis.product.service.ProductService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,14 +28,14 @@ public class ProductController {
 
     private final UserService userService;
     @GetMapping("/list")
-    public String showProductList(Model model){
-        List<Product> productList = productService.getAllProduct();
+    public String showProductList(Model model, @RequestParam(defaultValue = "0") int page){
+        Page<Product> productList = productService.getAllProduct(page);
         model.addAttribute("productList",productList);
         return "product/product_list";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/create")
-    public String showCreateProduct(){
+    public String showCreateProduct(ProductForm productForm){
         return "product/product_form";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")

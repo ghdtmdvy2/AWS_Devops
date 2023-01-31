@@ -1,53 +1,189 @@
-<!doctype html>
-<html lang="ko"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://thymeleaf.org"
->
+<!DOCTYPE html>
+<html>
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!--    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE" th:text="${@appConfig.siteName}"></title>-->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
-    <!-- sbb CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>Drive analysis</title>
-    <!-- 폰트어썸 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- 제이쿼리 불러오기 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- 폰트어썸 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- 테일윈드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-<body style="min-height:100vh;" class="d-flex flex-column">
 
-<!-- 네비게이션바 -->
-<header th:replace="navbar :: navbarFragment"></header>
+<body class="min-h-screen flex flex-col pt-[35px] md:pt-[50px]">
 
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<main class="flex-grow-1">
-    <th:block layout:fragment="content"></th:block>
-</main>
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- 데이지 UI -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css"/>
 
-<footer class="bg-dark text-light">
-    <div class="container py-3 d-flex justify-content-center">
-        Copyright all rights reserved
+<!-- common.css -->
+<!--<link href="/resource/common/common.css" rel="stylesheet" type="text/css"/>-->
+
+<header class="fixed z-40 top-0 left-0 w-full bg-black border-b-[1px] border-b-[color:#efefef] h-[35px] md:h-[50px]">
+    <div class="container mx-auto h-full flex items-center px-2">
+        <a href="/" class="logo flex font-bold mr-auto">
+            <span class="text-[#1E9EFE]">DSA</span>
+        </a>
+
+        <div class="flex gap-4">
+            <a href="/user/login" class="inline-flex" sec:authorize="isAnonymous()">
+                <i class="fa-solid fa-arrow-right-to-bracket text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    로그인
+                </span>
+            </a>
+
+            <a href="/user/signup" class="inline-flex" sec:authorize="isAnonymous()">
+                <i class="fa-solid fa-user-plus text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    회원가입
+                </span>
+            </a>
+
+            <a href="javascript: document.logoutForm.submit();" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-arrow-right-from-bracket text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    로그아웃
+                </span>
+            </a>
+            <form name="logoutForm" method="POST" th:action="@{/member/logout}" hidden></form>
+
+            <a href="/user/information" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-user text-white"></i>
+
+                <span class="ml-[2px] hidden lg:block text-white">
+                    감정 분석 그래프
+                </span>
+            </a>
+
+            <a th:href="@{|/analysis/list/${#authentication.getPrincipal().getId()}|}" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-user text-white"></i>
+
+                <span class="ml-[2px] hidden lg:block text-white">
+                    감정 기록지
+                </span>
+            </a>
+
+            <a href="/article/create" class="inline-flex">
+                <i class="fa-solid fa-pen text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    글 작성
+                </span>
+            </a>
+
+            <a href="/article/list" class="inline-flex">
+                <i class="fa-solid fa-rectangle-list text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    글 목록
+                </span>
+            </a>
+
+            <a href="/product/create" class="inline-flex" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <i class="fa-solid fa-book-medical text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    제품 등록
+                </span>
+            </a>
+
+            <a href="/product/list" class="inline-flex">
+                <i class="fa-solid fa-book text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    제품 목록
+                </span>
+            </a>
+
+            <a href="/cartItem/list" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-cart-shopping text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    장바구니
+                </span>
+            </a>
+
+            <a href="/order/list" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-file-invoice-dollar text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    주문 목록
+                </span>
+            </a>
+            <a href="/adm/home/main" class="inline-flex" sec:authorize="hasAuthority('ADMIN')">
+                <i class="fa-solid fa-user text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    관리자 페이지
+                </span>
+            </a>
+            <a href="/adm/rebate/makeData" class="inline-flex" sec:authorize="hasAuthority('ADMIN')">
+                <i class="fa-solid fa-code-merge text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    정산 페이지
+                </span>
+            </a>
+            <a href="/adm/rebate/rebateOrderItemList" class="inline-flex" sec:authorize="hasAuthority('ADMIN')">
+                <i class="fa-solid fa-code-merge text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    정산 데이터 목록
+                </span>
+            </a>
+            <a href="/withdraw/apply" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-money-bill-transfer text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    출금 신청
+                </span>
+            </a>
+            <a href="/adm/withdraw/applyList" class="inline-flex" sec:authorize="hasAuthority('ADMIN')">
+                <i class="fa-solid fa-money-bill-transfer text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    출금 신청 목록
+                </span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="flex-grow flex flex-col py-5">
+    <main layout:fragment="content" class="flex-grow flex flex-col"></main>
+</div>
+
+<footer class="border-t-[1px] border-t-[color:#efefef] bg-black py-3 text-[color:#999999] text-[14px] mt-5">
+    <div class="container mx-auto flex flex-col gap-1 px-2">
+        <div>
+            <a href="/">
+                <span>사업자정보확인</span>
+                <span class="inline-block scale-[.7]">▼</span>
+            </a>
+        </div>
+
+        <div class="flex gap-3">
+            <a href="/">이용약관</a>
+            <a href="/">개인정보 처리방침</a>
+            <a href="/">청소년보호정책</a>
+        </div>
+
+        <div>
+            <a href="/">©MBOOKS Corp.</a>
+        </div>
     </div>
 </footer>
+
+<!--<script src="/resource/common/common.js"></script>-->
 
 <!-- 자바스크립트 Start -->
 <th:block layout:fragment="script"></th:block>
 <!-- 자바스크립트 End -->
-
-<!-- HTML이 전부 로딩 된 후, 실행되어야 하는 녀석(자바스크립트 코드)들은 밑에 두는게 좋다. -->
-<script>
-$("select[value]").each((index, node) => {
-    const $select = $(node);
-    const value = $select.attr("value");
-    $select.find(`option[value="${value}"]`).prop("selected", true);
-});
+<!-- jdenticon -->
+<script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
+        crossorigin="anonymous">
 </script>
-
 
 </body>
 </html>

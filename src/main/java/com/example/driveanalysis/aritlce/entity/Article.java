@@ -39,4 +39,8 @@ public class Article extends BaseTimeEntity {
         answer.setArticle(this);
         getAnswerList().add(answer);
     }
+
+    public String getJdenticon() {
+        return "article__" + getId();
+    }
 }
