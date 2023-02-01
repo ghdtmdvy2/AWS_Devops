@@ -41,6 +41,16 @@ class ProductControllerTest {
                 .andExpect(handler().handlerType(ProductController.class))
                 .andExpect(handler().methodName("showProductList"));
     }
+    @Test
+    public void showProduct() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/product/3"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(ProductController.class))
+                .andExpect(handler().methodName("showProduct"));
+    }
 
     @Test
     public void showCreateProduct() throws Exception {

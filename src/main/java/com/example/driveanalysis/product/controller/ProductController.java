@@ -12,10 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +29,13 @@ public class ProductController {
         Page<Product> productList = productService.getAllProduct(page);
         model.addAttribute("productList",productList);
         return "product/product_list";
+    }
+
+    @GetMapping("/{productId}")
+    public String showProduct(Model model, @PathVariable long productId){
+        Product product = productService.getProduct(productId);
+        model.addAttribute("product",product);
+        return "product/product_detail";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/create")

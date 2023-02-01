@@ -12,9 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,11 +32,21 @@ public class CartItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
-    public String createCartItem(@AuthenticationPrincipal UserContext userContext, long productId, int amount){
+    @PostMapping("/create/{productId}")
+    public String createCartItem(@AuthenticationPrincipal UserContext userContext, @PathVariable long productId, @RequestParam(defaultValue = "1") int amount){
         SiteUser user = userService.getUser(userContext.getUsername());
         Product product = productService.getProduct(productId);
         cartItemService.addCartItem(product,user, amount);
         return "redirect:/product/list";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/removeItems")
+    public String removeItems(String ids, String amounts){
+        String idBits[] = ids.split(",");
+        for (String cartItemId : idBits){
+            cartItemService.deleteCartItem(Long.parseLong(cartItemId));
+        }
+        return "redirect:/cartItem/list";
     }
 }

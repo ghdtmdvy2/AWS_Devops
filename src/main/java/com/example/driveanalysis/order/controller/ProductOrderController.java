@@ -40,7 +40,7 @@ public class ProductOrderController {
         ProductOrder order = productOrderService.findProductOrder(id);
         SiteUser actor = memberContext.getUser();
         long restCash = memberContext.getRestCash();
-        if (order.getOrderer().getId() != actor.getId()) {
+        if (!order.getOrderer().getId().equals(actor.getId())) {
             throw new ActorCanNotSeeOrderException("해당 사용자의 주문지가 아닙니다.");
         }
         model.addAttribute("actorRestCash", restCash);

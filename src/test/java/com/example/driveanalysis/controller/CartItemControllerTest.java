@@ -64,4 +64,19 @@ class CartItemControllerTest {
                 .andExpect(handler().methodName("createCartItem"))
                 .andExpect(redirectedUrl("/product/list"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    public void member_cartItem_delete() throws Exception {
+        ResultActions resultActions = mockMvc.
+                perform(post("/cartItem/removeItems")
+                        .with(csrf())
+                        .param("ids","4,5,6"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(CartItemController.class))
+                .andExpect(handler().methodName("removeItems"))
+                .andExpect(redirectedUrl("/cartItem/list"));
+    }
 }

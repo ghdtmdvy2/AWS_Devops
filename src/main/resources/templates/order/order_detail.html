@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout/layout.html}">
+<html layout:decorate="~{layout.html}">
 
 <head>
     <title>주문 상세내용</title>
 </head>
 
 <body>
-<main layout:fragment="main">
+<main layout:fragment="content">
     <script src="https://js.tosspayments.com/v1"></script>
 
-    <script th:inline="javascript">
-        const orderId = /*[[ ${order.id} ]]*/ null;
-        const buyerName = /*[[ ${order.buyer.name} ]]*/ null;
-        const orderName = /*[[ ${order.name} ]]*/ null;
-        const orderPayPrice = /*[[ ${order.calculatePayPrice} ]]*/ null;
-        const toss_clientKey = /*[[ ${@environment.getProperty('custom.tossPayments.clientKey')} ]]*/ null;
+<!--    <script th:inline="javascript">-->
+<!--        const orderId = /*[[ ${order.id} ]]*/ null;-->
+<!--        const buyerName = /*[[ ${order.buyer.name} ]]*/ null;-->
+<!--        const orderName = /*[[ ${order.name} ]]*/ null;-->
+<!--        const orderPayPrice = /*[[ ${order.calculatePayPrice} ]]*/ null;-->
+<!--        const toss_clientKey = /*[[ ${@environment.getProperty('custom.tossPayments.clientKey')} ]]*/ null;-->
 
-    </script>
+<!--    </script>-->
 
     <form hidden name="payByRestCashOnlyForm" method="POST" th:action="@{|/order/${order.id}/payByRestCashOnly|}">
 

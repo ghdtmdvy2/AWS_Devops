@@ -11,6 +11,7 @@ import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ProductOrderService {
     private final ProductOrderRepository productOrderRepository;
     private final CartItemRepository cartItemRepository;
     private final CashLogService cashLogService;
+    @Transactional
     public ProductOrder createFromCartProductOrder(SiteUser orderer){
 
         List<CartItem> cartItems = cartItemRepository.findAllByBuyerId(orderer.getId());

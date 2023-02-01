@@ -65,7 +65,7 @@ class CartItemServiceTest {
         List<Product> products = productService.getUserProducts(user);
         for (Product product : products) {
             CartItem cartItem = cartItemService.addCartItem(product, user,1);
-            cartItemService.deleteCartItem(cartItem);
+            cartItemService.deleteCartItem(cartItem.getId());
         }
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;

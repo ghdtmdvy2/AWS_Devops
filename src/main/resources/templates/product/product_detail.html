@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}">
+
+<head>
+    <title>도서 정보</title>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <section class="section section-write container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">
+                <i class="fa-solid fa-book-open"></i>
+                도서 정보
+            </h1>
+
+            <div class="flex flex-col mt-2 gap-3">
+                <div>
+                    <h2 class="font-bold" th:text="${product.subject}"></h2>
+                </div>
+
+                <div class="flex">
+                    <div th:text="${product.author.username}"></div>
+                </div>
+
+                <div th:text="|￦ ${product.price}|"></div>
+                <div th:text="${product.content}"></div>
+
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-3">
+                        <div>
+                            <div class="badge">
+                                <i class="fa-solid fa-pen"></i>
+                                <span class="ml-1">작성</span>
+                                <span class="ml-1"
+                                      th:text="${#temporals.format(product.createdDate, 'yy-MM-dd')}"></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="badge badge-outline">
+                                <i class="fa-solid fa-eraser"></i>
+                                <span class="ml-1">수정</span>
+                                <span class="ml-1"
+                                      th:text="${#temporals.format(product.modifiedDate, 'yy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <div class="flex justify-center">
+                        <svg width="200" height="200" th:data-jdenticon-value="${product.jdenticon}"></svg>
+                    </div>
+                    <a th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}"
+                       th:href="@{|/product/${product.id}/modify|}"
+                       class="btn btn-secondary btn-sm btn-outline">
+                        <i class="fa-solid fa-eraser"></i>
+                        <span class="ml-1">수정</span>
+                    </a>
+
+                    <a th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}" href="javascript:;"
+                       onclick="if ( confirm('정말로 삭제하시겠습니까?') ) $(this).next().submit();"
+                       class="btn btn-secondary btn-sm btn-outline">
+                        <i class="fa-solid fa-trash"></i>
+                        <span class="ml-1">삭제</span>
+                    </a>
+                    <form th:action="@{|/product/${product.id}/remove|}" method="POST" hidden></form>
+
+                    <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm  btn-outline">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <span class="ml-1">이전</span>
+                    </button>
+                    <form method="POST" name="removeCartItemsForm" th:action="@{|/cartItem/removeItems|}" hidden>
+                        <input type="hidden" name="ids">
+                    </form>
+                    <form th:action="@{|/cartItem/create/${product.id}|}" class="mt-2" method="POST">
+                        <button class="btn btn-sm btn-outline">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span class="ml-2">장바구니</span>
+                        </button>
+                        수량
+                        <select name="amount" class="select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <script>
+            function CartItemAdd(){
+                $(this).next().submit();
+            }
+        </script>
+    </section>
+
+    <th:block th:replace="fragment/toastEditor :: toastEditor"></th:block>
+
+</main>
+</body>
+</html>

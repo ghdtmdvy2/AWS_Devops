@@ -17,21 +17,29 @@
                     <span th:text="${product.subject}"></span>
                 </a>
                 <div class="flex">
-                    <svg width="20" height="20"
-                         th:data-jdenticon-value="${product.author.jdenticon}"></svg>
-                    <div th:text="${product.author.name}"></div>
+                    <div th:text="${product.author.username}"></div>
                 </div>
             </h2>
-            <div th:text="|￦ ${@ut.nf(product.salePrice)}|"></div>
+            <div th:text="|￦ ${product.price}"></div>
 
             <div class="flex justify-end">
                 <div class="badge badge-outline">
                     <i class="fa-solid fa-pen"></i>
                     <span class="ml-2"
-                          th:text="${#temporals.format(product.createDate, 'yy-MM-dd')}"></span>
+                          th:text="${#temporals.format(product.createdDate, 'yy-MM-dd')}"></span>
                 </div>
             </div>
-
+            <div class="card-actions justify-end mt-2">
+                <div class="badge badge-outline">
+                    <input type='button'
+                           onclick='count("plus")'
+                           value='+'/>
+                    <div id='result' class="Cart_ItemAmount m-2" th:text="${item.amount}"></div>
+                    <input type='button'
+                           onclick='count("minus")'
+                           value='-'/>
+                </div>
+            </div>
             <div class="card-actions justify-end mt-2">
                 <a th:href="@{|/product/${product.id}|}" class="btn btn-sm">
                     <i class="fa-solid fa-eye"></i>
@@ -40,6 +48,26 @@
             </div>
         </div>
     </div>
+    <script>
+        function count(type)  {
+        // 결과를 표시할 element
+        const resultElement = document.getElementById('result');
+
+        // 현재 화면에 표시된 값
+        let number = resultElement.innerText;
+
+            // 더하기/빼기
+        if(type === 'plus') {
+            number = parseInt(number) + 1;
+        }else if(type === 'minus' && parseInt(number) > 1)  {
+            number = parseInt(number) - 1;
+        }
+
+
+        // 결과 출력
+        resultElement.innerText = number;
+        }
+    </script>
 
 </th:block>
 </body>
