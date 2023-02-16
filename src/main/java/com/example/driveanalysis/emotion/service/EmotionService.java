@@ -14,9 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmotionService {
     private final EmotionRepository emotionRepository;
-    public List<Emotion> currentUserFindEmotions(Long id, String yearMonth) {
+    public List<Emotion> currentUserFindEmotions(Long authorId, String yearMonth) {
         if (yearMonth == null || yearMonth.trim().length() == 0){
-            return emotionRepository.findAllByAuthor_id(id);
+            return emotionRepository.findAllByAuthor_id(authorId);
         }
         int monthEndDay = Ut.date.getEndDayOf(yearMonth);
 
@@ -25,7 +25,7 @@ public class EmotionService {
         LocalDateTime fromDate = Ut.date.parse(fromDateStr);
         LocalDateTime toDate = Ut.date.parse(toDateStr);
 
-        return emotionRepository.findAllByCreatedDateBetweenAndAuthor_id(fromDate,toDate,id);
+        return emotionRepository.findAllByCreatedDateBetweenAndAuthor_id(fromDate,toDate,authorId);
     }
 
     public List<Emotion> AllUsersFindEmotions(String yearMonth) {

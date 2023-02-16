@@ -34,7 +34,7 @@ public interface InitDataBefore {
         Analysis analysis2 = analysisService.create(user2);
         Analysis analysis3 = analysisService.create(user2);
 
-        boolean createConfirm = false;
+        boolean createConfirm = true;
         testEmotionsCreate(emotionService, analysis1, createConfirm);
         testEmotionsCreate(emotionService, analysis2, createConfirm);
 
@@ -66,7 +66,7 @@ public interface InitDataBefore {
         int min = 0;
         String createDate;
         if (createConfirm) {
-            for (int i = 0; i<100; i++){
+            for (int i = 0; i<3; i++){
                 sec++;
                 if (sec == 60) {
                     min++;
