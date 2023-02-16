@@ -22,7 +22,7 @@ public class Analysis extends BaseTimeEntity {
     @OneToMany(mappedBy = "analysis", cascade = {CascadeType.ALL})
     private List<Emotion> emotionList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author;
 
 }

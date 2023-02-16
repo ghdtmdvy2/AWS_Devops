@@ -3,11 +3,13 @@ package com.example.driveanalysis.analysis.controller;
 import com.example.driveanalysis.analysis.entity.Analysis;
 import com.example.driveanalysis.analysis.service.AnalysisService;
 import com.example.driveanalysis.answer.dto.AnswerForm;
+import com.example.driveanalysis.base.config.UserContext;
 import com.example.driveanalysis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,15 +52,15 @@ public class AnalysisController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String analysisDelete(Principal principal, @PathVariable("id") Integer id) {
+    public String analysisDelete(Principal principal, @PathVariable("id") Integer id, @AuthenticationPrincipal UserContext userContext) {
         Analysis analysis = analysisService.getAnalysis(id);
 
-        if (!analysis.getAuthor().getUsername().equals(principal.getName())) {
+        if (!userContext.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
 
         analysisService.delete(analysis);
 
-        return "redirect:/analysis/list/%d".formatted(analysis.getAuthor().getId());
+        return "redirect:/analysis/list/%d".formatted(userContext.getId());
     }
 }

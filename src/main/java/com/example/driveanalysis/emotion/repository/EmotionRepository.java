@@ -13,10 +13,8 @@ import java.util.List;
 
 public interface EmotionRepository extends JpaRepository<Emotion, Long>, RepositoryUtil {
 
-//    @Query("select e from Emotion as e join fetch SiteUser as su on su.id = e.author.id join fetch Analysis as a on a.author.id = su.id where e.createdDate <= :fromDate and e.createdDate <= :toDate and e.author.id = :authorId ")
     List<Emotion> findAllByCreatedDateBetweenAndAuthor_id(@Param("fromDate") LocalDateTime fromDate, @Param("toDate")LocalDateTime toDate, @Param("authorId")Long authorId);
 
-//    @Query("select e from Emotion as e join fetch SiteUser as su on su.id = e.author.id join fetch Analysis as a on a.author.id = su.id where e.createdDate <= :fromDate and e.createdDate <= :toDate")
     List<Emotion> findAllByCreatedDateBetween(@Param("fromDate")LocalDateTime fromDate,@Param("toDate") LocalDateTime toDate);
 
     @Transactional
@@ -24,6 +22,5 @@ public interface EmotionRepository extends JpaRepository<Emotion, Long>, Reposit
     @Query(value = "ALTER TABLE emotion AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate(); // 이거 지우면 안됨, truncateTable 하면 자동으로 이게 실행됨
 
-//    @Query("select e from Emotion as e join fetch SiteUser as su on su.id = e.author.id join fetch Analysis as a on a.author.id = su.id where e.author.id = :authorId")
     List<Emotion> findAllByAuthor_id(@Param("authorId")Long authorId);
 }

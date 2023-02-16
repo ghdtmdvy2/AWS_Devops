@@ -30,17 +30,13 @@
         <tr>
             <th>번호</th>
             <th>분석일</th>
-            <th>분석한 유저</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="analysis, loop : ${paging}">
             <td th:text="${analysis.id}"></td>
-            <td class="text-start">
-                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm ')} + 분석그래프"></a>
-            </td>
             <td>
-                <span th:text="${analysis.author?.username}"></span>
+                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="@{|${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm ')} 감정 분석그래프|}"></a>
             </td>
         </tr>
         </tbody>

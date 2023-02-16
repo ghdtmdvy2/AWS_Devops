@@ -33,6 +33,7 @@ public interface InitDataBefore {
         Analysis analysis1 = analysisService.create(user1);
         Analysis analysis2 = analysisService.create(user2);
         Analysis analysis3 = analysisService.create(user2);
+        Analysis analysis4 = analysisService.create(user1);
 
         boolean createConfirm = true;
         testEmotionsCreate(emotionService, analysis1, createConfirm);

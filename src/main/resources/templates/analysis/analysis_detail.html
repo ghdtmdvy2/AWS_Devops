@@ -15,7 +15,7 @@
     <div th:if="${analysis.emotionList.size > 0}">
         <h2>
             <i class="fa-solid fa-chart-line"></i>
-            <span th:text="@{|${#temporals.format(analysis.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${analysis.author.username} 님의 감정|}"></span>
+            <span th:text="@{|${#temporals.format(analysis.createdDate,'yyyy-MM-dd HH:mm')} 기록된 ${#authentication.getPrincipal().getUsername()} 님의 감정|}"></span>
         </h2>
 
         <div id="linechart_material" style="width: 900px; height: 500px; margin:20px auto"></div>
