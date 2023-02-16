@@ -41,9 +41,9 @@ public class AnalysisController {
         return "analysis/analysis_list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id, AnswerForm answerForm) {
-        Analysis analysis = analysisService.getAnalysis(id);
+    @GetMapping("/detail/{analysisId}")
+    public String detail(Model model, @PathVariable long analysisId, AnswerForm answerForm) {
+        Analysis analysis = analysisService.getAnalysis(analysisId);
 
         model.addAttribute("analysis", analysis);
 

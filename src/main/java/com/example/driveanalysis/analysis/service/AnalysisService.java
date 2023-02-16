@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +37,10 @@ public class AnalysisService {
 
         return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
     }
-
-    public Analysis getAnalysis(long id) {
-        return analysisRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(id)));
+    @Transactional
+    public Analysis getAnalysis(long analysisId) {
+        return analysisRepository.findById(analysisId)
+                .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(analysisId)));
     }
 
     public Analysis create(SiteUser author) {
