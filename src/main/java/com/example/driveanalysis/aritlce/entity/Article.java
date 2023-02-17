@@ -23,10 +23,10 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Answer> answerList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author;
 
     @ManyToMany
