@@ -35,6 +35,7 @@ class AnalysisControllerTest {
     }
 
     @Test
+    @WithUserDetails("user1")
     void get_detail_analysis() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/detail/1"))

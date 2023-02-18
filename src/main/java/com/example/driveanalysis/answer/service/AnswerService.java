@@ -17,7 +17,7 @@ public class AnswerService {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setAuthor(author);
-        article.addAnswer(answer);
+        answer.setArticle(article);
 
         answerRepository.save(answer);
 

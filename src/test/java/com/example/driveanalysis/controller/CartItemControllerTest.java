@@ -53,7 +53,7 @@ class CartItemControllerTest {
     @WithUserDetails("user1")
     public void member_cartItem_add() throws Exception {
         ResultActions resultActions = mockMvc.
-                perform(post("/cartItem/create")
+                perform(post("/cartItem/create/1")
                         .with(csrf())
                         .param("productId","1")
                         .param("amount","1"))

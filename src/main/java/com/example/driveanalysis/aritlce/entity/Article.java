@@ -23,7 +23,7 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Answer> answerList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
