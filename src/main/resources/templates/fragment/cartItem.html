@@ -32,11 +32,11 @@
             <div class="card-actions justify-end mt-2">
                 <div class="badge badge-outline">
                     <input type='button'
-                           onclick='count("plus")'
+                           onclick='IncreaseCartItemsQuantity("plus")'
                            value='+'/>
                     <div id='result' class="Cart_ItemAmount m-2" th:text="${item.amount}"></div>
                     <input type='button'
-                           onclick='count("minus")'
+                           onclick='IncreaseCartItemsQuantity("minus")'
                            value='-'/>
                 </div>
             </div>
@@ -49,23 +49,46 @@
         </div>
     </div>
     <script>
-        function count(type)  {
-        // 결과를 표시할 element
-        const resultElement = document.getElementById('result');
-
-        // 현재 화면에 표시된 값
-        let number = resultElement.innerText;
-
-            // 더하기/빼기
-        if(type === 'plus') {
-            number = parseInt(number) + 1;
-        }else if(type === 'minus' && parseInt(number) > 1)  {
-            number = parseInt(number) - 1;
+        function IncreaseCartItemsQuantity(type){
+            $.ajax({
+                type : 'post',           // 타입 (get, post, put 등등)
+                url : '/test',           // 요청할 서버url
+                async : true,            // 비동기화 여부 (default : true)
+                headers : {              // Http header
+                    "Content-Type" : "application/json",
+                    "X-HTTP-Method-Override" : "POST"
+                },
+                dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+                data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
+                    "no" : no,
+                    "name" : name,
+                    "nick" : nick
+                }),
+                success : function(result) { // 결과 성공 콜백함수
+                    count(type)
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    console.log(error)
+                }
+            })
         }
+        function count(type)  {
+            // 결과를 표시할 element
+            const resultElement = document.getElementById('result');
+
+            // 현재 화면에 표시된 값
+            let number = resultElement.innerText;
+
+                // 더하기/빼기
+            if(type === 'plus') {
+                number = parseInt(number) + 1;
+            }else if(type === 'minus' && parseInt(number) > 1)  {
+                number = parseInt(number) - 1;
+            }
 
 
-        // 결과 출력
-        resultElement.innerText = number;
+            // 결과 출력
+            resultElement.innerText = number;
         }
     </script>
 

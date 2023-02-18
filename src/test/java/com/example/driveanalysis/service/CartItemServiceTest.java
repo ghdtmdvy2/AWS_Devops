@@ -74,4 +74,13 @@ class CartItemServiceTest {
         }
         assertThat(cartItemAmount).isEqualTo(0);
     }
+    @Test
+    public void increase_cartItems_quantity(){
+        SiteUser user = userService.getUser("user1");
+        List<CartItem> prevCartItems = cartItemService.findCartItems(user.getId());
+        CartItem cartItem = prevCartItems.get(0);
+        int prevAmount = cartItem.getAmount();
+        cartItemService.increaseCartItemsQuantity(cartItem.getId());
+        assertThat(cartItem.getAmount() == prevAmount + 1).isTrue();
+    }
 }
