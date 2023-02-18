@@ -17,17 +17,19 @@ public class ProductOrder extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
-
+    private String name;
     @ManyToOne
     private SiteUser orderer;
 
     private LocalDateTime payDate; // 결제날짜
+    private LocalDateTime cancelDate; // 결제날짜
+    private LocalDateTime refundDate; // 결제날짜
     private boolean readyStatus; // 주문완료여부
     private boolean isPaid; // 결제완료여부
     private boolean isCanceled; // 취소여부
     private boolean isRefunded; // 환불여부
 
-    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public int calculatePay(){
@@ -44,5 +46,21 @@ public class ProductOrder extends BaseTimeEntity {
         }
         this.setPayDate(LocalDateTime.now());
         this.setPaid(true);
+    }
+
+    public void addOrderItem(List<OrderItem> orderItems) {
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setProductOrder(this);
+            this.orderItems.add(orderItem);
+        }
+    }
+    public void makeName() {
+        String name = orderItems.get(0).getProduct().getSubject();
+
+        if (orderItems.size() > 1) {
+            name += " 외 %d곡".formatted(orderItems.size() - 1);
+        }
+
+        this.name = name;
     }
 }

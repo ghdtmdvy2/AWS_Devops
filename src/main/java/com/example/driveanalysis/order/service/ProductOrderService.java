@@ -40,7 +40,8 @@ public class ProductOrderService {
 
         ProductOrder productOrder = new ProductOrder();
         productOrder.setOrderer(orderer);
-        productOrder.setOrderItems(orderItems);
+        productOrder.addOrderItem(orderItems);
+        productOrder.makeName();
         productOrderRepository.save(productOrder);
         return productOrder;
     }

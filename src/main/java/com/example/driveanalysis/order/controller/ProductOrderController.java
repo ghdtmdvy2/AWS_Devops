@@ -12,28 +12,32 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/order")
 public class ProductOrderController {
     private final ProductOrderService productOrderService;
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper;
-
-    @Value("${tosspayments.secretkey}")
-    private final String SECRET_KEY = "";
-
+    private final String SECRET_KEY;
+    ProductOrderController(@Value("${custom.tossPayments.secretKey}") String SECRET_KEY, ProductOrderService productOrderService, ObjectMapper objectMapper) {
+        this.productOrderService = productOrderService;
+        this.SECRET_KEY = SECRET_KEY;
+        this.objectMapper = objectMapper;
+    }
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public String showDetail(@AuthenticationPrincipal UserContext memberContext, @PathVariable long id, Model model) {
@@ -55,6 +59,20 @@ public class ProductOrderController {
         ProductOrder order = productOrderService.createFromCartProductOrder(user);
 
         return "redirect:/order/%d".formatted(order.getId());
+    }
+
+    @PostConstruct
+    private void init() {
+        restTemplate.setErrorHandler(new ResponseErrorHandler() {
+            @Override
+            public boolean hasError(ClientHttpResponse response) {
+                return false;
+            }
+
+            @Override
+            public void handleError(ClientHttpResponse response) {
+            }
+        });
     }
     @RequestMapping("/{id}/success")
     public String confirmPayment(

@@ -26,8 +26,11 @@ spring:
       enabled: true
 
 
-tosspayments:
-  secretkey: "test_sk_dP9BRQmyarYaNnnkNDXrJ07KzLNk"
+custom:
+  tossPayments:
+    secretKey: "test_sk_dP9BRQmyarYaNnnkNDXrJ07KzLNk"
+    clientKey: "test_ck_OyL0qZ4G1VOEJZvgGKw8oWb2MQYg"
+
 
 
 

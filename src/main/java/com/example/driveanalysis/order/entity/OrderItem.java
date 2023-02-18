@@ -4,7 +4,6 @@ import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.product.entity.Product;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,12 +20,12 @@ public class OrderItem extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProductOrder productOrder;
 
     private LocalDateTime payDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     // 개수
@@ -49,6 +48,17 @@ public class OrderItem extends BaseTimeEntity {
     public OrderItem(Product product, int amount) {
         this.product = product;
         this.amount = amount;
+        this.price = product.getPrice() * amount;
+        this.salePrice = this.makeSalePrice(product,amount);
+        this.wholesalePrice = this.makeWholesalePrice(product,amount);
+    }
+
+    private int makeWholesalePrice(Product product, int amount) {
+        return (int) (product.getPrice() * amount * 1.0);
+    }
+
+    private int makeSalePrice(Product product, int amount) {
+        return (int) (product.getPrice() * amount * 1.0);
     }
 
     public void setPaymentDone() {
