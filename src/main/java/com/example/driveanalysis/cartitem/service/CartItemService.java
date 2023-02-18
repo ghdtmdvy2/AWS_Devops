@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,9 +41,13 @@ public class CartItemService {
         cartItemRepository.deleteById(cartItemId);
     }
 
-    public void increaseCartItemsQuantity(long cartItemId) {
+    public void renewCartItemsQuantity(long cartItemId, String type) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new DataNotFoundException("no %d cartItem not found,".formatted(cartItemId)));;
-        cartItem.setAmount(cartItem.getAmount() + 1);
+        if (type.equals("plus")) {
+            cartItem.setAmount(cartItem.getAmount() + 1);
+        } else {
+            cartItem.setAmount(cartItem.getAmount() - 1);
+        }
         cartItemRepository.save(cartItem);
     }
 }

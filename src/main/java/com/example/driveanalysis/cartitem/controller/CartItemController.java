@@ -49,4 +49,12 @@ public class CartItemController {
         }
         return "redirect:/cartItem/list";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/increaseQuantity/{cartItemId}")
+    @ResponseBody
+    public void renewCartItem(@PathVariable long cartItemId, String type){
+        cartItemService.renewCartItemsQuantity(cartItemId,type);
+        return;
+    }
 }

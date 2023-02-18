@@ -80,7 +80,8 @@ class CartItemServiceTest {
         List<CartItem> prevCartItems = cartItemService.findCartItems(user.getId());
         CartItem cartItem = prevCartItems.get(0);
         int prevAmount = cartItem.getAmount();
-        cartItemService.increaseCartItemsQuantity(cartItem.getId());
+        String type = "plus";
+        cartItemService.renewCartItemsQuantity(cartItem.getId(), type);
         assertThat(cartItem.getAmount() == prevAmount + 1).isTrue();
     }
 }
