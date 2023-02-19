@@ -5,6 +5,7 @@ import com.example.driveanalysis.answer.service.AnswerService;
 import com.example.driveanalysis.aritlce.service.ArticleService;
 import com.example.driveanalysis.cartitem.service.CartItemService;
 import com.example.driveanalysis.emotion.service.EmotionService;
+import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.service.ProductOrderService;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
@@ -47,12 +48,16 @@ public interface InitDataBefore {
         cartItemService.addCartItem(product2,user1,1);
         cartItemService.addCartItem(product3,user1,1);
 
-        productOrderService.createFromCartProductOrder(user1);
+        ProductOrder fromCartProductOrder1 = productOrderService.createFromCartProductOrder(user1);
+        productOrderService.payTossPayments(fromCartProductOrder1);
 
         cartItemService.addCartItem(product1,user1,1);
         cartItemService.addCartItem(product1,user1,1);
         cartItemService.addCartItem(product2,user1,1);
         cartItemService.addCartItem(product3,user1,1);
+
+        ProductOrder fromCartProductOrder2 = productOrderService.createFromCartProductOrder(user1);
+        productOrderService.payTossPayments(fromCartProductOrder2);
 
         cartItemService.addCartItem(product1,user3,1);
         cartItemService.addCartItem(product1,user3,1);

@@ -6,6 +6,7 @@ import com.example.driveanalysis.cashLog.service.CashLogService;
 import com.example.driveanalysis.order.entity.OrderItem;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.service.ProductOrderService;
+import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.product.service.ProductService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
@@ -73,5 +74,11 @@ class ProductOrderServiceTest {
 
         assertThat(useMoneyCashLog.getPrice()).isEqualTo(pgPayPrice * -1);
         assertThat(useMoneyCashLog.getEventType()).isEqualTo("주문__%d__사용__토스페이먼츠".formatted(payProductOrder.getId()));
+    }
+    @Test
+    public void findProductOrders(){
+        SiteUser user = userService.getUser("user1");
+        List<ProductOrder> payProductOrders = productOrderService.findProductOrders(user.getId());
+        assertThat(payProductOrders.size()).isEqualTo(2);
     }
 }
