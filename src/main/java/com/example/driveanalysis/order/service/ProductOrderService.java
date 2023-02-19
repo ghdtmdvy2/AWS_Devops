@@ -9,6 +9,7 @@ import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.repository.ProductOrderRepository;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
+import com.example.driveanalysis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class ProductOrderService {
     private final ProductOrderRepository productOrderRepository;
     private final CartItemRepository cartItemRepository;
     private final CashLogService cashLogService;
+    private final UserService userService;
     @Transactional
     public ProductOrder createFromCartProductOrder(SiteUser orderer){
 
@@ -53,9 +55,10 @@ public class ProductOrderService {
         int pgPay = productOrder.calculatePay();
         cashLogService.addCash(productOrder.getOrderer(),pgPay,"주문__%d__충전__토스페이먼츠".formatted(productOrder.getId()));
         cashLogService.addCash(productOrder.getOrderer(),pgPay * -1,"주문__%d__사용__토스페이먼츠".formatted(productOrder.getId()));
-
+        SiteUser orderer = productOrder.getOrderer();
         productOrder.setPaymentDone();
         productOrderRepository.save(productOrder);
+        userService.setProductPayTrue(orderer);
     }
 
     public List<ProductOrder> findProductOrders(long userId) {

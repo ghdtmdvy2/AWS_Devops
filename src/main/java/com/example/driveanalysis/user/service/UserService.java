@@ -47,4 +47,9 @@ public class UserService {
         users.setPassword(passwordEncoder.encode(password));
         userRepository.save(users);
     }
+
+    public void setProductPayTrue(SiteUser orderer) {
+        orderer.setProductPaid(true);
+        userRepository.save(orderer);
+    }
 }

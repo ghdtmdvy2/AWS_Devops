@@ -112,10 +112,15 @@ public class UserController {
         double[] otherUserEmotionAvg = Ut.emotionsAvgCreate(other_users_emotions);
         double[] diffUserEmotionAvg = Ut.diffAvgEmotions(currentUserEmotionAvg,otherUserEmotionAvg);
 
-
-        model.addAttribute("users_angry",currentUserEmotionAvg[0]);
-        model.addAttribute("users_happy",currentUserEmotionAvg[1]);
-        model.addAttribute("users_neutral",currentUserEmotionAvg[2]);
+        if (Double.isNaN(currentUserEmotionAvg[0]) && Double.isNaN(currentUserEmotionAvg[0]) && Double.isNaN(currentUserEmotionAvg[0])) {
+            model.addAttribute("users_angry",0);
+            model.addAttribute("users_happy",0);
+            model.addAttribute("users_neutral",0);
+        } else {
+            model.addAttribute("users_angry",currentUserEmotionAvg[0]);
+            model.addAttribute("users_happy",currentUserEmotionAvg[1]);
+            model.addAttribute("users_neutral",currentUserEmotionAvg[2]);
+        }
 
         model.addAttribute("other_users_angry",otherUserEmotionAvg[0]);
         model.addAttribute("other_users_happy",otherUserEmotionAvg[1]);
