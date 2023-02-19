@@ -63,6 +63,11 @@ public interface InitDataBefore {
         cartItemService.addCartItem(product1,user3,1);
         cartItemService.addCartItem(product2,user3,1);
         cartItemService.addCartItem(product3,user3,1);
+
+        cartItemService.addCartItem(product1,user1,1);
+        cartItemService.addCartItem(product1,user1,1);
+        cartItemService.addCartItem(product2,user1,1);
+        cartItemService.addCartItem(product3,user1,1);
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis, boolean createConfirm) {

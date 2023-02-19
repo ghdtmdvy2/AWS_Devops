@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}">
+
+<head>
+    <title>주문 목록</title>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <section th:unless="${productOrders != null && productOrders.size > 0}"
+             class="section section-cart-items flex-grow flex items-center justify-center">
+        <div class="text-center">
+            <div>주문한 상품이 존재하지 않습니다.</div>
+            <a href="/product/list" class="block text-link mt-2"><i class="fa-solid fa-book"></i>제품 보러가기</a>
+        </div>
+    </section>
+
+    <section th:if="${productOrders != null && productOrders.size > 0}" class="section section-post-list container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">
+                <i class="fa-solid fa-rectangle-list"></i>
+                주문 목록
+            </h1>
+
+            <div class="mt-2">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                    <li th:each="order : ${productOrders}">
+                        <th:block th:replace="fragment/orderListItem :: orderListItem" ></th:block>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

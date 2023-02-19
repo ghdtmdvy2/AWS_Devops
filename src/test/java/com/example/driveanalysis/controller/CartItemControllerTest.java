@@ -66,12 +66,12 @@ class CartItemControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
+    @WithUserDetails("user3")
     public void member_cartItem_delete() throws Exception {
         ResultActions resultActions = mockMvc.
                 perform(post("/cartItem/removeItems")
                         .with(csrf())
-                        .param("ids","4,5,6"))
+                        .param("ids","9,12"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is3xxRedirection())

@@ -10,7 +10,7 @@
                 <i class="fa-solid fa-book-open"></i>
                 <span th:text="${order.name}"></span>
             </h2>
-            <div th:text="|￦ ${@ut.nf(order.calculatePayPrice)}|"></div>
+            <div th:text="|￦ ${order.calculatePay}|"></div>
             <div class="flex justify-end gap-1">
                 <div class="badge badge-outline" th:if="${order.cancelDate != null}">
                     <span>취소 :</span>
@@ -27,10 +27,10 @@
                     <span class="ml-1"
                           th:text="${#temporals.format(order.payDate, 'yy-MM-dd')}"></span>
                 </div>
-                <div class="badge badge-outline" th:if="${order.createDate != null}">
+                <div class="badge badge-outline" th:if="${order.createdDate != null}">
                     <span>주문 :</span>
                     <span class="ml-1"
-                          th:text="${#temporals.format(order.createDate, 'yy-MM-dd')}"></span>
+                          th:text="${#temporals.format(order.createdDate, 'yy-MM-dd')}"></span>
                 </div>
             </div>
         </div>

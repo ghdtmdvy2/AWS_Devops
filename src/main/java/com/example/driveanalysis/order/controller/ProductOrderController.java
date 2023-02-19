@@ -3,13 +3,11 @@ package com.example.driveanalysis.order.controller;
 import com.example.driveanalysis.base.config.UserContext;
 import com.example.driveanalysis.base.exception.ActorCanNotSeeOrderException;
 import com.example.driveanalysis.base.exception.OrderIdNotMatchedException;
-import com.example.driveanalysis.base.util.Ut;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.service.ProductOrderService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
@@ -24,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,6 +36,12 @@ public class ProductOrderController {
         this.productOrderService = productOrderService;
         this.SECRET_KEY = SECRET_KEY;
         this.objectMapper = objectMapper;
+    }
+    @GetMapping("/list")
+    public String showOrder(@AuthenticationPrincipal UserContext userContext, Model model){
+        List<ProductOrder> productOrders = productOrderService.findProductOrders(userContext.getId());
+        model.addAttribute("productOrders",productOrders);
+        return "order/order_list";
     }
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -107,7 +112,7 @@ public class ProductOrderController {
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             productOrderService.payTossPayments(order);
-            return "redirect:/product/list";
+            return "redirect:/order/list";
         } else {
             JsonNode failNode = responseEntity.getBody();
             model.addAttribute("message", failNode.get("message").asText());

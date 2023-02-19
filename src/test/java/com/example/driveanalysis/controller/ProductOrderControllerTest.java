@@ -51,4 +51,16 @@ class ProductOrderControllerTest {
                 .andExpect(handler().methodName("makeOrder"))
                 .andExpect(redirectedUrlPattern("/order/**"));
     }
+
+    @Test
+    @WithUserDetails("user1")
+    void showOrder() throws Exception {
+        ResultActions resultActions = mockMvc
+                .perform(get("/order/list"))
+                .andDo(print());
+        resultActions
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(handler().handlerType(ProductOrderController.class))
+                .andExpect(handler().methodName("showOrder"));
+    }
 }
