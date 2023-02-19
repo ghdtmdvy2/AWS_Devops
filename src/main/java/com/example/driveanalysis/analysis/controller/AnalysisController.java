@@ -3,7 +3,7 @@ package com.example.driveanalysis.analysis.controller;
 import com.example.driveanalysis.analysis.entity.Analysis;
 import com.example.driveanalysis.analysis.service.AnalysisService;
 import com.example.driveanalysis.answer.dto.AnswerForm;
-import com.example.driveanalysis.base.config.UserContext;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

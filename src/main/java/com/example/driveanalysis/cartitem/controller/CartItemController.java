@@ -1,6 +1,6 @@
 package com.example.driveanalysis.cartitem.controller;
 
-import com.example.driveanalysis.base.config.UserContext;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.cartitem.entity.CartItem;
 import com.example.driveanalysis.cartitem.service.CartItemService;
 import com.example.driveanalysis.product.entity.Product;

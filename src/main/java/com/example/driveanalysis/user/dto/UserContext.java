@@ -1,4 +1,4 @@
-package com.example.driveanalysis.base.config;
+package com.example.driveanalysis.user.dto;
 
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.Getter;
@@ -14,13 +14,13 @@ public class UserContext extends User {
     private final String username;
     private boolean isProductPaid;
 
-    private long restCash;
 
     public UserContext(SiteUser users, List<GrantedAuthority> authorities) {
         super(users.getUsername(), users.getPassword(), authorities);
         this.id = users.getId();
         this.email = users.getEmail();
         this.username = users.getUsername();
+        this.isProductPaid = users.isProductPaid();
     }
 
     public SiteUser getUser() {
@@ -29,6 +29,7 @@ public class UserContext extends User {
         user.setEmail(email);
         user.setUsername(username);
         user.setId(id);
+        user.setProductPaid(isProductPaid);
         return user;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.driveanalysis.product.controller;
 
-import com.example.driveanalysis.base.config.UserContext;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.product.dto.ProductForm;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.product.service.ProductService;
@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/product")

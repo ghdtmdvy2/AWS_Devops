@@ -1,6 +1,6 @@
 package com.example.driveanalysis.user.service;
 
-import com.example.driveanalysis.base.config.UserContext;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.repository.UserRepository;
 import com.example.driveanalysis.user.entity.UserRole;

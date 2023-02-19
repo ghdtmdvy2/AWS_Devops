@@ -1,6 +1,6 @@
 package com.example.driveanalysis.order.controller;
 
-import com.example.driveanalysis.base.config.UserContext;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.base.exception.ActorCanNotSeeOrderException;
 import com.example.driveanalysis.base.exception.OrderIdNotMatchedException;
 import com.example.driveanalysis.order.entity.ProductOrder;
@@ -45,14 +45,12 @@ public class ProductOrderController {
     }
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String showDetail(@AuthenticationPrincipal UserContext memberContext, @PathVariable long id, Model model) {
+    public String showDetail(@AuthenticationPrincipal UserContext userContext, @PathVariable long id, Model model) {
         ProductOrder order = productOrderService.findProductOrder(id);
-        SiteUser actor = memberContext.getUser();
-        long restCash = memberContext.getRestCash();
+        SiteUser actor = userContext.getUser();
         if (!order.getOrderer().getId().equals(actor.getId())) {
             throw new ActorCanNotSeeOrderException("해당 사용자의 주문지가 아닙니다.");
         }
-        model.addAttribute("actorRestCash", restCash);
         model.addAttribute("order", order);
 
         return "order/order_detail";

@@ -4,7 +4,14 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
-
+    <section th:if="${#authentication.principal.ProductPaid == false} "
+             class="section section-cart-items flex-grow flex items-center justify-center">
+        <div class="text-center">
+            <div>상품을 구매하지 않으셨습니다.</div>
+            <a href="/product/list" class="block text-link mt-2"><i class="fa-solid fa-book"></i>제품 보러가기</a>
+        </div>
+    </section>
+    <section th:unless="${#authentication.principal.ProductPaid == false} ">
     <div class="row my-3">
         <div class="col-6">
             <h1><i class="fa-regular fa-face-smile"></i> 운전자의 일일 감정 분석 그래프</h1>
@@ -68,7 +75,7 @@
         </ul>
     </div>
     <!-- 페이징처리 끝 -->
-
+    </section>
 
 </div>
 

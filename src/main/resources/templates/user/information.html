@@ -1,37 +1,46 @@
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:th="http://www.thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
     <body>
-    <div class="container mx-auto flex-grow flex items-center justify-center">
-        <div>
-            <h1><i class="fa-solid fa-chart-pie"></i> 통계 데이터</h1>
-            <form method="get" th:action>
-                <select name="yearMonth" id="yearMonth" class="select select-bordered">
-                    <option value="">전체</option>
-                </select>
-                <input class="btn btn-primary" type="submit" value="확인">
-            </form>
-        </div>
-    </div>
-    <section th:unless="${users_angry != 0 && users_happy != 0 && users_neutral != 0}"
+    <section th:if="${(users_angry == 0 && users_happy == 0 && users_neutral == 0) || #authentication.principal.ProductPaid == false} "
              class="section section-cart-items flex-grow flex items-center justify-center">
         <div class="text-center">
-            <div>해당 날짜의 감정 데이터가 존재하지 않습니다.</div>
+            <div>상품을 구매하지 않았거나 감정 분석을 진행하지 않으셨습니다.</div>
+            <a href="/product/list" class="block text-link mt-2"><i class="fa-solid fa-book"></i>제품 보러가기</a>
         </div>
     </section>
-    <div th:if="${users_angry != 0 && users_happy != 0 && users_neutral != 0}">
-        <section style="display:flex; justify-content: center">
-            <div id="users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
-            <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+    <section th:unless="${(users_angry == 0 && users_happy == 0 && users_neutral == 0) || #authentication.principal.ProductPaid == false}">
+        <div class="container mx-auto flex-grow flex items-center justify-center">
+            <div>
+                <h1><i class="fa-solid fa-chart-pie"></i> 통계 데이터</h1>
+                <form method="get" th:action>
+                    <select name="yearMonth" id="yearMonth" class="select select-bordered">
+                        <option value="">전체</option>
+                    </select>
+                    <input class="btn btn-primary" type="submit" value="확인">
+                </form>
+            </div>
+        </div>
+        <section th:unless="${users_angry != 0 && users_happy != 0 && users_neutral != 0}"
+                 class="section section-cart-items flex-grow flex items-center justify-center">
+            <div class="text-center">
+                <div>해당 날짜의 감정 데이터가 존재하지 않습니다.</div>
+            </div>
         </section>
-        <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
-        <div th:text="@{|다른 사람과 angry 수치가 약 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; margin-top: 100px"></div>
-        <div th:text="@{|다른 사람과 happy 수치가 약 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center"></div>
-        <div th:text="@{|다른 사람과 neutral 수치가 약 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block"></div>
-    </div>
+        <div th:if="${users_angry != 0 && users_happy != 0 && users_neutral != 0}">
+            <section style="display:flex; justify-content: center">
+                <div id="users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+                <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
+            </section>
+            <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
+            <div th:text="@{|다른 사람과 angry 수치가 약 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; margin-top: 100px"></div>
+            <div th:text="@{|다른 사람과 happy 수치가 약 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center"></div>
+            <div th:text="@{|다른 사람과 neutral 수치가 약 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block"></div>
+        </div>
+    </section>
     </body>
 </div>
 <div layout:fragment="script" class="container my-3">
