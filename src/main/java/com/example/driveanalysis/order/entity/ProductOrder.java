@@ -58,7 +58,7 @@ public class ProductOrder extends BaseTimeEntity {
         String name = orderItems.get(0).getProduct().getSubject();
 
         if (orderItems.size() > 1) {
-            name += " 외 %d곡".formatted(orderItems.size() - 1);
+            name += " 외 %d개 상품".formatted(orderItems.size() - 1);
         }
 
         this.name = name;

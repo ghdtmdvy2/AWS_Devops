@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout}">
 
 <head>
-    <title>도서 목록</title>
+    <title>제품 목록</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
         <div class="px-2 pt-4">
             <h1 class="font-bold text-lg">
                 <i class="fa-solid fa-book"></i>
-                도서 목록
+                제품 목록
             </h1>
 
             <div class="mt-2">
@@ -27,12 +27,12 @@
                             <div class="card-body">
                                 <h2 class="card-title flex flex-wrap">
                                     <a th:href="@{|/product/${product.id}|}" class="mr-auto">
-                                        <i class="fa-solid fa-book-open"></i>
+                                        <i class="fa-solid fa-microchip"></i>
                                         <span th:text="${product.subject}"></span>
                                     </a>
                                     <div class="flex">
                                         <!--                    <svg width="20" height="20" th:data-jdenticon-value="${product.author.jdenticon}"></svg>-->
-                                        <!--                    <div th:text="${product.author.name}"></div>-->
+                                                            <div th:text="@{|\ ${product.price}}"></div>
                                     </div>
                                 </h2>
                                 <!--            <div th:text="|￦ ${@ut.nf(product.salePrice)}|"></div>-->
