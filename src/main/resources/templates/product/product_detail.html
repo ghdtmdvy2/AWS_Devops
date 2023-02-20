@@ -54,14 +54,14 @@
                     <div class="flex justify-center">
                         <svg width="200" height="200" th:data-jdenticon-value="${product.jdenticon}"></svg>
                     </div>
-                    <a th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}"
+                    <a sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}"
                        th:href="@{|/product/${product.id}/modify|}"
                        class="btn btn-secondary btn-sm btn-outline">
                         <i class="fa-solid fa-eraser"></i>
                         <span class="ml-1">수정</span>
                     </a>
 
-                    <a th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}" href="javascript:;"
+                    <a sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getId() == product.getAuthor().getId()}" href="javascript:;"
                        onclick="if ( confirm('정말로 삭제하시겠습니까?') ) $(this).next().submit();"
                        class="btn btn-secondary btn-sm btn-outline">
                         <i class="fa-solid fa-trash"></i>
