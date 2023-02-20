@@ -24,6 +24,7 @@ class AnalysisControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @WithUserDetails("user1")
     void get_analysis_list() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/list/1"))
