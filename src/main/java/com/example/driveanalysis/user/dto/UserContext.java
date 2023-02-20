@@ -2,6 +2,7 @@ package com.example.driveanalysis.user.dto;
 
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.Getter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,5 +34,11 @@ public class UserContext extends User {
         user.setId(id);
         user.setProductPaid(isProductPaid);
         return user;
+    }
+    public void principalSetProductPaid(){
+        this.isProductPaid = true;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(this, authentication.getCredentials(), authentication.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
     }
 }

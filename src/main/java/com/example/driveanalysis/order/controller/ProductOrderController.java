@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +87,7 @@ public class ProductOrderController {
             @RequestParam String paymentKey,
             @RequestParam String orderId,
             @RequestParam Long amount,
+            @AuthenticationPrincipal UserContext userContext,
             Model model
     ) throws Exception {
 
@@ -109,6 +114,7 @@ public class ProductOrderController {
                 "https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            userContext.principalSetProductPaid();
             productOrderService.payTossPayments(order);
             return "redirect:/order/list";
         } else {
