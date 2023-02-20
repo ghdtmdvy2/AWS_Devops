@@ -4,14 +4,14 @@
 <body>
 <th:block th:fragment="articleListItem">
     <div class="card bg-base-100 shadow-xl">
-        <a th:href="@{|/article/${article.id}|}" class="block">
+        <a th:href="@{|/article/detail/${article.id}|}" class="block">
             <figure>
                 <svg width="200" height="200" th:data-jdenticon-value="${article.jdenticon}"></svg>
             </figure>
         </a>
         <div class="card-body">
             <h2 class="card-title flex flex-wrap">
-                <a th:href="@{|/article/${article.id}|}" class="mr-auto">
+                <a th:href="@{|/article/detail/${article.id}|}" class="mr-auto">
                     <i class="fa-solid fa-newspaper"></i>
                     <span th:text="${article.subject}"></span>
                 </a>
