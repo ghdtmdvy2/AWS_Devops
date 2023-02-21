@@ -75,7 +75,7 @@ public interface InitDataBefore {
         int min = 0;
         String createDate;
         if (createConfirm) {
-            for (int i = 0; i<100; i++){
+            for (int i = 0; i<3; i++){
                 sec++;
                 if (sec == 60) {
                     min++;

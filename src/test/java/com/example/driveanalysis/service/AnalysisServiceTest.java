@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@Transactional
 @ActiveProfiles("test")
 class AnalysisServiceTest {
     @Autowired
@@ -43,7 +42,8 @@ class AnalysisServiceTest {
         Analysis analysis = analysisService.create(user);
         Analysis findAnalysis = analysisService.getAnalysis(analysis.getId());
         assertThat(findAnalysis).isNotNull();
-        assertThat(findAnalysis.getAuthor()).isEqualTo(user);
+        SiteUser author = findAnalysis.getAuthor();
+        assertThat(author.equals(user)).isTrue();
     }
 
     @Test

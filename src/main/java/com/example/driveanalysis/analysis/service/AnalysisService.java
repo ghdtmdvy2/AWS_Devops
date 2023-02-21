@@ -37,19 +37,20 @@ public class AnalysisService {
 
         return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
     }
-    @Transactional
     public Analysis getAnalysis(long analysisId) {
         return analysisRepository.findById(analysisId)
                 .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(analysisId)));
     }
 
+
+    @Transactional
     public Analysis create(SiteUser author) {
         Analysis analysis = new Analysis();
         analysis.setAuthor(author);
         analysisRepository.save(analysis);
         return analysis;
     }
-
+    @Transactional
     public void delete(Analysis analysis) {
         this.analysisRepository.delete(analysis);
     }
