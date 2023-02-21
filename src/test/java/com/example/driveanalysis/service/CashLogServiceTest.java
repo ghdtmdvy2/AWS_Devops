@@ -17,7 +17,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
 @ActiveProfiles("test")
 class CashLogServiceTest {
     @Autowired
@@ -27,7 +26,7 @@ class CashLogServiceTest {
     UserService userService;
     @Test
     public void addCash(){
-        SiteUser user = userService.getUser("user3");
+        SiteUser user = userService.getUser("user2");
         CashLog cashLog = cashLogService.addCash(user,100_000,"충전");
         List<CashLog> compareCashLogs = cashLogService.getCashLog(user.getId());
         CashLog compareCashLog = compareCashLogs.get(0);
