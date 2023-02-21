@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@Transactional
 @ActiveProfiles("test")
 class UserServiceTest {
     @Autowired

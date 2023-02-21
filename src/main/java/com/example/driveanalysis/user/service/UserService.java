@@ -9,15 +9,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
     // 스프링이 책임지고 PasswordEncoder 타입의 객체를 만들어야 하는 상황
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public SiteUser create(String username, String email, String password) throws SignupUsernameDuplicatedException, SignupEmailDuplicatedException {
         SiteUser user = new SiteUser();
         user.setUsername(username);
@@ -43,11 +46,13 @@ public class UserService {
         return this.userRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
     }
 
+    @Transactional
     public void update(SiteUser users, String password) {
         users.setPassword(passwordEncoder.encode(password));
         userRepository.save(users);
     }
 
+    @Transactional
     public void setProductPayTrue(SiteUser orderer) {
         orderer.setProductPaid(true);
         userRepository.save(orderer);
