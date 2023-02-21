@@ -19,6 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductOrderService {
     private final ProductOrderRepository productOrderRepository;
     private final CartItemRepository cartItemRepository;
@@ -50,7 +51,7 @@ public class ProductOrderService {
     public ProductOrder findProductOrder(long orderId) {
         return productOrderRepository.findById(orderId).orElseThrow(() -> new DataNotFoundException("order not found"));
     }
-
+    @Transactional
     public void payTossPayments(ProductOrder productOrder){
         int pgPay = productOrder.calculatePay();
         cashLogService.addCash(productOrder.getOrderer(),pgPay,"주문__%d__충전__토스페이먼츠".formatted(productOrder.getId()));
