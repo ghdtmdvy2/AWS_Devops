@@ -10,15 +10,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductService {
     private final ProductRepository productRepository;
 
+    @Transactional
     public Product create(String subject, String content, int price, SiteUser user, int stock){
         Product product = new Product();
         product.setAuthor(user);
@@ -39,6 +42,7 @@ public class ProductService {
         return productRepository.findById(productId).orElseThrow(() -> new DataNotFoundException("product not found"));
     }
 
+    @Transactional
     public Product modify(Product product, String subject, String content, int price) {
         product.setSubject(subject);
         product.setContent(content);
@@ -47,6 +51,7 @@ public class ProductService {
         return product;
     }
 
+    @Transactional
     public void delete(long productId) {
         productRepository.deleteById(productId);
     }
