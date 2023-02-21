@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -29,7 +30,7 @@ public class Article extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<SiteUser> voter;
 
     private Integer hitCount;
@@ -42,5 +43,26 @@ public class Article extends BaseTimeEntity {
 
     public String getJdenticon() {
         return "article__" + getId();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Article)) {
+            return false;
+        }
+
+        Article other = (Article) obj;
+        return Objects.equals(this.id, other.id)
+                && Objects.equals(this.subject,other.subject)
+                && Objects.equals(this.content,other.content)
+                && Objects.equals(this.hitCount,other.hitCount);
     }
 }

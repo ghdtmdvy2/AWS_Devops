@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@Transactional
 @ActiveProfiles("test")
 class ArticleServiceTest {
     @Autowired
@@ -53,7 +52,8 @@ class ArticleServiceTest {
         assertThat(findArticle.getContent()).isEqualTo(content);
         assertThat(article.getHitCount()).isEqualTo(0);
         assertThat(article.getVoter().size()).isEqualTo(0);
-        assertThat(findArticle.getAuthor()).isEqualTo(user);
+        SiteUser author = findArticle.getAuthor();
+        assertThat(author.equals(user)).isTrue();
     }
 
     @Test
@@ -94,12 +94,7 @@ class ArticleServiceTest {
     public void increase_article_voter(){
         SiteUser user1 = userService.getUser("user1");
         SiteUser user2 = userService.getUser("user2");
-        String subject = "제목1";
-        String content = "내용1";
-        Article article = articleService.create(subject,content,user1);
-        assertThat(article.getSubject()).isEqualTo(subject);
-        assertThat(article.getContent()).isEqualTo(content);
-        assertThat(article.getHitCount()).isEqualTo(0);
+        Article article = articleService.getArticle(4);
         assertThat(article.getVoter().size()).isEqualTo(0);
         articleService.vote(article,user1);
         assertThat(article.getVoter().size()).isEqualTo(1);

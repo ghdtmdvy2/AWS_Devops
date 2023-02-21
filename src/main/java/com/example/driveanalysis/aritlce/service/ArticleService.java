@@ -72,10 +72,9 @@ public class ArticleService {
     public void delete(Article article) {
         this.articleRepository.delete(article);
     }
-    @Transactional
+
     public void vote(Article article, SiteUser siteUser) {
         article.getVoter().add(siteUser);
-
         articleRepository.save(article);
     }
 }
