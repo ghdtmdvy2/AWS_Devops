@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
@@ -44,11 +46,12 @@ public class ArticleService {
         Article article = o_article.get();
         return article;
     }
+    @Transactional
     public void articleIncreaseHitCount(Article article){
         article.setHitCount(article.getHitCount() + 1);
         articleRepository.save(article);
     }
-
+    @Transactional
     public Article create(String subject, String content, SiteUser author) {
         Article a = new Article();
         a.setSubject(subject);
@@ -59,17 +62,17 @@ public class ArticleService {
         articleRepository.save(a);
         return a;
     }
-
+    @Transactional
     public void modify(Article article, String subject, String content) {
         article.setSubject(subject);
         article.setContent(content);
         articleRepository.save(article);
     }
-
+    @Transactional
     public void delete(Article article) {
         this.articleRepository.delete(article);
     }
-
+    @Transactional
     public void vote(Article article, SiteUser siteUser) {
         article.getVoter().add(siteUser);
 
