@@ -116,7 +116,7 @@ public class ProductOrderController {
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             userContext.principalSetProductPaid();
             productOrderService.payTossPayments(order);
-            return "redirect:/order/list";
+            return "redirect:/order/";
         } else {
             JsonNode failNode = responseEntity.getBody();
             model.addAttribute("message", failNode.get("message").asText());
