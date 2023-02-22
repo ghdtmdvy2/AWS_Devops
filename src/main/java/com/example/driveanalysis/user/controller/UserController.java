@@ -35,12 +35,12 @@ public class UserController {
 
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/signup")
+    @GetMapping("/")
     public String signup(UserCreateForm userCreateForm) {
         return "user/signup_form";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/signup_form";
@@ -65,7 +65,7 @@ public class UserController {
 
         return "redirect:/";
     }
-    @GetMapping("/information/update")
+    @GetMapping("/information")
     @PreAuthorize("isAuthenticated()")
     String show_information_update(Model model, UserUpdateForm userUpdateForm, @AuthenticationPrincipal UserDetails userContext){
         SiteUser users = userService.getUser(userContext.getUsername());
@@ -74,7 +74,7 @@ public class UserController {
         return "user/information_update";
     }
 
-    @PostMapping("/information/update")
+    @PatchMapping("/information")
     @PreAuthorize("isAuthenticated()")
     String information_update(Model model, @Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, @AuthenticationPrincipal UserContext userContext, HttpSession session){
         SiteUser users = userService.getUser(userContext.getUsername());
@@ -102,7 +102,7 @@ public class UserController {
         return "user/login_form";
     }
 
-    @GetMapping("/information")
+    @GetMapping("/emotion")
     public String information(@AuthenticationPrincipal UserContext userContext, Model model, @RequestParam(defaultValue = "")String yearMonth){
 
         List<Emotion> users_emotions = emotionService.currentUserFindEmotions(userContext.getId(),yearMonth);
@@ -130,6 +130,6 @@ public class UserController {
         model.addAttribute("diff_emotion_happy",diffUserEmotionAvg[1]);
         model.addAttribute("diff_emotion_neutral",diffUserEmotionAvg[2]);
 
-        return "user/information";
+        return "user/emotion";
     }
 }

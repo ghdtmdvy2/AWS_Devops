@@ -44,7 +44,7 @@
                 </span>
             </a>
 
-            <a href="/user/signup" class="inline-flex" sec:authorize="isAnonymous()">
+            <a href="/user/" class="inline-flex" sec:authorize="isAnonymous()">
                 <i class="fa-solid fa-user-plus text-white"></i>
                 <span class="ml-[2px] hidden lg:block text-white">
                     회원가입
@@ -60,7 +60,14 @@
             <form name="logoutForm" method="POST" th:action="@{/user/logout}" hidden></form>
 
             <a href="/user/information" class="inline-flex" sec:authorize="isAuthenticated()">
-                <i class="fa-solid fa-user text-white"></i>
+                <i class="fa-solid fa-user-gear text-white"></i>
+
+                <span class="ml-[2px] hidden lg:block text-white">
+                    회원정보 수정
+                </span>
+            </a>
+            <a href="/user/emotion" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-chart-pie text-white"></i>
 
                 <span class="ml-[2px] hidden lg:block text-white">
                     감정 분석 그래프
@@ -75,7 +82,7 @@
                 </span>
             </a>
 
-            <form href="/article/" class="inline-flex" method="get">
+            <form th:action="@{/article/}" class="inline-flex" method="get">
                 <input type="text" name="redirectURL" th:value="${#request.requestURI}" hidden>
 
                     <i class="fa-solid fa-pen text-white"></i>
@@ -86,7 +93,7 @@
                 </button>
             </form>
 
-            <a href="/article/list" class="inline-flex">
+            <a href="/article/" class="inline-flex">
                 <i class="fa-solid fa-rectangle-list text-white"></i>
                 <span class="ml-[2px] hidden lg:block text-white">
                     글 목록

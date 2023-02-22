@@ -34,7 +34,7 @@ class UserControllerTest {
     @Test
     void getSignup() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/user/signup"))
+                .perform(get("/user/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -46,7 +46,7 @@ class UserControllerTest {
     @Test
     void postSignup() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/user/signup")
+                .perform(post("/user/")
                         .with(csrf())
                         .param("username", "user999")
                         .param("password1", "1234")
@@ -66,7 +66,7 @@ class UserControllerTest {
     @Test
     void two_password_mismatch_signup() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/user/signup")
+                .perform(post("/user/")
                         .with(csrf())
                         .param("username", "user888")
                         .param("password1", "1234")
@@ -84,7 +84,7 @@ class UserControllerTest {
     @WithUserDetails("user1")
     void get_information_update() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/user/information/update")                )
+                .perform(get("/user/information"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -97,7 +97,7 @@ class UserControllerTest {
     @WithUserDetails("user1")
     void post_information_update() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/user/information/update")
+                .perform(patch("/user/information")
                         .with(csrf())
                         .param("oldPassword", "1234")
                         .param("password", "4231")

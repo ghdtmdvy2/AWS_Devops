@@ -4,12 +4,14 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <div class="my-3 border-bottom">
         <div>
             <h4>회원정보 수정</h4>
         </div>
     </div>
-    <form th:action="@{/user/information/update}" th:object="${userUpdateForm}" method="post">
+    <form th:action="@{/user/information}" th:object="${userUpdateForm}" th:method="patch">
         <div th:replace="form_errors :: formErrorsFragment"></div>
         <div class="mb-3">
             <label class="form-label">현재 비밀번호</label>
