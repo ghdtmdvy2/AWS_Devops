@@ -1,5 +1,6 @@
 package com.example.driveanalysis.product.controller;
 
+import com.example.driveanalysis.order.service.ProductOrderService;
 import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.product.dto.ProductForm;
 import com.example.driveanalysis.product.entity.Product;
@@ -21,9 +22,10 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ProductOrderService productOrderService;
 
     private final UserService userService;
-    @GetMapping("/list")
+    @GetMapping("/")
     public String showProductList(Model model, @RequestParam(defaultValue = "0") int page){
         Page<Product> productList = productService.getAllProduct(page);
         model.addAttribute("productList",productList);
@@ -36,23 +38,21 @@ public class ProductController {
         model.addAttribute("product",product);
         return "product/product_detail";
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/create")
+    @GetMapping(value = "/", params = "redirectURL")
     public String showCreateProduct(ProductForm productForm){
         return "product/product_form";
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/create")
+    @PostMapping("/")
     public String createProduct(@Valid ProductForm productForm, @AuthenticationPrincipal UserContext userContext){
         SiteUser user = userService.getUser(userContext.getUsername());
         productService.create(productForm.getSubject(),productForm.getContent(), productForm.getPrice(), user,productForm.getStock());
-        return "redirect:/product/list";
+        return "redirect:/product/";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/delete")
-    public String deleteProduct(long productId, @AuthenticationPrincipal UserContext userContext){
+    @DeleteMapping("/{productId}")
+    public String deleteProduct(@PathVariable long productId, @AuthenticationPrincipal UserContext userContext){
+        productOrderService.deleteOrderItemByProductId(productId);
         productService.delete(productId);
-        return "redirect:/product/list";
+        return "redirect:/product/";
     }
 }

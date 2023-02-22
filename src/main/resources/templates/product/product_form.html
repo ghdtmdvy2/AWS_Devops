@@ -4,7 +4,7 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container">
-    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
+    <h5 class="my-3 border-bottom pb-2">상품등록</h5>
     <form th:action="@{''}" th:object="${productForm}" method="post">
         <div th:replace="form_errors :: formErrorsFragment"></div>
 
@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">재고</label>
-            <input type="text" th:field="*{subject}" class="form-control">
+            <input type="text" th:field="*{stock}" class="form-control">
         </div>
         <div class="mb-3">
             <label class="form-label">내용</label>
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">가격</label>
-            <input type="text" th:field="*{subject}" class="form-control">
+            <input type="text" th:field="*{price}" class="form-control">
         </div>
         <input type="submit" value="등록하기" class="btn btn-primary my-2">
     </form>

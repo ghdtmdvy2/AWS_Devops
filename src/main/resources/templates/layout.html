@@ -99,15 +99,18 @@
                     글 목록
                 </span>
             </a>
+            <form th:action="@{/product/}" class="inline-flex" method="get" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <input type="text" name="redirectURL" th:value="${#request.requestURI}" hidden>
 
-            <a href="/product/create" class="inline-flex" sec:authorize="hasAuthority('ROLE_ADMIN')">
                 <i class="fa-solid fa-book-medical text-white"></i>
-                <span class="ml-[2px] hidden lg:block text-white">
-                    제품 등록
-                </span>
-            </a>
+                <button>
+                    <span class="ml-[2px] hidden lg:block text-white">
+                        제품 등록
+                    </span>
+                </button>
+            </form>
 
-            <a href="/product/list" class="inline-flex">
+            <a href="/product/" class="inline-flex">
                 <i class="fa-solid fa-microchip text-white"></i>
                 <span class="ml-[2px] hidden lg:block text-white">
                     제품 목록

@@ -6,6 +6,7 @@ import com.example.driveanalysis.cartitem.repository.CartItemRepository;
 import com.example.driveanalysis.cashLog.service.CashLogService;
 import com.example.driveanalysis.order.entity.OrderItem;
 import com.example.driveanalysis.order.entity.ProductOrder;
+import com.example.driveanalysis.order.repository.OrderItemRepository;
 import com.example.driveanalysis.order.repository.ProductOrderRepository;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
@@ -25,6 +26,7 @@ public class ProductOrderService {
     private final CartItemRepository cartItemRepository;
     private final CashLogService cashLogService;
     private final UserService userService;
+    private final OrderItemRepository orderItemRepository;
     @Transactional
     public ProductOrder createFromCartProductOrder(SiteUser orderer){
 
@@ -64,5 +66,9 @@ public class ProductOrderService {
 
     public List<ProductOrder> findProductOrders(long userId) {
         return productOrderRepository.findByIsPaidTrueAndOrdererId(userId);
+    }
+
+    public void deleteOrderItemByProductId(long productId) {
+        orderItemRepository.deleteAllByProductId(productId);
     }
 }

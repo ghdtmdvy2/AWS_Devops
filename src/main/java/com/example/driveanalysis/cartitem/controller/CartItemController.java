@@ -37,7 +37,7 @@ public class CartItemController {
         SiteUser user = userService.getUser(userContext.getUsername());
         Product product = productService.getProduct(productId);
         cartItemService.addCartItem(product,user, amount);
-        return "redirect:/product/list";
+        return "redirect:/product/";
     }
 
     @PreAuthorize("isAuthenticated()")

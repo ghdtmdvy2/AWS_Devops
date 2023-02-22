@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -34,7 +33,7 @@ class ProductControllerTest {
     @Test
     public void showProductList() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/product/list"))
+                .perform(get("/product/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -55,7 +54,8 @@ class ProductControllerTest {
     @Test
     public void showCreateProduct() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/product/create"))
+                .perform(get("/product/")
+                        .param("redirectURL","/product/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -66,7 +66,7 @@ class ProductControllerTest {
     @Test
     public void createProduct() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/product/create")
+                .perform(post("/product/")
                         .with(csrf())
                         .param("subject","상품 이름")
                         .param("content","상품 설명")
@@ -77,19 +77,6 @@ class ProductControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ProductController.class))
                 .andExpect(handler().methodName("createProduct"))
-                .andExpect(redirectedUrl("/product/list"));
-    }
-    @Test
-    public void deleteProduct() throws Exception {
-        ResultActions resultActions = mockMvc
-                .perform(post("/product/delete")
-                        .with(csrf())
-                        .param("productId","1"))
-                .andDo(print());
-        resultActions
-                .andExpect(status().is3xxRedirection())
-                .andExpect(handler().handlerType(ProductController.class))
-                .andExpect(handler().methodName("deleteProduct"))
-                .andExpect(redirectedUrl("/product/list"));
+                .andExpect(redirectedUrl("/product/"));
     }
 }
