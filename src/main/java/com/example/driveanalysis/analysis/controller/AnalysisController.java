@@ -32,16 +32,16 @@ public class AnalysisController {
     private final AnalysisService analysisService;
     private final UserService userService;
 
-    @GetMapping("/list/{id}")
-    public String list(@RequestParam(defaultValue = "") String kw, @RequestParam(defaultValue = "") String sortCode, Model model, @RequestParam(defaultValue = "0") int page,@PathVariable long id) {
-        Page<Analysis> paging = analysisService.getAnalysisList(kw, page, sortCode, id);
+    @GetMapping("/{userId}")
+    public String list(@RequestParam(defaultValue = "") String kw, @RequestParam(defaultValue = "") String sortCode, Model model, @RequestParam(defaultValue = "0") int page,@PathVariable long userId) {
+        Page<Analysis> paging = analysisService.getAnalysisList(kw, page, sortCode, userId);
 
         model.addAttribute("paging", paging);
 
         return "analysis/analysis_list";
     }
 
-    @GetMapping("/detail/{analysisId}")
+    @GetMapping("/{userId}/{analysisId}")
     public String detail(Model model, @PathVariable long analysisId, AnswerForm answerForm) {
         Analysis analysis = analysisService.getAnalysis(analysisId);
 

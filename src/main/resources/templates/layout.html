@@ -67,7 +67,7 @@
                 </span>
             </a>
 
-            <a th:href="@{|/analysis/list/${#authentication.getPrincipal().getId()}|}" class="inline-flex" sec:authorize="isAuthenticated()">
+            <a th:href="@{|/analysis/${#authentication.getPrincipal().getId()}|}" class="inline-flex" sec:authorize="isAuthenticated()">
                 <i class="fa-solid fa-user text-white"></i>
 
                 <span class="ml-[2px] hidden lg:block text-white">

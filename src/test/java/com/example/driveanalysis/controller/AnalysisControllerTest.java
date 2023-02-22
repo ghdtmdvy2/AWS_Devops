@@ -27,7 +27,7 @@ class AnalysisControllerTest {
     @WithUserDetails("user1")
     void get_analysis_list() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/analysis/list/1"))
+                .perform(get("/analysis/1"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -39,7 +39,7 @@ class AnalysisControllerTest {
     @WithUserDetails("user1")
     void get_detail_analysis() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/analysis/detail/1"))
+                .perform(get("/analysis/2/1"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())

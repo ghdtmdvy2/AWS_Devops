@@ -43,7 +43,7 @@
         <tr th:each="analysis, loop : ${paging}">
             <td th:text="${analysis.id}"></td>
             <td>
-                <a th:href="@{|/analysis/detail/${analysis.id}|}" th:text="@{|${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm ')} 감정 분석그래프|}"></a>
+                <a th:href="@{|/analysis/${#authentication.getPrincipal().getId()}/${analysis.id}|}" th:text="@{|${#temporals.format(analysis.createdDate, 'yy-MM-dd HH:mm ')} 감정 분석그래프|}"></a>
             </td>
         </tr>
         </tbody>
