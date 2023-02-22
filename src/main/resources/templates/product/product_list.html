@@ -57,7 +57,7 @@
                                         <span class="ml-2">장바구니</span>
                                     </a>
 
-                                    <form th:action="@{|/cartItem/create/${product.id}|}" method="POST"></form>
+                                    <form th:action="@{|/cartItem/${product.id}|}" method="POST"></form>
 
                                     <a th:href="@{|/product/${product.id}|}" class="btn btn-sm">
                                         <i class="fa-solid fa-eye"></i>

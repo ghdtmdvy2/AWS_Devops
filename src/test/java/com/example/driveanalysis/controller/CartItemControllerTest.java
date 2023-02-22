@@ -12,9 +12,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -29,7 +28,7 @@ class CartItemControllerTest {
     @Test
     public void non_member_cartItem_confirm() throws Exception {
         ResultActions resultActions = mockMvc.
-                perform(get("/cartItem/list"))
+                perform(get("/cartItem/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is3xxRedirection())
@@ -41,7 +40,7 @@ class CartItemControllerTest {
     @WithUserDetails("user1")
     public void member_cartItem_confirm() throws Exception {
         ResultActions resultActions = mockMvc.
-                perform(get("/cartItem/list"))
+                perform(get("/cartItem/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -53,7 +52,7 @@ class CartItemControllerTest {
     @WithUserDetails("user1")
     public void member_cartItem_add() throws Exception {
         ResultActions resultActions = mockMvc.
-                perform(post("/cartItem/create/1")
+                perform(post("/cartItem/1")
                         .with(csrf())
                         .param("productId","1")
                         .param("amount","1"))
@@ -69,7 +68,7 @@ class CartItemControllerTest {
     @WithUserDetails("user3")
     public void member_cartItem_delete() throws Exception {
         ResultActions resultActions = mockMvc.
-                perform(post("/cartItem/removeItems")
+                perform(delete("/cartItem/")
                         .with(csrf())
                         .param("ids","9,12"))
                 .andDo(print());
@@ -77,6 +76,6 @@ class CartItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(CartItemController.class))
                 .andExpect(handler().methodName("removeItems"))
-                .andExpect(redirectedUrl("/cartItem/list"));
+                .andExpect(redirectedUrl("/cartItem/"));
     }
 }

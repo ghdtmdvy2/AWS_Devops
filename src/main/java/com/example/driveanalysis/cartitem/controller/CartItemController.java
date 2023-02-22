@@ -24,7 +24,7 @@ public class CartItemController {
     private final UserService userService;
     private final ProductService productService;
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/list")
+    @GetMapping("/")
     public String showCartItem(@AuthenticationPrincipal UserContext userContext, Model model){
         List<CartItem> cartItems = cartItemService.findCartItems(userContext.getId());
         model.addAttribute("cartItems",cartItems);
@@ -32,7 +32,7 @@ public class CartItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create/{productId}")
+    @PostMapping("/{productId}")
     public String createCartItem(@AuthenticationPrincipal UserContext userContext, @PathVariable long productId, @RequestParam(defaultValue = "1") int amount){
         SiteUser user = userService.getUser(userContext.getUsername());
         Product product = productService.getProduct(productId);
@@ -41,19 +41,19 @@ public class CartItemController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/removeItems")
+    @DeleteMapping("/")
     public String removeItems(String ids, String amounts){
         String idBits[] = ids.split(",");
         for (String cartItemId : idBits){
             cartItemService.deleteCartItem(Long.parseLong(cartItemId));
         }
-        return "redirect:/cartItem/list";
+        return "redirect:/cartItem/";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/increaseQuantity/{cartItemId}")
+    @PatchMapping("/{cartItemId}")
     @ResponseBody
-    public void renewCartItem(@PathVariable long cartItemId, String type){
+    public void renewQuantityCartItem(@PathVariable long cartItemId, String type){
         cartItemService.renewCartItemsQuantity(cartItemId,type);
         return;
     }

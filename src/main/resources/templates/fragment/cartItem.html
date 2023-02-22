@@ -3,9 +3,9 @@
 
 <body>
 <th:block th:fragment="cartItem">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <div class="card bg-base-100 shadow-xl pt-8">
+        <input type="checkbox" class="Cart_ItemCheckbox checkbox ml-4"
+               th:value="${item.id}">
         <a th:href="@{|/product/${product.id}|}" class="block">
             <figure>
                 <svg width="200" height="200" th:data-jdenticon-value="${product.jdenticon}"></svg>
