@@ -27,7 +27,7 @@ public class ArticleController {
     private final ArticleService articleService;
     private final UserService userService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String list(@RequestParam(defaultValue = "") String kw, @RequestParam(defaultValue = "") String sortCode, Model model, @RequestParam(defaultValue = "0") int page) {
         Page<Article> paging = articleService.getList(kw, page, sortCode);
 
@@ -36,9 +36,9 @@ public class ArticleController {
         return "article/article_list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id, AnswerForm answerForm) {
-        Article article = articleService.getArticle(id);
+    @GetMapping("/{articleId}")
+    public String detail(Model model, @PathVariable long articleId, AnswerForm answerForm) {
+        Article article = articleService.getArticle(articleId);
         articleService.articleIncreaseHitCount(article);
         model.addAttribute("article", article);
 
@@ -46,9 +46,9 @@ public class ArticleController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify/{id}")
-    public String articleModify(ArticleForm articleForm, @PathVariable("id") Integer id, Principal principal) {
-        Article article = this.articleService.getArticle(id);
+    @GetMapping(value = "/{articleId}",params = "redirectURL")
+    public String articleModify(ArticleForm articleForm, @PathVariable("articleId") long articleId, Principal principal, @RequestParam("redirectURL") String redirectURL) {
+        Article article = this.articleService.getArticle(articleId);
 
         if (!article.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
@@ -60,45 +60,45 @@ public class ArticleController {
         return "article/article_form";
     }
 
-    @PostMapping("/modify/{id}")
+    @PatchMapping("/{articleId}")
     public String articleModify(@Valid ArticleForm articleForm, BindingResult bindingResult,
-                                 Principal principal, @PathVariable("id") Integer id) {
+                                 Principal principal, @PathVariable("articleId") long articleId) {
         if (bindingResult.hasErrors()) {
             return "article/article_form";
         }
 
-        Article article = this.articleService.getArticle(id);
+        Article article = this.articleService.getArticle(articleId);
 
         if (!article.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.articleService.modify(article, articleForm.getSubject(), articleForm.getContent());
-        return String.format("redirect:/article/detail/%s", id);
+        return "redirect:/article/%d".formatted(articleId);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
+    @GetMapping(value = "/", params = "redirectURL")
     public String articleCreate(ArticleForm articleForm) {
-        return "article/article_form";
+        return "article/article_create";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
+    @PostMapping("/")
     public String articleCreate(Principal principal, Model model, @Valid ArticleForm articleForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "article/article_form";
+            return "article/article_create";
         }
 
         SiteUser siteUser = userService.getUser(principal.getName());
 
         articleService.create(articleForm.getSubject(), articleForm.getContent(), siteUser);
-        return "redirect:/article/list"; // 질문 저장후 질문목록으로 이동
+        return "redirect:/article/"; // 질문 저장후 질문목록으로 이동
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
-    public String articleDelete(Principal principal, @PathVariable("id") Integer id) {
-        Article article = articleService.getArticle(id);
+    @DeleteMapping("/{articleId}")
+    public String articleDelete(Principal principal, @PathVariable("articleId") long articleId) {
+        Article article = articleService.getArticle(articleId);
 
         if (!article.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
@@ -106,15 +106,15 @@ public class ArticleController {
 
         articleService.delete(article);
 
-        return "redirect:/article/list";
+        return "redirect:/article/";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}")
-    public String articleVote(Principal principal, @PathVariable("id") Long id) {
-        Article article = articleService.getArticle(id);
+    @GetMapping("/vote/{articleId}")
+    public String articleVote(Principal principal, @PathVariable("articleId") long articleId) {
+        Article article = articleService.getArticle(articleId);
         SiteUser siteUser = userService.getUser(principal.getName());
         articleService.vote(article, siteUser);
-        return "redirect:/article/detail/%d".formatted(id);
+        return "redirect:/article/%d".formatted(articleId);
     }
 }

@@ -75,12 +75,16 @@
                 </span>
             </a>
 
-            <a href="/article/create" class="inline-flex">
-                <i class="fa-solid fa-pen text-white"></i>
-                <span class="ml-[2px] hidden lg:block text-white">
-                    글 작성
-                </span>
-            </a>
+            <form href="/article/" class="inline-flex" method="get">
+                <input type="text" name="redirectURL" th:value="${#request.requestURI}" hidden>
+
+                    <i class="fa-solid fa-pen text-white"></i>
+                <button>
+                    <span class="ml-[2px] hidden lg:block text-white">
+                        글 작성
+                    </span>
+                </button>
+            </form>
 
             <a href="/article/list" class="inline-flex">
                 <i class="fa-solid fa-rectangle-list text-white"></i>

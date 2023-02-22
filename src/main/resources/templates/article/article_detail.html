@@ -7,6 +7,8 @@
 
 <body>
 <main layout:fragment="content">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <section class="section section-write container mx-auto">
 
         <div class="px-2 pt-4">
@@ -52,13 +54,17 @@
                 </div>
 
                 <div>
-                    <a sec:authorize="isAuthenticated()"
-                        th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.username}"
-                       th:href="@{|/article/${article.id}/modify|}"
-                       class="btn btn-secondary btn-sm btn-outline">
-                        <i class="fa-solid fa-eraser"></i>
-                        <span class="ml-1">수정</span>
-                    </a>
+                    <form sec:authorize="isAuthenticated()"
+                          th:action="@{|/article/${article.id}|}"
+                          th:method="get"
+                          class="btn btn-secondary btn-sm btn-outline"
+                          th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.username}">
+                        <input type="text" name="redirectURL" th:value="${#request.requestURI}" hidden>
+                        <button>
+                            <i class="fa-solid fa-eraser"></i>
+                            <span class="ml-1">수정</span>
+                        </button>
+                    </form>
                     <a sec:authorize="isAuthenticated()"
                         th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.username}" href="javascript:;"
                        onclick="if ( confirm('정말로 삭제하시겠습니까?') ) $(this).next().submit();"
@@ -66,7 +72,7 @@
                         <i class="fa-solid fa-trash"></i>
                         <span class="ml-1">삭제</span>
                     </a>
-                    <form th:action="@{|/article/${article.id}/remove|}" method="article" hidden></form>
+                    <form th:action="@{|/article/${article.id}|}" th:method="delete" hidden></form>
 
                     <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm  btn-outline">
                         <i class="fa-solid fa-angle-left"></i>
