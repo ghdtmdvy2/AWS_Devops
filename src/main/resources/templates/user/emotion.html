@@ -9,7 +9,7 @@
              class="section section-cart-items flex-grow flex items-center justify-center">
         <div class="text-center">
             <div>상품을 구매하지 않았거나 감정 분석을 진행하지 않으셨습니다.</div>
-            <a href="/product/list" class="block text-link mt-2"><i class="fa-solid fa-book"></i>제품 보러가기</a>
+            <a href="/product/" class="block text-link mt-2"><i class="fa-solid fa-book"></i>제품 보러가기</a>
         </div>
     </section>
     <section th:unless="${(users_angry == 0 && users_happy == 0 && users_neutral == 0) || #authentication.principal.ProductPaid == false}">

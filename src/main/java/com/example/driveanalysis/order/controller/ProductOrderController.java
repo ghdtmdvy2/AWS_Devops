@@ -41,7 +41,7 @@ public class ProductOrderController {
         this.SECRET_KEY = SECRET_KEY;
         this.objectMapper = objectMapper;
     }
-    @GetMapping("/list")
+    @GetMapping("/")
     public String showOrder(@AuthenticationPrincipal UserContext userContext, Model model){
         List<ProductOrder> productOrders = productOrderService.findProductOrders(userContext.getId());
         model.addAttribute("productOrders",productOrders);
@@ -59,7 +59,7 @@ public class ProductOrderController {
 
         return "order/order_detail";
     }
-    @PostMapping("/makeOrder")
+    @PostMapping("/")
     @PreAuthorize("isAuthenticated()")
     public String makeOrder(@AuthenticationPrincipal UserContext userContext) {
         SiteUser user = userContext.getUser();
