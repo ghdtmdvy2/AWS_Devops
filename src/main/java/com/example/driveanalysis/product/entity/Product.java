@@ -19,7 +19,7 @@ public class Product extends BaseTimeEntity {
     private int price;
     private boolean isOrderable;
     private int stock;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author;
 
     public String getJdenticon() {
