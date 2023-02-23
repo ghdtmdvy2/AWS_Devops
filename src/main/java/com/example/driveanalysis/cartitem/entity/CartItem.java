@@ -17,11 +17,11 @@ public class CartItem extends BaseTimeEntity {
     private Long id;
 
     // 한 유저의 장바구니가 담는 게 여러개
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser buyer;
 
     // 장바구니 하나에 상품 여러개
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     private int amount;
