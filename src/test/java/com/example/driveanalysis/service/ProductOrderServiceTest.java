@@ -55,6 +55,7 @@ class ProductOrderServiceTest {
         assertThat(orderItem3.getAmount()).isEqualTo(1);
     }
     @Test
+    @Transactional
     public void pay_toss_payments(){
         SiteUser user = userService.getUser("user3");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user);

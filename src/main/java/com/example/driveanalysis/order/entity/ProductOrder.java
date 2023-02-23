@@ -18,7 +18,7 @@ public class ProductOrder extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser orderer;
 
     private LocalDateTime payDate; // 결제날짜
@@ -29,7 +29,7 @@ public class ProductOrder extends BaseTimeEntity {
     private boolean isCanceled; // 취소여부
     private boolean isRefunded; // 환불여부
 
-    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public int calculatePay(){
