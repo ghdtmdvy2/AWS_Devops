@@ -46,7 +46,7 @@ public class AnswerController {
         Answer answer = answerService.create(article, answerForm.getContent(), siteUser);
         // 답변 등록 끝
 
-        return "redirect:/article/detail/%d#answer_%d".formatted(id, answer.getId());
+        return "redirect:/article/%d#answer_%d".formatted(id, answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -78,7 +78,7 @@ public class AnswerController {
 
         answerService.modify(answer, answerForm.getContent());
 
-        return "redirect:/article/detail/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
+        return "redirect:/article/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -92,7 +92,7 @@ public class AnswerController {
 
         answerService.delete(answer);
 
-        return "redirect:/article/detail/%d".formatted(answer.getArticle().getId());
+        return "redirect:/article/%d".formatted(answer.getArticle().getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -102,6 +102,6 @@ public class AnswerController {
         SiteUser siteUser = userService.getUser(principal.getName());
 
         answerService.vote(answer, siteUser);
-        return "redirect:/article/detail/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
+        return "redirect:/article/%d#answer_%d".formatted(answer.getArticle().getId(), answer.getId());
     }
 }
