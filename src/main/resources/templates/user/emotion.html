@@ -31,14 +31,17 @@
             </div>
         </section>
         <div th:if="${users_angry != 0 && users_happy != 0 && users_neutral != 0}">
-            <section style="display:flex; justify-content: center">
+            <div style="display: flex; flex-direction: row-reverse">
                 <div id="users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
                 <div id="other_users_piechart_3d" style="width: 900px; height: 500px; margin-top: auto; margin-bottom: auto;"></div>
-            </section>
-            <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
-            <div th:text="@{|다른 사람과 angry 수치가 약 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; margin-top: 100px"></div>
-            <div th:text="@{|다른 사람과 happy 수치가 약 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center"></div>
-            <div th:text="@{|다른 사람과 neutral 수치가 약 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block"></div>
+            </div>
+            <div style="display: flex; flex-direction: row">
+                <div id="columnchart_values" style="width: 900px; height: 300px; margin-top: auto; margin-bottom: auto; margin-left: 350px"></div>
+            </div>
+            <div th:text="@{|다른 사람과 angry 수치가 약 ${diff_emotion_angry}만큼 차이납니다.|}" style="text-align: center; padding-right: 200px; margin-top: 100px"></div>
+            <div th:text="@{|다른 사람과 happy 수치가 약 ${diff_emotion_happy}만큼 차이납니다.|}" style="text-align: center; padding-right: 200px";></div>
+            <div th:text="@{|다른 사람과 neutral 수치가 약 ${diff_emotion_neutral}만큼 차이납니다.|}" style="text-align: center; display: block; padding-right: 200px"></div>
+
         </div>
     </section>
     </body>
