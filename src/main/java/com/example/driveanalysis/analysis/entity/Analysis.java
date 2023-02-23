@@ -18,7 +18,7 @@ public class Analysis extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
-    @OneToMany(mappedBy = "analysis", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "analysis", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Emotion> emotionList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

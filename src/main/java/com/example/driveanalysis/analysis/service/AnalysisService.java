@@ -37,8 +37,9 @@ public class AnalysisService {
 
         return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
     }
+
     public Analysis getAnalysis(long analysisId) {
-        return analysisRepository.findById(analysisId)
+        return analysisRepository.findByAnalysisIds(analysisId)
                 .orElseThrow(() -> new DataNotFoundException("no %d analysis not found,".formatted(analysisId)));
     }
 
