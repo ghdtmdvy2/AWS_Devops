@@ -32,8 +32,8 @@
             <div class="mt-2 flex flex-col gap-2">
                 <div class="badge badge-outline" th:text="|주문번호 : ${order.id}번|"></div>
                 <h2 class="flex mt-1">
-                    <i class="fa-solid fa-book-open"></i>
-<!--                    <span class="ml-1" th:text="${order.name}"></span>-->
+                    <i class="fa-solid fa-microchip"></i>
+                    <span class="ml-1" th:text="${order.name}"></span>
                 </h2>
                 <div th:text="|￦ ${order.calculatePay}|"></div>
                 <div class="flex justify-end gap-1">
@@ -60,17 +60,16 @@
                 </div>
 
                 <h2 class="font-bold text-lg">
-                    <i class="fa-solid fa-book"></i>
-                    도서 목록
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    주문 목록
                 </h2>
 
-<!--                <div class="mt-2">-->
-<!--                    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">-->
-<!--                        <li th:each="orderItem : ${order.orderItems}" th:with="product = ${orderItem.product}">-->
-<!--                            <th:block th:replace="fragment/orderItem :: orderItem"></th:block>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </div>-->
+                <div class="mt-2">
+                    <ul th:each="orderItem,i : ${order.orderItems}" th:with="product = ${orderItem.product}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                        <li th:text="@{|${i.index+1}. ${product.subject} : 수량 ${orderItem.amount}|}">
+                        </li>
+                    </ul>
+                </div>
 
                 <h2 class="font-bold text-lg mt-10">
                     <i class="fa-regular fa-credit-card"></i>
