@@ -37,7 +37,7 @@ class AnswerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("detail"))
-                .andExpect(redirectedUrlPattern("/article/detail/1#*"));
+                .andExpect(redirectedUrlPattern("/article/1#*"));
     }
 
     @Test
@@ -65,7 +65,7 @@ class AnswerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("answerModify"))
-                .andExpect(redirectedUrlPattern("/article/detail/1#*"));
+                .andExpect(redirectedUrlPattern("/article/1#*"));
     }
 
     @Test
@@ -78,6 +78,6 @@ class AnswerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("answerDelete"))
-                .andExpect(redirectedUrl("/article/detail/1"));
+                .andExpect(redirectedUrl("/article/1"));
     }
 }

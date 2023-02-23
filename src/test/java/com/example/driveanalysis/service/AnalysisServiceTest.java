@@ -36,6 +36,7 @@ class AnalysisServiceTest {
         assertThat(analysis.getAuthor()).isEqualTo(user);
     }
 
+    @Transactional
     @Test
     public void get_analysis(){
         SiteUser user = userService.getUser("user1");

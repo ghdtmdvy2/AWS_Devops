@@ -61,7 +61,7 @@ class CartItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(CartItemController.class))
                 .andExpect(handler().methodName("createCartItem"))
-                .andExpect(redirectedUrl("/product/list"));
+                .andExpect(redirectedUrl("/product/"));
     }
 
     @Test

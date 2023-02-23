@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Transactional
 class ProductOrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -39,10 +38,10 @@ class ProductOrderControllerTest {
                 .andExpect(handler().methodName("showDetail"));
     }
     @Test
-    @WithUserDetails("user1")
+    @WithUserDetails("user2")
     void makeOrder() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/order/makeOrder")
+                .perform(post("/order/")
                         .with(csrf()))
                 .andDo(print());
         resultActions
@@ -56,7 +55,7 @@ class ProductOrderControllerTest {
     @WithUserDetails("user1")
     void showOrder() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/order/list"))
+                .perform(get("/order/"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())

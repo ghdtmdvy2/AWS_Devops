@@ -90,6 +90,7 @@ class ArticleServiceTest {
         }
         assertThat(false).isFalse();
     }
+    @Transactional
     @Test
     public void increase_article_voter(){
         SiteUser user1 = userService.getUser("user1");
