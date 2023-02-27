@@ -1,9 +1,30 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+		// jacoco version 설정.
+		jacocoVersion = '0.8.7'
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		// sonarQube plugin 설정.
+		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1"
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
 }
 
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
 group = 'com.ll.exam'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -42,7 +63,45 @@ dependencies {
 	implementation 'mysql:mysql-connector-java'
 
 }
+// jacoco 버전 설정.
+jacoco{
+	toolVersion = "${jacocoVersion}"
+}
+// 어떤 형태로 출력을 할 지.
+jacocoTestReport {
+	reports{
+		html.enabled=true
+		xml.enabled=true
+		csv.enabled=true
+	}
+}
+// 한글 파일이나 데이터들을 들어왔을 때 인코딩 해주는 설정.
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// sonarQube 에 대한 내용.
+sonarqube {
+	properties {
+		// Spring boot 라는 projectName 명시.
+		property "sonar.projectName","SpringBoot Code Coverage Demo"
+		property "sonar.exclusions", "**/generated-*/**/*"
+		property "sonar.projectKey", "org.sonarqubeJacocoCodeCoverage"
+		property "sonar.reportPath" , "${project.buildDir}/jacoco/test.exec"
+		// sonarQube 에 대한 URL 설정.
+		property "sonar.host.url", "http://172.32.12.118:9000"
+		// 해당 sonarQube src 파일 설정.
+		property "sonar.sources", "src/main/java"
+		// 해당 sonarQube test 파일 설정.
+		property "sonar.tests", "src/test/java"
+		// 해당 sonarQube 의 계정 설정.
+		property "sonar.login", "test"
+		property "sonar.password", "test"
+	}
+}
+
+tasks['sonarqube'].dependsOn test
