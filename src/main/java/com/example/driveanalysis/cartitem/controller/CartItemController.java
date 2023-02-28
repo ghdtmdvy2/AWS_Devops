@@ -43,7 +43,7 @@ public class CartItemController {
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/")
     public String removeItems(String ids, String amounts){
-        String idBits[] = ids.split(",");
+        String[] idBits = ids.split(",");
         for (String cartItemId : idBits){
             cartItemService.deleteCartItem(Long.parseLong(cartItemId));
         }
@@ -55,6 +55,5 @@ public class CartItemController {
     @ResponseBody
     public void renewQuantityCartItem(@PathVariable long cartItemId, String type){
         cartItemService.renewCartItemsQuantity(cartItemId,type);
-        return;
     }
 }
