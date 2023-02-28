@@ -23,6 +23,7 @@ public interface InitDataBefore {
         SiteUser user3 = userService.create("user3", "user3@test.com", "1234");
         SiteUser user4 = userService.create("user4", "user4@test.com", "1234");
         SiteUser user5 = userService.create("user5", "user5@test.com", "1234");
+        SiteUser user6 = userService.create("user6", "user6@test.com", "1234");
 
         Article article1 = articleService.create("제목1", "내용1", user1);
         Article article2 = articleService.create("제목2","내용2", user1);
@@ -47,36 +48,21 @@ public interface InitDataBefore {
         Product product3 = productService.create("제품 조립", "제품 조립을 한 상태로 드립니다.", 3, user2, 150);
         Product product4 = productService.create("제품 설치", "제품을 설치를 할 수 있습니다.", 1, user2, 150);
 
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product2,user1,1);
-        cartItemService.addCartItem(product3,user1,1);
+        testCartItemCreate(cartItemService,product1,product2,product3,user1);
 
         ProductOrder fromCartProductOrder1 = productOrderService.createFromCartProductOrder(user1);
         productOrderService.payTossPayments(fromCartProductOrder1);
 
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product2,user1,1);
-        cartItemService.addCartItem(product3,user1,1);
+        testCartItemCreate(cartItemService,product1,product2,product3,user1);
 
         ProductOrder fromCartProductOrder2 = productOrderService.createFromCartProductOrder(user1);
         productOrderService.payTossPayments(fromCartProductOrder2);
 
-        cartItemService.addCartItem(product1,user3,1);
-        cartItemService.addCartItem(product1,user3,1);
-        cartItemService.addCartItem(product2,user3,1);
-        cartItemService.addCartItem(product3,user3,1);
-
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product1,user1,1);
-        cartItemService.addCartItem(product2,user1,1);
-        cartItemService.addCartItem(product3,user1,1);
-
-        cartItemService.addCartItem(product1,user2,1);
-        cartItemService.addCartItem(product1,user2,1);
-        cartItemService.addCartItem(product2,user2,1);
-        cartItemService.addCartItem(product3,user2,1);
+        testCartItemCreate(cartItemService,product1,product2,product3,user3);
+        testCartItemCreate(cartItemService,product1,product2,product3,user1);
+        testCartItemCreate(cartItemService,product1,product2,product3,user2);
+        testCartItemCreate(cartItemService,product1,product2,product3,user4);
+        testCartItemCreate(cartItemService,product1,product2,product3,user6);
     }
 
     private void testEmotionsCreate(EmotionService emotionService, Analysis analysis, boolean createConfirm) {
@@ -98,5 +84,11 @@ public interface InitDataBefore {
                 emotionService.testDataEmotionCreate(analysis,angry,happy,neutral,createDate);
             }
         }
+    }
+    private void testCartItemCreate(CartItemService cartItemService,Product product1,Product product2,Product product3, SiteUser user){
+        cartItemService.addCartItem(product1,user,1);
+        cartItemService.addCartItem(product1,user,1);
+        cartItemService.addCartItem(product2,user,1);
+        cartItemService.addCartItem(product3,user,1);
     }
 }

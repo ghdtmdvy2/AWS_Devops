@@ -34,7 +34,7 @@ class CartItemServiceTest {
     @Test
     @Transactional
     public void find_cartItem(){
-        SiteUser user = userService.getUser("user2");
+        SiteUser user = userService.getUser("user4");
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
@@ -57,7 +57,7 @@ class CartItemServiceTest {
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
         }
-        assertThat(cartItemAmount).isEqualTo(3);
+        assertThat(cartItemAmount).isEqualTo(7);
     }
 
     @Test
@@ -79,7 +79,7 @@ class CartItemServiceTest {
     @Test
     @Transactional
     public void increase_cartItems_quantity(){
-        SiteUser user = userService.getUser("user2");
+        SiteUser user = userService.getUser("user4");
         List<CartItem> prevCartItems = cartItemService.findCartItems(user.getId());
         CartItem cartItem = prevCartItems.get(0);
         int prevAmount = cartItem.getAmount();

@@ -39,8 +39,9 @@ class ProductOrderServiceTest {
     CashLogService cashLogService;
 
     @Test
+    @Transactional
     public void create_from_cart_productOrder(){
-        SiteUser user1 = userService.getUser("user1");
+        SiteUser user1 = userService.getUser("user6");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user1);
 
         OrderItem orderItem1 = productOrder.getOrderItems().get(0);
