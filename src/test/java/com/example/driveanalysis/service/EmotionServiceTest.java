@@ -14,7 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -32,23 +33,23 @@ class EmotionServiceTest {
         SiteUser user2 = userService.getUser("user2");
 
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(), "");
-        assertThat(emotionsUser1.size()).isPositive();
+        assertThat(emotionsUser1).isNotEmpty();
 
         List<Emotion> emotionsUser2 = emotionService.currentUserFindEmotions(user2.getId(), "");
-        assertThat(emotionsUser2.size()).isPositive();
+        assertThat(emotionsUser2).isNotEmpty();
     }
     @Test
     void entire_user_emotion_find(){
         List<Emotion> emotions = emotionService.allUsersFindEmotions("");
-        assertThat(emotions.size()).isPositive();
+        assertThat(emotions).isNotEmpty();
     }
     @Test
     void difference_emotion_between_current_user_entire_user_not_same(){
         SiteUser user1 = userService.getUser("user1");
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(),"");
-        assertThat(emotionsUser1.size()).isPositive();
+        assertThat(emotionsUser1).isNotEmpty();
         List<Emotion> emotionsEntireEmotion = emotionService.allUsersFindEmotions("");
-        assertThat(emotionsEntireEmotion.size()).isPositive();
+        assertThat(emotionsEntireEmotion).isNotEmpty();
 
         double[] emotionsAvgUser1 = Ut.emotionsAvgCreate(emotionsUser1);
         double[] emotionsAvgEntireUser = Ut.emotionsAvgCreate(emotionsEntireEmotion);

@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -48,7 +49,7 @@ class ArticleServiceTest {
         assertThat(article.getHitCount()).isZero();
         Article findArticle = articleService.getArticle(article.getId());
         assertThat(findArticle).isNotNull();
-        assertThat(findArticle.equals(article));
+        assertThat(findArticle).isEqualTo(article);
     }
 
     @Test
@@ -76,14 +77,13 @@ class ArticleServiceTest {
         String content = "내용1";
         Article article = articleService.create(subject,content,user);
         articleService.delete(article);
+        Article deleteArticle = null;
         try{
-            articleService.getArticle(article.getId());
+            deleteArticle = articleService.getArticle(article.getId());
         }
         catch (Exception e) {
-            assertThat(true).isTrue();
-            return;
         }
-        assertThat(false).isFalse();
+        assertThat(deleteArticle).isNull();
     }
     @Transactional
     @Test
@@ -91,7 +91,7 @@ class ArticleServiceTest {
         SiteUser user1 = userService.getUser("user1");
         SiteUser user2 = userService.getUser("user2");
         Article article = articleService.getArticle(4);
-        assertThat(article.getVoter().size()).isZero();
+        assertThat(article.getVoter()).isEmpty();
         articleService.vote(article,user1);
         assertThat(article.getVoter()).hasSize(1);
         articleService.vote(article,user2);
@@ -109,7 +109,7 @@ class ArticleServiceTest {
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
         assertThat(article.getHitCount()).isZero();
-        assertThat(article.getVoter().size()).isZero();
+        assertThat(article.getVoter()).isEmpty();
         articleService.articleIncreaseHitCount(article);
         assertThat(article.getHitCount()).isEqualTo(1);
     }
