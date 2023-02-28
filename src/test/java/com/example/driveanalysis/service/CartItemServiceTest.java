@@ -74,7 +74,7 @@ class CartItemServiceTest {
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
         }
-        assertThat(cartItemAmount).isEqualTo(0);
+        assertThat(cartItemAmount).isZero();
     }
     @Test
     @Transactional
@@ -85,6 +85,6 @@ class CartItemServiceTest {
         int prevAmount = cartItem.getAmount();
         String type = "plus";
         cartItemService.renewCartItemsQuantity(cartItem.getId(), type);
-        assertThat(cartItem.getAmount() == prevAmount + 1).isTrue();
+        assertThat(cartItem.getAmount()).isSameAs(prevAmount + 1);
     }
 }
