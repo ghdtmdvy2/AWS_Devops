@@ -32,10 +32,10 @@ public class AnalysisService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
 
         if ( kw == null || kw.trim().length() == 0 || kw.equals("null")) {
-            return analysisRepository.findAllByAuthor_Id(pageable,id);
+            return analysisRepository.findAllByAuthorId(pageable,id);
         }
 
-        return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthor_Id(kw, kw, kw, id, pageable);
+        return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthorId(kw, kw, kw, id, pageable);
     }
 
     public Analysis getAnalysis(long analysisId) {

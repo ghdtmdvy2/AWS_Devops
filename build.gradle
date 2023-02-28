@@ -83,7 +83,8 @@ tasks.withType(JavaCompile) {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
+// sonarQube run :
+// 			docker run --name sonarqube -d -p 9000:9000 sonarqube:latest
 // sonarQube 에 대한 내용.
 sonarqube {
 	properties {
