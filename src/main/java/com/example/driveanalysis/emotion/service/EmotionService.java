@@ -20,12 +20,12 @@ public class EmotionService {
         if (yearMonth == null || yearMonth.trim().length() == 0){
             return emotionRepository.findAllByAuthor_id(authorId);
         }
-        int monthEndDay = Ut.date.getEndDayOf(yearMonth);
+        int monthEndDay = Ut.Date.getEndDayOf(yearMonth);
 
         String fromDateStr = yearMonth + "-01 00:00:00.000000";
         String toDateStr = yearMonth + "-%02d 23:59:59.999999".formatted(monthEndDay);
-        LocalDateTime fromDate = Ut.date.parse(fromDateStr);
-        LocalDateTime toDate = Ut.date.parse(toDateStr);
+        LocalDateTime fromDate = Ut.Date.parse(fromDateStr);
+        LocalDateTime toDate = Ut.Date.parse(toDateStr);
 
         return emotionRepository.findAllByCreatedDateBetweenAndAuthor_id(fromDate,toDate,authorId);
     }
@@ -35,12 +35,12 @@ public class EmotionService {
         if (yearMonth == null || yearMonth.trim().length() == 0){
             return emotionRepository.findAll();
         }
-        int monthEndDay = Ut.date.getEndDayOf(yearMonth);
+        int monthEndDay = Ut.Date.getEndDayOf(yearMonth);
 
         String fromDateStr = yearMonth + "-01 00:00:00.000000";
         String toDateStr = yearMonth + "-%02d 23:59:59.999999".formatted(monthEndDay);
-        LocalDateTime fromDate = Ut.date.parse(fromDateStr);
-        LocalDateTime toDate = Ut.date.parse(toDateStr);
+        LocalDateTime fromDate = Ut.Date.parse(fromDateStr);
+        LocalDateTime toDate = Ut.Date.parse(toDateStr);
 
         return emotionRepository.findAllByCreatedDateBetween(fromDate,toDate);
     }
@@ -63,7 +63,7 @@ public class EmotionService {
         emotion.setAngry(angry);
         emotion.setHappy(happy);
         emotion.setNeutral(neutral);
-        LocalDateTime createDateEmotion = Ut.date.parse(createDate);
+        LocalDateTime createDateEmotion = Ut.Date.parse(createDate);
         emotion.setCreatedDate(createDateEmotion);
         emotionRepository.save(emotion);
     }
