@@ -31,7 +31,7 @@ public class EmotionService {
     }
 
 
-    public List<Emotion> AllUsersFindEmotions(String yearMonth) {
+    public List<Emotion> allUsersFindEmotions(String yearMonth) {
         if (yearMonth == null || yearMonth.trim().length() == 0){
             return emotionRepository.findAll();
         }

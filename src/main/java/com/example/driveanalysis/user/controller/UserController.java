@@ -106,7 +106,7 @@ public class UserController {
     public String information(@AuthenticationPrincipal UserContext userContext, Model model, @RequestParam(defaultValue = "")String yearMonth){
 
         List<Emotion> users_emotions = emotionService.currentUserFindEmotions(userContext.getId(),yearMonth);
-        List<Emotion> other_users_emotions = emotionService.AllUsersFindEmotions(yearMonth);
+        List<Emotion> other_users_emotions = emotionService.allUsersFindEmotions(yearMonth);
 
         double[] currentUserEmotionAvg = Ut.emotionsAvgCreate(users_emotions);
         double[] otherUserEmotionAvg = Ut.emotionsAvgCreate(other_users_emotions);

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ class EmotionServiceTest {
     }
     @Test
     public void entire_user_emotion_find(){
-        List<Emotion> emotions = emotionService.AllUsersFindEmotions("");
+        List<Emotion> emotions = emotionService.allUsersFindEmotions("");
         assertThat(emotions.size()).isGreaterThan(0);
     }
     @Test
@@ -48,7 +47,7 @@ class EmotionServiceTest {
         SiteUser user1 = userService.getUser("user1");
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(),"");
         assertThat(emotionsUser1.size()).isGreaterThan(0);
-        List<Emotion> emotionsEntireEmotion = emotionService.AllUsersFindEmotions("");
+        List<Emotion> emotionsEntireEmotion = emotionService.allUsersFindEmotions("");
         assertThat(emotionsEntireEmotion.size()).isGreaterThan(0);
 
         double[] emotionsAvgUser1 = Ut.emotionsAvgCreate(emotionsUser1);
