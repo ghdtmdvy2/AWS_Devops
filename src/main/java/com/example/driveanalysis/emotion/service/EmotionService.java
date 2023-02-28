@@ -18,7 +18,7 @@ public class EmotionService {
     private final EmotionRepository emotionRepository;
     public List<Emotion> currentUserFindEmotions(Long authorId, String yearMonth) {
         if (yearMonth == null || yearMonth.trim().length() == 0){
-            return emotionRepository.findAllByAuthor_id(authorId);
+            return emotionRepository.findAllByAuthorId(authorId);
         }
         int monthEndDay = Ut.Date.getEndDayOf(yearMonth);
 
@@ -27,7 +27,7 @@ public class EmotionService {
         LocalDateTime fromDate = Ut.Date.parse(fromDateStr);
         LocalDateTime toDate = Ut.Date.parse(toDateStr);
 
-        return emotionRepository.findAllByCreatedDateBetweenAndAuthor_id(fromDate,toDate,authorId);
+        return emotionRepository.findAllByCreatedDateBetweenAndAuthorId(fromDate,toDate,authorId);
     }
 
 
