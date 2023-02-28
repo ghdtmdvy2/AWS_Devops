@@ -57,7 +57,7 @@ public class ProductOrderService {
     public void payTossPayments(ProductOrder productOrder){
         int pgPay = productOrder.calculatePay();
         cashLogService.addCash(productOrder.getOrderer(),pgPay,"주문__%d__충전__토스페이먼츠".formatted(productOrder.getId()));
-        cashLogService.addCash(productOrder.getOrderer(),pgPay * -1,"주문__%d__사용__토스페이먼츠".formatted(productOrder.getId()));
+        cashLogService.addCash(productOrder.getOrderer(),(long) pgPay * -1,"주문__%d__사용__토스페이먼츠".formatted(productOrder.getId()));
         SiteUser orderer = productOrder.getOrderer();
         productOrder.setPaymentDone();
         productOrderRepository.save(productOrder);

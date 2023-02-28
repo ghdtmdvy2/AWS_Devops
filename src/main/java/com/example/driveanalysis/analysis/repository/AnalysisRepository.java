@@ -21,7 +21,7 @@ public interface AnalysisRepository extends JpaRepository<Analysis, Long> {
 
     Page<Analysis> findAllByAuthorId(Pageable pageable, long id);
 
-    Page<Analysis> findDistinctByAuthor_usernameContainsOrAuthorId(String kw, String kw1, String kw2, long id, Pageable pageable);
+    Page<Analysis> findDistinctByAuthorUsernameContainsOrAuthorId(String kw, String kw1, String kw2, long id, Pageable pageable);
 
     @EntityGraph(attributePaths = "emotionList")
     @Query(value = "select a from Analysis a where a.id = :analysisId")

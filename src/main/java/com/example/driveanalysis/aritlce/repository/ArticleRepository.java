@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Page<Article> findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContainsOrAnswerList_author_username(String kw, String kw_, String kw__, String kw___, String kw____, Pageable pageable);
+    Page<Article> findDistinctBySubjectContainsOrContentContainsOrAuthorUsernameContainsOrAnswerListContentContainsOrAnswerListAuthorUsername(String kw, String kw1, String kw2, String kw3, String kw4, Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = "answerList")

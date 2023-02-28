@@ -31,10 +31,10 @@ public class ProductOrderController {
     private final ProductOrderService productOrderService;
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper;
-    private final String SECRET_KEY;
-    ProductOrderController(@Value("${custom.tossPayments.secretKey}") String SECRET_KEY, ProductOrderService productOrderService, ObjectMapper objectMapper) {
+    private final String secretKey;
+    ProductOrderController(@Value("${custom.tossPayments.secretKey}") String secretKey, ProductOrderService productOrderService, ObjectMapper objectMapper) {
         this.productOrderService = productOrderService;
-        this.SECRET_KEY = SECRET_KEY;
+        this.secretKey = secretKey;
         this.objectMapper = objectMapper;
     }
     @GetMapping("/")
@@ -97,7 +97,7 @@ public class ProductOrderController {
         }
         HttpHeaders headers = new HttpHeaders();
         // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
-        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
+        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((secretKey + ":").getBytes()));
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> payloadMap = new HashMap<>();

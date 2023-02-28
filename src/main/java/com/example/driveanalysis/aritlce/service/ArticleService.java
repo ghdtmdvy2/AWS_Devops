@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,9 +27,10 @@ public class ArticleService {
     public Page<Article> getList(String kw, int page, String sortCode) {
         List<Sort.Order> sorts = new ArrayList<>();
 
-        switch (sortCode) {
-            case "OLD" -> sorts.add(Sort.Order.asc("id")); // 오래된순
-            default -> sorts.add(Sort.Order.desc("id")); // 최신순
+        if (sortCode.equals("OLD")) {
+            sorts.add(Sort.Order.asc("id")); // 오래된순
+        } else {
+            sorts.add(Sort.Order.desc("id")); // 최신순
         }
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
@@ -37,11 +39,15 @@ public class ArticleService {
             return articleRepository.findAll(pageable);
         }
 
-        return articleRepository.findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContainsOrAnswerList_author_username(kw, kw, kw, kw, kw, pageable);
+        return articleRepository.findDistinctBySubjectContainsOrContentContainsOrAuthorUsernameContainsOrAnswerListContentContainsOrAnswerListAuthorUsername(kw, kw, kw, kw, kw, pageable);
     }
 
     public Article getArticle(long id) {
-        Article article = articleRepository.findById(id).orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
+        Optional<Article> oArticle = articleRepository.findById(id);
+        if (oArticle.isEmpty()){
+            throw new DataNotFoundException("no %d question not found,".formatted(id));
+        }
+        Article article = oArticle.get();
         return article;
     }
     @Transactional

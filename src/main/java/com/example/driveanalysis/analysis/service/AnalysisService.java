@@ -36,7 +36,7 @@ public class AnalysisService {
             return analysisRepository.findAllByAuthorId(pageable,id);
         }
 
-        return analysisRepository.findDistinctByAuthor_usernameContainsOrAuthorId(kw, kw, kw, id, pageable);
+        return analysisRepository.findDistinctByAuthorUsernameContainsOrAuthorId(kw, kw, kw, id, pageable);
     }
 
     public Analysis getAnalysis(long analysisId) {
