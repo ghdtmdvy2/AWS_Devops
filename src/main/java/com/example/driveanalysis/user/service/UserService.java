@@ -1,10 +1,10 @@
 package com.example.driveanalysis.user.service;
 
-import com.example.driveanalysis.user.entity.SiteUser;
-import com.example.driveanalysis.user.repository.UserRepository;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.base.exception.SignupEmailDuplicatedException;
 import com.example.driveanalysis.base.exception.SignupUsernameDuplicatedException;
+import com.example.driveanalysis.user.entity.SiteUser;
+import com.example.driveanalysis.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;

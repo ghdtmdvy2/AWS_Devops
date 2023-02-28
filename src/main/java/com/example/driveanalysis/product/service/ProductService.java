@@ -1,10 +1,9 @@
 package com.example.driveanalysis.product.service;
 
 import com.example.driveanalysis.base.exception.DataNotFoundException;
-import com.example.driveanalysis.order.service.ProductOrderService;
-import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.product.repository.ProductRepository;
+import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

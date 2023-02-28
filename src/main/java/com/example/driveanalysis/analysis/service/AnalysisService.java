@@ -1,9 +1,9 @@
 package com.example.driveanalysis.analysis.service;
 
 import com.example.driveanalysis.analysis.entity.Analysis;
+import com.example.driveanalysis.analysis.repository.AnalysisRepository;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.user.entity.SiteUser;
-import com.example.driveanalysis.analysis.repository.AnalysisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,9 +24,10 @@ public class AnalysisService {
     public Page<Analysis> getAnalysisList(String kw, int page, String sortCode, long id) {
         List<Sort.Order> sorts = new ArrayList<>();
 
-        switch (sortCode) {
-            case "OLD" -> sorts.add(Sort.Order.asc("id")); // 오래된순
-            default -> sorts.add(Sort.Order.desc("id")); // 최신순
+        if (sortCode.equals("OLD")) {
+            sorts.add(Sort.Order.asc("id")); // 오래된순
+        } else {
+            sorts.add(Sort.Order.desc("id")); // 최신순
         }
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능

@@ -1,10 +1,10 @@
 package com.example.driveanalysis.order.controller;
 
-import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.base.exception.ActorCanNotSeeOrderException;
 import com.example.driveanalysis.base.exception.OrderIdNotMatchedException;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.service.ProductOrderService;
+import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

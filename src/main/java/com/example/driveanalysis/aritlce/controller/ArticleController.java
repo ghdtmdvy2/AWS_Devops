@@ -2,10 +2,10 @@ package com.example.driveanalysis.aritlce.controller;
 
 import com.example.driveanalysis.answer.dto.AnswerForm;
 import com.example.driveanalysis.aritlce.dto.ArticleForm;
+import com.example.driveanalysis.aritlce.entity.Article;
 import com.example.driveanalysis.aritlce.service.ArticleService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
-import com.example.driveanalysis.aritlce.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

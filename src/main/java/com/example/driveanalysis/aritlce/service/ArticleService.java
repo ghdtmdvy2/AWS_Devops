@@ -1,9 +1,9 @@
 package com.example.driveanalysis.aritlce.service;
 
-import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.aritlce.entity.Article;
 import com.example.driveanalysis.aritlce.repository.ArticleRepository;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
+import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

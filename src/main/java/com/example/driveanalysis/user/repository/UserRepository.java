@@ -1,7 +1,7 @@
 package com.example.driveanalysis.user.repository;
 
-import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.base.util.RepositoryUtil;
+import com.example.driveanalysis.user.entity.SiteUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

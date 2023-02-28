@@ -1,10 +1,10 @@
 package com.example.driveanalysis.answer.service;
 
-import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.answer.entity.Answer;
 import com.example.driveanalysis.answer.repository.AnswerRepository;
 import com.example.driveanalysis.aritlce.entity.Article;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
+import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

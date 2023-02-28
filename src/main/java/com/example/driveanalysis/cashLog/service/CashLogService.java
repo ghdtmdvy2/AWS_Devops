@@ -1,6 +1,5 @@
 package com.example.driveanalysis.cashLog.service;
 
-import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.cashLog.entity.CashLog;
 import com.example.driveanalysis.cashLog.repository.CashLogRepository;
 import com.example.driveanalysis.user.entity.SiteUser;

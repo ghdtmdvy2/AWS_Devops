@@ -1,8 +1,8 @@
 package com.example.driveanalysis.analysis.entity;
 
-import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.emotion.entity.Emotion;
+import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 

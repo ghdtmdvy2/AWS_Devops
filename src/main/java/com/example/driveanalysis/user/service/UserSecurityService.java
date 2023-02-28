@@ -2,8 +2,8 @@ package com.example.driveanalysis.user.service;
 
 import com.example.driveanalysis.user.dto.UserContext;
 import com.example.driveanalysis.user.entity.SiteUser;
-import com.example.driveanalysis.user.repository.UserRepository;
 import com.example.driveanalysis.user.entity.UserRole;
+import com.example.driveanalysis.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

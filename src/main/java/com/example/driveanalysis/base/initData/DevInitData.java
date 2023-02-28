@@ -1,13 +1,13 @@
 package com.example.driveanalysis.base.initData;
 
+import com.example.driveanalysis.analysis.service.AnalysisService;
 import com.example.driveanalysis.answer.service.AnswerService;
 import com.example.driveanalysis.aritlce.service.ArticleService;
 import com.example.driveanalysis.cartitem.service.CartItemService;
 import com.example.driveanalysis.emotion.service.EmotionService;
 import com.example.driveanalysis.order.service.ProductOrderService;
-import com.example.driveanalysis.user.service.UserService;
-import com.example.driveanalysis.analysis.service.AnalysisService;
 import com.example.driveanalysis.product.service.ProductService;
+import com.example.driveanalysis.user.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
