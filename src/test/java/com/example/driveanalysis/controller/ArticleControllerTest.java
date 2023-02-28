@@ -19,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Transactional
 class ArticleControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -63,7 +62,7 @@ class ArticleControllerTest {
     @WithUserDetails("user1")
     void post_modify_article() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(patch("/article/1")
+                .perform(patch("/article/2")
                         .with(csrf())
                         .param("subject", "수정된 제목1")
                         .param("content", "수정된 내용1")
@@ -73,7 +72,7 @@ class ArticleControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("articleModify"))
-                .andExpect(redirectedUrl("/article/1"));
+                .andExpect(redirectedUrl("/article/2"));
     }
 
     @Test
