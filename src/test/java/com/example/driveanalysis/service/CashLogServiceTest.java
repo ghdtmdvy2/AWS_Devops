@@ -1,20 +1,17 @@
 package com.example.driveanalysis.service;
 
-import com.example.driveanalysis.cashLog.entity.CashLog;
-import com.example.driveanalysis.cashLog.repository.CashLogRepository;
-import com.example.driveanalysis.cashLog.service.CashLogService;
+import com.example.driveanalysis.cashlog.entity.CashLog;
+import com.example.driveanalysis.cashlog.service.CashLogService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")

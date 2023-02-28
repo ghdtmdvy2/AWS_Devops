@@ -3,7 +3,7 @@ package com.example.driveanalysis.order.service;
 import com.example.driveanalysis.base.exception.DataNotFoundException;
 import com.example.driveanalysis.cartitem.entity.CartItem;
 import com.example.driveanalysis.cartitem.repository.CartItemRepository;
-import com.example.driveanalysis.cashLog.service.CashLogService;
+import com.example.driveanalysis.cashlog.service.CashLogService;
 import com.example.driveanalysis.order.entity.OrderItem;
 import com.example.driveanalysis.order.entity.ProductOrder;
 import com.example.driveanalysis.order.repository.OrderItemRepository;

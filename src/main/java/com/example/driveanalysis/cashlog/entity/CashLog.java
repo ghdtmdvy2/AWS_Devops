@@ -1,4 +1,4 @@
-package com.example.driveanalysis.cashLog.entity;
+package com.example.driveanalysis.cashlog.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.user.entity.SiteUser;

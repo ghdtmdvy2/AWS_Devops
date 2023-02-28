@@ -1,7 +1,7 @@
-package com.example.driveanalysis.cashLog.service;
+package com.example.driveanalysis.cashlog.service;
 
-import com.example.driveanalysis.cashLog.entity.CashLog;
-import com.example.driveanalysis.cashLog.repository.CashLogRepository;
+import com.example.driveanalysis.cashlog.entity.CashLog;
+import com.example.driveanalysis.cashlog.repository.CashLogRepository;
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

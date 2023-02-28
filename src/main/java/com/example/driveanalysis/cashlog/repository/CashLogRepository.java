@@ -1,6 +1,6 @@
-package com.example.driveanalysis.cashLog.repository;
+package com.example.driveanalysis.cashlog.repository;
 
-import com.example.driveanalysis.cashLog.entity.CashLog;
+import com.example.driveanalysis.cashlog.entity.CashLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
