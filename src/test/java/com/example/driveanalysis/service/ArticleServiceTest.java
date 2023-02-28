@@ -36,7 +36,7 @@ class ArticleServiceTest {
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
         assertThat(article.getHitCount()).isZero();
-        assertThat(article.getVoter().size()).isZero();
+        assertThat(article.getVoter()).isEmpty();
         assertThat(article.getAuthor()).isEqualTo(user);
     }
 
@@ -48,7 +48,6 @@ class ArticleServiceTest {
         Article article = articleService.create(subject,content,user);
         assertThat(article.getHitCount()).isZero();
         Article findArticle = articleService.getArticle(article.getId());
-        assertThat(findArticle).isNotNull();
         assertThat(findArticle).isEqualTo(article);
     }
 
