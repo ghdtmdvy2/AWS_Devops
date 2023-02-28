@@ -28,6 +28,8 @@ public interface InitDataBefore {
         Article article4 = articleService.create("제목4","내용4", user1);
 
         answerService.create(article1,"댓글 내용1",user1);
+        answerService.create(article2,"댓글 내용2",user1);
+        answerService.create(article2,"댓글 내용3",user1);
 
         articleService.vote(article2,user1);
 

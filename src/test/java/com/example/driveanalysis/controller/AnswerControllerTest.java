@@ -27,7 +27,7 @@ class AnswerControllerTest {
     @Test
     void get_article_list() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/answer/create/1")
+                .perform(post("/answer/create/2")
                         .with(csrf())
                         .param("content", "댓글 내용1")
                 )
@@ -36,13 +36,13 @@ class AnswerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("detail"))
-                .andExpect(redirectedUrlPattern("/article/1#*"));
+                .andExpect(redirectedUrlPattern("/article/2#*"));
     }
 
     @Test
     void get_modify_answer() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/answer/modify/1"))
+                .perform(get("/answer/modify/2"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is2xxSuccessful())
@@ -53,7 +53,7 @@ class AnswerControllerTest {
     @Test
     void post_modify_answer() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(post("/answer/modify/1")
+                .perform(post("/answer/modify/2")
                         .with(csrf())
                         .param("content", "댓글 수정 내용1")
                 )
@@ -62,18 +62,18 @@ class AnswerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("answerModify"))
-                .andExpect(redirectedUrlPattern("/article/1#*"));
+                .andExpect(redirectedUrlPattern("/article/2#*"));
     }
 
     @Test
     void get_delete_answer() throws Exception {
         ResultActions resultActions = mockMvc
-                .perform(get("/answer/delete/1"))
+                .perform(get("/answer/delete/3"))
                 .andDo(print());
         resultActions
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(AnswerController.class))
                 .andExpect(handler().methodName("answerDelete"))
-                .andExpect(redirectedUrl("/article/1"));
+                .andExpect(redirectedUrl("/article/2"));
     }
 }
