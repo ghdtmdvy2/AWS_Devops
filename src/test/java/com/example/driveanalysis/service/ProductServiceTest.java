@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -34,7 +34,7 @@ class ProductServiceTest {
         assertThat(product.getSubject()).isEqualTo(subject);
         assertThat(product.getContent()).isEqualTo(content);
         assertThat(product.getStock()).isEqualTo(150);
-        assertThat(product.isOrderable()).isEqualTo(true);
+        assertThat(product.isOrderable()).isTrue();
         assertThat(product.getPrice()).isEqualTo(price);
         assertThat(product.getAuthor()).isEqualTo(user);
     }
@@ -43,7 +43,7 @@ class ProductServiceTest {
     void product_list_find(){
         SiteUser user = userService.getUser("user1");
         List<Product> products = productService.getUserProducts(user);
-        assertThat(products.size()).isEqualTo(2);
+        assertThat(products).hasSize(2);
     }
 
     @Test
@@ -66,7 +66,7 @@ class ProductServiceTest {
         assertThat(product.getContent()).isEqualTo(oldContent);
         assertThat(product.getPrice()).isEqualTo(oldPrice);
         assertThat(product.getStock()).isEqualTo(150);
-        assertThat(product.isOrderable()).isEqualTo(true);
+        assertThat(product.isOrderable()).isTrue();
         assertThat(product.getAuthor()).isEqualTo(user);
         String subject = "수정 상품1";
         String content = "수정 상품 이름";
@@ -77,7 +77,7 @@ class ProductServiceTest {
         assertThat(currentProduct.getSubject()).isEqualTo(subject);
         assertThat(currentProduct.getContent()).isEqualTo(content);
         assertThat(product.getStock()).isEqualTo(150);
-        assertThat(product.isOrderable()).isEqualTo(true);
+        assertThat(product.isOrderable()).isTrue();
         assertThat(currentProduct.getPrice()).isEqualTo(price);
         assertThat(currentProduct.getAuthor()).isEqualTo(user);
     }
@@ -94,7 +94,7 @@ class ProductServiceTest {
         assertThat(product.getContent()).isEqualTo(content);
         assertThat(product.getPrice()).isEqualTo(price);
         assertThat(product.getStock()).isEqualTo(150);
-        assertThat(product.isOrderable()).isEqualTo(true);
+        assertThat(product.isOrderable()).isTrue();
         assertThat(product.getAuthor()).isEqualTo(user);
         productService.delete(product.getId());
         try {
