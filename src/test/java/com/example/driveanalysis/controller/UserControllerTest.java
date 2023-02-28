@@ -88,7 +88,7 @@ class UserControllerTest {
         resultActions
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(handler().handlerType(UserController.class))
-                .andExpect(handler().methodName("show_information_update"))
+                .andExpect(handler().methodName("showInformationUpdate"))
                 .andExpect(content().string(containsString("<h4>회원정보 수정</h4>")));
     }
 
@@ -106,7 +106,7 @@ class UserControllerTest {
         resultActions
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(UserController.class))
-                .andExpect(handler().methodName("information_update"))
+                .andExpect(handler().methodName("informationUpdate"))
                 .andExpect(redirectedUrl("/"));
     }
 }

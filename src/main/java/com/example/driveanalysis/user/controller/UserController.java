@@ -67,7 +67,7 @@ public class UserController {
     }
     @GetMapping("/information")
     @PreAuthorize("isAuthenticated()")
-    String show_information_update(Model model, UserUpdateForm userUpdateForm, @AuthenticationPrincipal UserDetails userContext){
+    String showInformationUpdate(Model model, UserUpdateForm userUpdateForm, @AuthenticationPrincipal UserDetails userContext){
         SiteUser users = userService.getUser(userContext.getUsername());
 
         model.addAttribute("users",users);
@@ -76,7 +76,7 @@ public class UserController {
 
     @PatchMapping("/information")
     @PreAuthorize("isAuthenticated()")
-    String information_update(Model model, @Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, @AuthenticationPrincipal UserContext userContext, HttpSession session){
+    String informationUpdate(Model model, @Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, @AuthenticationPrincipal UserContext userContext, HttpSession session){
         SiteUser users = userService.getUser(userContext.getUsername());
         if (bindingResult.hasErrors()) {
             model.addAttribute("users",users);
@@ -105,11 +105,11 @@ public class UserController {
     @GetMapping("/emotion")
     public String information(@AuthenticationPrincipal UserContext userContext, Model model, @RequestParam(defaultValue = "")String yearMonth){
 
-        List<Emotion> users_emotions = emotionService.currentUserFindEmotions(userContext.getId(),yearMonth);
-        List<Emotion> other_users_emotions = emotionService.allUsersFindEmotions(yearMonth);
+        List<Emotion> usersEmotions = emotionService.currentUserFindEmotions(userContext.getId(),yearMonth);
+        List<Emotion> otherUsersEmotions = emotionService.allUsersFindEmotions(yearMonth);
 
-        double[] currentUserEmotionAvg = Ut.emotionsAvgCreate(users_emotions);
-        double[] otherUserEmotionAvg = Ut.emotionsAvgCreate(other_users_emotions);
+        double[] currentUserEmotionAvg = Ut.emotionsAvgCreate(usersEmotions);
+        double[] otherUserEmotionAvg = Ut.emotionsAvgCreate(otherUsersEmotions);
         double[] diffUserEmotionAvg = Ut.diffAvgEmotions(currentUserEmotionAvg,otherUserEmotionAvg);
 
         if (Double.isNaN(currentUserEmotionAvg[0]) && Double.isNaN(currentUserEmotionAvg[0]) && Double.isNaN(currentUserEmotionAvg[0])) {
