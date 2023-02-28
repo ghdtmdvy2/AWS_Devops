@@ -28,6 +28,11 @@ public class SiteUser {
     public SiteUser(long id) {
         this.id = id;
     }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
     @Override
     public boolean equals(Object obj){
         if (obj == null) {

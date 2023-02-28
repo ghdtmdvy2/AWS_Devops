@@ -46,6 +46,10 @@ public class Article extends BaseTimeEntity {
     }
 
     @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+    @Override
     public boolean equals(Object obj){
         if (obj == null) {
             return false;
