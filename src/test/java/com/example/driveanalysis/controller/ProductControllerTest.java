@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Transactional
 @WithUserDetails("admin")
 class ProductControllerTest {
 
