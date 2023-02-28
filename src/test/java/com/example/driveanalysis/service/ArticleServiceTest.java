@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -23,7 +23,7 @@ class ArticleServiceTest {
     @Test
     void get_article_list(){
         Page<Article> articles = articleService.getList("", 0, "");
-        assertThat(articles.getSize()).isGreaterThan(0);
+        assertThat(articles.getSize()).isPositive();
     }
     @Test
     void create_article(){
@@ -34,8 +34,8 @@ class ArticleServiceTest {
         assertThat(article).isNotNull();
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
-        assertThat(article.getHitCount()).isEqualTo(0);
-        assertThat(article.getVoter().size()).isEqualTo(0);
+        assertThat(article.getHitCount()).isZero();
+        assertThat(article.getVoter().size()).isZero();
         assertThat(article.getAuthor()).isEqualTo(user);
     }
 
@@ -45,7 +45,7 @@ class ArticleServiceTest {
         String subject = "제목1";
         String content = "내용1";
         Article article = articleService.create(subject,content,user);
-        assertThat(article.getHitCount()).isEqualTo(0);
+        assertThat(article.getHitCount()).isZero();
         Article findArticle = articleService.getArticle(article.getId());
         assertThat(findArticle).isNotNull();
         assertThat(findArticle.equals(article));
@@ -62,10 +62,10 @@ class ArticleServiceTest {
         String modifyContent = "수정된 내용1";
         articleService.modify(article,modifySubject,modifyContent);
         Article modifyArticle = articleService.getArticle(article.getId());
-        assertThat(modifyArticle.getSubject().equals(oldSubject)).isFalse();
-        assertThat(modifyArticle.getContent().equals(oldContent)).isFalse();
-        assertThat(modifyArticle.getSubject().equals(modifySubject)).isTrue();
-        assertThat(modifyArticle.getContent().equals(modifyContent)).isTrue();
+        assertThat(modifyArticle.getSubject()).isNotEqualTo(oldSubject);
+        assertThat(modifyArticle.getContent()).isNotEqualTo(oldContent);
+        assertThat(modifyArticle.getSubject()).isEqualTo(modifySubject);
+        assertThat(modifyArticle.getContent()).isEqualTo(modifyContent);
         assertThat(modifyArticle.getModifiedDate()).isNotNull();
     }
 
@@ -91,13 +91,13 @@ class ArticleServiceTest {
         SiteUser user1 = userService.getUser("user1");
         SiteUser user2 = userService.getUser("user2");
         Article article = articleService.getArticle(4);
-        assertThat(article.getVoter().size()).isEqualTo(0);
+        assertThat(article.getVoter().size()).isZero();
         articleService.vote(article,user1);
-        assertThat(article.getVoter().size()).isEqualTo(1);
+        assertThat(article.getVoter()).hasSize(1);
         articleService.vote(article,user2);
-        assertThat(article.getVoter().size()).isEqualTo(2);
+        assertThat(article.getVoter()).hasSize(2);
         articleService.vote(article,user2);
-        assertThat(article.getVoter().size()).isEqualTo(2);
+        assertThat(article.getVoter()).hasSize(2);
     }
 
     @Test
@@ -108,8 +108,8 @@ class ArticleServiceTest {
         Article article = articleService.create(subject,content,user1);
         assertThat(article.getSubject()).isEqualTo(subject);
         assertThat(article.getContent()).isEqualTo(content);
-        assertThat(article.getHitCount()).isEqualTo(0);
-        assertThat(article.getVoter().size()).isEqualTo(0);
+        assertThat(article.getHitCount()).isZero();
+        assertThat(article.getVoter().size()).isZero();
         articleService.articleIncreaseHitCount(article);
         assertThat(article.getHitCount()).isEqualTo(1);
     }
