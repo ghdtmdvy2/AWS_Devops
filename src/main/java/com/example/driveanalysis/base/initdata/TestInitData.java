@@ -26,9 +26,7 @@ public class TestInitData implements InitDataBefore {
             ProductService productService,
             CartItemService cartItemService,
             ProductOrderService productOrderService) {
-        return args -> {
-            before(userService, articleService, answerService, analysisService, emotionService, productService, cartItemService, productOrderService);
-        };
+        return args -> before(userService, articleService, answerService, analysisService, emotionService, productService, cartItemService, productOrderService);
     }
 
 
