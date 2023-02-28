@@ -1,4 +1,4 @@
-package com.example.driveanalysis.base.initData;
+package com.example.driveanalysis.base.initdata;
 
 import com.example.driveanalysis.analysis.entity.Analysis;
 import com.example.driveanalysis.analysis.service.AnalysisService;
