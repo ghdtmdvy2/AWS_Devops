@@ -41,9 +41,7 @@ public class ArticleService {
     }
 
     public Article getArticle(long id) {
-        Optional<Article> oArticle = articleRepository.findById(id);
-        oArticle.orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
-        Article article = oArticle.get();
+        Article article = articleRepository.findById(id).orElseThrow(() -> new DataNotFoundException("no %d question not found,".formatted(id)));
         return article;
     }
     @Transactional
