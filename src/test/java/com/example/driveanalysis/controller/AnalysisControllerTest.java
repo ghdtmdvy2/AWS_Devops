@@ -18,13 +18,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Transactional
+@WithUserDetails("user1")
 class AnalysisControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @WithUserDetails("user1")
     void get_analysis_list() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/1"))
@@ -36,7 +35,6 @@ class AnalysisControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
     void get_detail_analysis() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/2/1"))
@@ -48,7 +46,6 @@ class AnalysisControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
     void get_delete_analysis() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/delete/1"))
