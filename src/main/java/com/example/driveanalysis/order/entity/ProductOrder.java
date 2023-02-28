@@ -55,12 +55,12 @@ public class ProductOrder extends BaseTimeEntity {
         }
     }
     public void makeName() {
-        String name = orderItems.get(0).getProduct().getSubject();
+        String orderName = orderItems.get(0).getProduct().getSubject();
 
         if (orderItems.size() > 1) {
-            name += " 외 %d개 상품".formatted(orderItems.size() - 1);
+            orderName += " 외 %d개 상품".formatted(orderItems.size() - 1);
         }
 
-        this.name = name;
+        this.name = orderName;
     }
 }
