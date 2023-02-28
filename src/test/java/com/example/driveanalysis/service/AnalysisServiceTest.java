@@ -25,7 +25,7 @@ class AnalysisServiceTest {
     void get_analysis_list(){
         SiteUser user = userService.getUser("user1");
         Page<Analysis> articles = analysisService.getAnalysisList("", 0, "",user.getId());
-        assertThat(articles.getSize()).isGreaterThan(0);
+        assertThat(articles.getSize()).isPositive();
     }
 
     @Test
@@ -44,7 +44,7 @@ class AnalysisServiceTest {
         Analysis findAnalysis = analysisService.getAnalysis(analysis.getId());
         assertThat(findAnalysis).isNotNull();
         SiteUser author = findAnalysis.getAuthor();
-        assertThat(author.equals(user)).isTrue();
+        assertThat(author).isEqualTo(user);
     }
 
     @Test
