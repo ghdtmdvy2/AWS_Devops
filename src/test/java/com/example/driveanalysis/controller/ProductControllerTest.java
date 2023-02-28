@@ -30,7 +30,7 @@ class ProductControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void showProductList() throws Exception {
+    void showProductList() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/product/"))
                 .andDo(print());
@@ -40,7 +40,7 @@ class ProductControllerTest {
                 .andExpect(handler().methodName("showProductList"));
     }
     @Test
-    public void showProduct() throws Exception {
+    void showProduct() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/product/3"))
                 .andDo(print());
@@ -51,7 +51,7 @@ class ProductControllerTest {
     }
 
     @Test
-    public void showCreateProduct() throws Exception {
+    void showCreateProduct() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/product/")
                         .param("redirectURL","/product/"))
@@ -63,7 +63,7 @@ class ProductControllerTest {
     }
 
     @Test
-    public void createProduct() throws Exception {
+    void createProduct() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(post("/product/")
                         .with(csrf())

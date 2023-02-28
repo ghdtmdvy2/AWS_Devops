@@ -39,7 +39,7 @@ class ProductOrderServiceTest {
 
     @Test
     @Transactional
-    public void create_from_cart_productOrder(){
+    void create_from_cart_productOrder(){
         SiteUser user1 = userService.getUser("user6");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user1);
 
@@ -56,7 +56,7 @@ class ProductOrderServiceTest {
     }
     @Test
     @Transactional
-    public void pay_toss_payments(){
+    void pay_toss_payments(){
         SiteUser user = userService.getUser("user3");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user);
         productOrderService.payTossPayments(productOrder);
@@ -76,7 +76,7 @@ class ProductOrderServiceTest {
         assertThat(useMoneyCashLog.getEventType()).isEqualTo("주문__%d__사용__토스페이먼츠".formatted(payProductOrder.getId()));
     }
     @Test
-    public void findProductOrders(){
+    void findProductOrders(){
         SiteUser user = userService.getUser("user1");
         List<ProductOrder> payProductOrders = productOrderService.findProductOrders(user.getId());
         assertThat(payProductOrders.size()).isEqualTo(2);

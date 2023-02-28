@@ -25,7 +25,7 @@ class CartItemControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void non_member_cartItem_confirm() throws Exception {
+    void non_member_cartItem_confirm() throws Exception {
         ResultActions resultActions = mockMvc.
                 perform(get("/cartItem/"))
                 .andDo(print());
@@ -37,7 +37,7 @@ class CartItemControllerTest {
     }
     @Test
     @WithUserDetails("user1")
-    public void member_cartItem_confirm() throws Exception {
+    void member_cartItem_confirm() throws Exception {
         ResultActions resultActions = mockMvc.
                 perform(get("/cartItem/"))
                 .andDo(print());
@@ -49,7 +49,7 @@ class CartItemControllerTest {
 
     @Test
     @WithUserDetails("user1")
-    public void member_cartItem_add() throws Exception {
+    void member_cartItem_add() throws Exception {
         ResultActions resultActions = mockMvc.
                 perform(post("/cartItem/1")
                         .with(csrf())
@@ -65,7 +65,7 @@ class CartItemControllerTest {
 
     @Test
     @WithUserDetails("user3")
-    public void member_cartItem_delete() throws Exception {
+    void member_cartItem_delete() throws Exception {
         ResultActions resultActions = mockMvc.
                 perform(delete("/cartItem/")
                         .with(csrf())

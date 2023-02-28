@@ -21,12 +21,12 @@ class ArticleServiceTest {
     @Autowired
     UserService userService;
     @Test
-    public void get_article_list(){
+    void get_article_list(){
         Page<Article> articles = articleService.getList("", 0, "");
         assertThat(articles.getSize()).isGreaterThan(0);
     }
     @Test
-    public void create_article(){
+    void create_article(){
         SiteUser user = userService.getUser("user1");
         String subject = "제목1";
         String content = "내용1";
@@ -40,7 +40,7 @@ class ArticleServiceTest {
     }
 
     @Test
-    public void get_article(){
+    void get_article(){
         SiteUser user = userService.getUser("user1");
         String subject = "제목1";
         String content = "내용1";
@@ -52,7 +52,7 @@ class ArticleServiceTest {
     }
 
     @Test
-    public void modify_article(){
+    void modify_article(){
         SiteUser user = userService.getUser("user1");
         String oldSubject = "제목1";
         String oldContent = "내용1";
@@ -70,7 +70,7 @@ class ArticleServiceTest {
     }
 
     @Test
-    public void delete_article(){
+    void delete_article(){
         SiteUser user = userService.getUser("user1");
         String subject = "제목1";
         String content = "내용1";
@@ -87,7 +87,7 @@ class ArticleServiceTest {
     }
     @Transactional
     @Test
-    public void increase_article_voter(){
+    void increase_article_voter(){
         SiteUser user1 = userService.getUser("user1");
         SiteUser user2 = userService.getUser("user2");
         Article article = articleService.getArticle(4);
@@ -101,7 +101,7 @@ class ArticleServiceTest {
     }
 
     @Test
-    public void increase_article_hit_count(){
+    void increase_article_hit_count(){
         SiteUser user1 = userService.getUser("user1");
         String subject = "제목1";
         String content = "내용1";

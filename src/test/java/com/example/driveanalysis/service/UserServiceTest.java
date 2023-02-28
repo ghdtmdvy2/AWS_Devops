@@ -18,7 +18,7 @@ class UserServiceTest {
     @Autowired
     UserService userService;
     @Test
-    public void user_signup(){
+    void user_signup(){
         String username = "test";
         String email = "test3@test.com";
         String password = "1234";
@@ -31,7 +31,7 @@ class UserServiceTest {
     }
 
     @Test
-    public void user_information_update(){
+    void user_information_update(){
 
         String oldPassword = "1234";
         String changePassword = "4321";

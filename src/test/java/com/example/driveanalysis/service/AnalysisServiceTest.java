@@ -22,14 +22,14 @@ class AnalysisServiceTest {
     UserService userService;
 
     @Test
-    public void get_analysis_list(){
+    void get_analysis_list(){
         SiteUser user = userService.getUser("user1");
         Page<Analysis> articles = analysisService.getAnalysisList("", 0, "",user.getId());
         assertThat(articles.getSize()).isGreaterThan(0);
     }
 
     @Test
-    public void create_analysis(){
+    void create_analysis(){
         SiteUser user = userService.getUser("user1");
         Analysis analysis = analysisService.create(user);
         assertThat(analysis).isNotNull();
@@ -38,7 +38,7 @@ class AnalysisServiceTest {
 
     @Transactional
     @Test
-    public void get_analysis(){
+    void get_analysis(){
         SiteUser user = userService.getUser("user1");
         Analysis analysis = analysisService.create(user);
         Analysis findAnalysis = analysisService.getAnalysis(analysis.getId());
@@ -48,7 +48,7 @@ class AnalysisServiceTest {
     }
 
     @Test
-    public void delete_article(){
+    void delete_article(){
         SiteUser user = userService.getUser("user1");
         Analysis analysis = analysisService.create(user);
         analysisService.delete(analysis);

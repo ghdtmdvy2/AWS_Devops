@@ -33,7 +33,7 @@ class CartItemServiceTest {
 
     @Test
     @Transactional
-    public void find_cartItem(){
+    void find_cartItem(){
         SiteUser user = userService.getUser("user4");
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
         int cartItemAmount = 0;
@@ -44,7 +44,7 @@ class CartItemServiceTest {
     }
 
     @Test
-    public void product_add_cartItem() {
+    void product_add_cartItem() {
         SiteUser user2 = userService.getUser("user2");
         SiteUser user4 = userService.getUser("user4");
         List<Product> products = productService.getUserProducts(user2);
@@ -61,7 +61,7 @@ class CartItemServiceTest {
     }
 
     @Test
-    public void delete_cartItem(){
+    void delete_cartItem(){
         SiteUser user2 = userService.getUser("user2");
         SiteUser user5 = userService.getUser("user5");
         List<Product> products = productService.getUserProducts(user2);
@@ -78,7 +78,7 @@ class CartItemServiceTest {
     }
     @Test
     @Transactional
-    public void increase_cartItems_quantity(){
+    void increase_cartItems_quantity(){
         SiteUser user = userService.getUser("user4");
         List<CartItem> prevCartItems = cartItemService.findCartItems(user.getId());
         CartItem cartItem = prevCartItems.get(0);

@@ -22,7 +22,7 @@ class CashLogServiceTest {
     @Autowired
     UserService userService;
     @Test
-    public void addCash(){
+    void addCash(){
         SiteUser user = userService.getUser("user2");
         CashLog cashLog = cashLogService.addCash(user,100_000,"충전");
         List<CashLog> compareCashLogs = cashLogService.getCashLog(user.getId());

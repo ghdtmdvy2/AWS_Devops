@@ -24,7 +24,7 @@ class ProductServiceTest {
     @Autowired
     UserService userService;
     @Test
-    public void product_create(){
+    void product_create(){
         SiteUser user = userService.getUser("user1");
         String subject = "상품1";
         String content = "상품 이름";
@@ -40,14 +40,14 @@ class ProductServiceTest {
     }
 
     @Test
-    public void product_list_find(){
+    void product_list_find(){
         SiteUser user = userService.getUser("user1");
         List<Product> products = productService.getUserProducts(user);
         assertThat(products.size()).isEqualTo(2);
     }
 
     @Test
-    public void product_find(){
+    void product_find(){
         SiteUser user = userService.getUser("user1");
         List<Product> products = productService.getUserProducts(user);
         Product product = productService.getProduct(products.get(0).getId());
@@ -55,7 +55,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void product_modify(){
+    void product_modify(){
         SiteUser user = userService.getUser("user1");
         String oldSubject = "상품1";
         String oldContent = "상품 이름";
@@ -83,7 +83,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void product_delete(){
+    void product_delete(){
         SiteUser user = userService.getUser("user1");
         String subject = "상품1";
         String content = "상품 이름";

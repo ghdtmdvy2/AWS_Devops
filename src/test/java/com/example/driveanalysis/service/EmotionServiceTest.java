@@ -27,7 +27,7 @@ class EmotionServiceTest {
     @Autowired
     AnalysisService analysisService;
     @Test
-    public void current_user_emotion_find(){
+    void current_user_emotion_find(){
         SiteUser user1 = userService.getUser("user1");
         SiteUser user2 = userService.getUser("user2");
 
@@ -38,12 +38,12 @@ class EmotionServiceTest {
         assertThat(emotionsUser2.size()).isGreaterThan(0);
     }
     @Test
-    public void entire_user_emotion_find(){
+    void entire_user_emotion_find(){
         List<Emotion> emotions = emotionService.allUsersFindEmotions("");
         assertThat(emotions.size()).isGreaterThan(0);
     }
     @Test
-    public void difference_emotion_between_current_user_entire_user_not_same(){
+    void difference_emotion_between_current_user_entire_user_not_same(){
         SiteUser user1 = userService.getUser("user1");
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(),"");
         assertThat(emotionsUser1.size()).isGreaterThan(0);
@@ -59,7 +59,7 @@ class EmotionServiceTest {
     }
 
     @Test
-    public void emotion_create(){
+    void emotion_create(){
         SiteUser user = userService.getUser("user3");
         Analysis analysis = analysisService.create(user);
         emotionService.emotionCreate(analysis,30,50,20);
