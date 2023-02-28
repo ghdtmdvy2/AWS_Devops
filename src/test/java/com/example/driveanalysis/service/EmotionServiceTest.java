@@ -32,30 +32,30 @@ class EmotionServiceTest {
         SiteUser user2 = userService.getUser("user2");
 
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(), "");
-        assertThat(emotionsUser1.size()).isGreaterThan(0);
+        assertThat(emotionsUser1.size()).isPositive();
 
         List<Emotion> emotionsUser2 = emotionService.currentUserFindEmotions(user2.getId(), "");
-        assertThat(emotionsUser2.size()).isGreaterThan(0);
+        assertThat(emotionsUser2.size()).isPositive();
     }
     @Test
     void entire_user_emotion_find(){
         List<Emotion> emotions = emotionService.allUsersFindEmotions("");
-        assertThat(emotions.size()).isGreaterThan(0);
+        assertThat(emotions.size()).isPositive();
     }
     @Test
     void difference_emotion_between_current_user_entire_user_not_same(){
         SiteUser user1 = userService.getUser("user1");
         List<Emotion> emotionsUser1 = emotionService.currentUserFindEmotions(user1.getId(),"");
-        assertThat(emotionsUser1.size()).isGreaterThan(0);
+        assertThat(emotionsUser1.size()).isPositive();
         List<Emotion> emotionsEntireEmotion = emotionService.allUsersFindEmotions("");
-        assertThat(emotionsEntireEmotion.size()).isGreaterThan(0);
+        assertThat(emotionsEntireEmotion.size()).isPositive();
 
         double[] emotionsAvgUser1 = Ut.emotionsAvgCreate(emotionsUser1);
         double[] emotionsAvgEntireUser = Ut.emotionsAvgCreate(emotionsEntireEmotion);
 
-        assertThat(emotionsAvgEntireUser[0] == emotionsAvgUser1[0]).isFalse();
-        assertThat(emotionsAvgEntireUser[1] == emotionsAvgUser1[1]).isFalse();
-        assertThat(emotionsAvgEntireUser[2] == emotionsAvgUser1[2]).isFalse();
+        assertThat(emotionsAvgEntireUser[0]).isNotSameAs(emotionsAvgUser1[0]);
+        assertThat(emotionsAvgEntireUser[1]).isNotSameAs(emotionsAvgUser1[1]);
+        assertThat(emotionsAvgEntireUser[2]).isNotSameAs(emotionsAvgUser1[2]);
     }
 
     @Test
