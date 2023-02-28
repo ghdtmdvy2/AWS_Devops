@@ -1,9 +1,9 @@
 package com.example.driveanalysis.service;
 
 import com.example.driveanalysis.analysis.entity.Analysis;
+import com.example.driveanalysis.analysis.service.AnalysisService;
 import com.example.driveanalysis.user.entity.SiteUser;
 import com.example.driveanalysis.user.service.UserService;
-import com.example.driveanalysis.analysis.service.AnalysisService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
