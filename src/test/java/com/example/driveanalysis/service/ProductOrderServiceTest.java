@@ -18,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -48,7 +49,7 @@ class ProductOrderServiceTest {
         OrderItem orderItem3 = productOrder.getOrderItems().get(2);
 
         assertThat(productOrder.getOrderer()).isEqualTo(user1);
-        assertThat(productOrder.getOrderItems().size()).isEqualTo(3);
+        assertThat(productOrder.getOrderItems()).hasSize(3);
         assertThat(productOrder.getCreatedDate()).isBefore(LocalDateTime.now());
         assertThat(orderItem1.getAmount()).isEqualTo(2);
         assertThat(orderItem2.getAmount()).isEqualTo(1);
@@ -79,6 +80,6 @@ class ProductOrderServiceTest {
     void findProductOrders(){
         SiteUser user = userService.getUser("user1");
         List<ProductOrder> payProductOrders = productOrderService.findProductOrders(user.getId());
-        assertThat(payProductOrders.size()).isEqualTo(2);
+        assertThat(payProductOrders).hasSize(2);
     }
 }
