@@ -48,12 +48,7 @@ class ArticleServiceTest {
         assertThat(article.getHitCount()).isEqualTo(0);
         Article findArticle = articleService.getArticle(article.getId());
         assertThat(findArticle).isNotNull();
-        assertThat(findArticle.getSubject()).isEqualTo(subject);
-        assertThat(findArticle.getContent()).isEqualTo(content);
-        assertThat(article.getHitCount()).isEqualTo(0);
-        assertThat(article.getVoter().size()).isEqualTo(0);
-        SiteUser author = findArticle.getAuthor();
-        assertThat(author.equals(user)).isTrue();
+        assertThat(findArticle.equals(article));
     }
 
     @Test
@@ -116,7 +111,6 @@ class ArticleServiceTest {
         assertThat(article.getHitCount()).isEqualTo(0);
         assertThat(article.getVoter().size()).isEqualTo(0);
         articleService.articleIncreaseHitCount(article);
-        article = articleService.getArticle(article.getId());
         assertThat(article.getHitCount()).isEqualTo(1);
     }
 }

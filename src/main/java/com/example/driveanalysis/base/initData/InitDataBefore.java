@@ -21,6 +21,8 @@ public interface InitDataBefore {
         SiteUser user1 = userService.create("user1", "user1@test.com", "1234");
         SiteUser user2 = userService.create("user2", "user2@test.com", "1234");
         SiteUser user3 = userService.create("user3", "user3@test.com", "1234");
+        SiteUser user4 = userService.create("user4", "user4@test.com", "1234");
+        SiteUser user5 = userService.create("user5", "user5@test.com", "1234");
 
         Article article1 = articleService.create("제목1", "내용1", user1);
         Article article2 = articleService.create("제목2","내용2", user1);

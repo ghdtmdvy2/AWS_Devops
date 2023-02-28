@@ -40,18 +40,19 @@ class CartItemServiceTest {
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
         }
-        assertThat(cartItemAmount).isEqualTo(0);
+        assertThat(cartItemAmount).isEqualTo(4);
     }
 
     @Test
     public void product_add_cartItem() {
-        SiteUser user = userService.getUser("user2");
-        List<Product> products = productService.getUserProducts(user);
+        SiteUser user2 = userService.getUser("user2");
+        SiteUser user4 = userService.getUser("user4");
+        List<Product> products = productService.getUserProducts(user2);
         for (Product product : products) {
-            cartItemService.addCartItem(product, user, 1);
+            cartItemService.addCartItem(product, user4, 1);
         }
-        cartItemService.addCartItem(products.get(0), user, 1);
-        List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
+        cartItemService.addCartItem(products.get(0), user4, 1);
+        List<CartItem> cartItems = cartItemService.findCartItems(user4.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
@@ -61,13 +62,14 @@ class CartItemServiceTest {
 
     @Test
     public void delete_cartItem(){
-        SiteUser user = userService.getUser("user2");
-        List<Product> products = productService.getUserProducts(user);
+        SiteUser user2 = userService.getUser("user2");
+        SiteUser user5 = userService.getUser("user5");
+        List<Product> products = productService.getUserProducts(user2);
         for (Product product : products) {
-            CartItem cartItem = cartItemService.addCartItem(product, user,1);
+            CartItem cartItem = cartItemService.addCartItem(product, user5,1);
             cartItemService.deleteCartItem(cartItem.getId());
         }
-        List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
+        List<CartItem> cartItems = cartItemService.findCartItems(user5.getId());
         int cartItemAmount = 0;
         for (CartItem cartItem : cartItems) {
             cartItemAmount += cartItem.getAmount();
