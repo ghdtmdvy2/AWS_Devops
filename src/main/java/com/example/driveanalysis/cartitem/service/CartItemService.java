@@ -46,7 +46,7 @@ public class CartItemService {
     }
     @Transactional
     public void renewCartItemsQuantity(long cartItemId, String type) {
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new DataNotFoundException("no %d cartItem not found,".formatted(cartItemId)));;
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new DataNotFoundException("no %d cartItem not found,".formatted(cartItemId)));
         if (type.equals("plus")) {
             cartItem.setAmount(cartItem.getAmount() + 1);
         } else {
