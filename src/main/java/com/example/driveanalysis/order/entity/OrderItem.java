@@ -49,15 +49,15 @@ public class OrderItem extends BaseTimeEntity {
         this.product = product;
         this.amount = amount;
         this.price = product.getPrice();
-        this.salePrice = this.makeSalePrice(product,amount);
-        this.wholesalePrice = this.makeWholesalePrice(product,amount);
+        this.salePrice = this.makeSalePrice(product);
+        this.wholesalePrice = this.makeWholesalePrice(product);
     }
 
-    private int makeWholesalePrice(Product product, int amount) {
+    private int makeWholesalePrice(Product product) {
         return (int) (product.getPrice() * 1.0);
     }
 
-    private int makeSalePrice(Product product, int amount) {
+    private int makeSalePrice(Product product) {
         return (int) (product.getPrice() * 1.0);
     }
 
