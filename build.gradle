@@ -93,7 +93,7 @@ sonarqube {
 		property "sonar.projectKey", "org.sonarqubeJacocoCodeCoverage"
 		property "sonar.reportPath" , "${project.buildDir}/jacoco/test.exec"
 		// sonarQube 에 대한 URL 설정.
-		property "sonar.host.url", "http://52.78.97.163:9000"
+		property "sonar.host.url", "http://43.201.86.12:9000"
 		// 해당 sonarQube src 파일 설정.
 		property "sonar.sources", "src/main/java"
 		// 해당 sonarQube test 파일 설정.
