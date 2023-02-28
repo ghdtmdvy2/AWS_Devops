@@ -19,13 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Transactional
+@WithUserDetails("user1")
 class AnswerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @WithUserDetails("user1")
     void get_article_list() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(post("/answer/create/1")
@@ -41,7 +40,6 @@ class AnswerControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
     void get_modify_answer() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/answer/modify/1"))
@@ -53,7 +51,6 @@ class AnswerControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
     void post_modify_answer() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(post("/answer/modify/1")
@@ -69,7 +66,6 @@ class AnswerControllerTest {
     }
 
     @Test
-    @WithUserDetails("user1")
     void get_delete_answer() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/answer/delete/1"))
