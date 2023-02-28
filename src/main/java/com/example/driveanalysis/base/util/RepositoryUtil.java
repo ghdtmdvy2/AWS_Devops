@@ -16,9 +16,7 @@ public interface RepositoryUtil {
     void enableForeignKeyChecks();
 
     default void truncateTable() {
-        //disableForeignKeyChecks();
         truncate();
-        //enableForeignKeyChecks();
     }
 
     void truncate();
