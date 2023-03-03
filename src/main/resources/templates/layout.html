@@ -19,6 +19,17 @@
                 width: 900px;
             }
         }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 <!--    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE" th:text="${@appConfig.siteName}"></title>-->
     <!-- Bootstrap CSS -->
@@ -171,6 +182,12 @@
                 <i class="fa-solid fa-money-bill-transfer text-white"></i>
                 <span class="ml-[2px] hidden lg:block text-white">
                     출금 신청 목록
+                </span>
+            </a>
+            <a th:href="@{|/video/|}" class="inline-flex">
+                <i class="fa-solid fa-video text-white"></i>
+                <span class="ml-[2px] hidden lg:block text-white">
+                    시연 영상
                 </span>
             </a>
         </div>

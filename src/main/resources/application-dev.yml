@@ -3,3 +3,4 @@ spring:
     url: "jdbc:mariadb://127.0.0.1:3306/qna__dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul"
     username: "test"
     password: "test1234!@#$"
+  file-dir: /src/main/resources/static/files/

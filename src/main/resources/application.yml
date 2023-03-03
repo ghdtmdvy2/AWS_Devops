@@ -1,5 +1,6 @@
 # DATABASE
 spring:
+  environment: "local"
   profiles:
     active: ${activeProfile:dev}
   jpa:
@@ -23,12 +24,20 @@ spring:
       enabled: true
     restart:
       enabled: true
-
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+    output:
+      ansi:
+        enabled: always
 
 custom:
   tossPayments:
     secretKey: "test_sk_dP9BRQmyarYaNnnkNDXrJ07KzLNk"
     clientKey: "test_ck_OyL0qZ4G1VOEJZvgGKw8oWb2MQYg"
+
+
 
 
 
