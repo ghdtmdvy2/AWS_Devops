@@ -1,6 +1,6 @@
 package com.example.driveanalysis.s3.controller;
 
-import com.example.driveanalysis.s3.S3UploaderService;
+import com.example.driveanalysis.s3.service.S3UploaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
