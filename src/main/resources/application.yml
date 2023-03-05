@@ -2,10 +2,10 @@
 spring:
   environment: "local"
   profiles:
-    active: ${activeProfile:dev}
+    active: ${activeProfile:prod}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true

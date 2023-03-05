@@ -2,7 +2,8 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         xmlns:th="http://thymeleaf.org"
         layout:decorate="~{layout}">
-<body layout:fragment="content" class="container">
+<div layout:fragment="content" class="container">
+<body>
 <meta name="_csrf" th:content="${_csrf.token}"/>
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <div sec:authorize="hasAuthority('ROLE_ADMIN')">
@@ -61,4 +62,5 @@
     }
 </script>
 </body>
+</div>
 </html>
