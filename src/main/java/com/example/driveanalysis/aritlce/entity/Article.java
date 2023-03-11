@@ -3,6 +3,7 @@ package com.example.driveanalysis.aritlce.entity;
 import com.example.driveanalysis.answer.entity.Answer;
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.user.entity.SiteUser;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class Article extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment

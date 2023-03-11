@@ -2,6 +2,7 @@ package com.example.driveanalysis.product.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.user.entity.SiteUser;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Product extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,6 +3,7 @@ package com.example.driveanalysis.cartitem.entity;
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.product.entity.Product;
 import com.example.driveanalysis.user.entity.SiteUser;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class CartItem extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment

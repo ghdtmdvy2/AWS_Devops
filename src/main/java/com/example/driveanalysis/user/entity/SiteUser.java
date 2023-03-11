@@ -1,8 +1,7 @@
 package com.example.driveanalysis.user.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.driveanalysis.base.config.BaseTimeEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,8 +9,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Data
 @NoArgsConstructor
-public class SiteUser {
+@EqualsAndHashCode
+public class SiteUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,28 +30,4 @@ public class SiteUser {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-    @Override
-    public boolean equals(Object obj){
-        if (obj == null) {
-            return false;
-        }
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof SiteUser)) {
-            return false;
-        }
-
-        SiteUser other = (SiteUser) obj;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.username,other.username)
-                && Objects.equals(this.email,other.email)
-                && Objects.equals(this.isProductPaid,other.isProductPaid);
-    }
 }

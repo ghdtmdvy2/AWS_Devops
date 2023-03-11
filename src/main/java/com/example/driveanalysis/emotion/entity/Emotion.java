@@ -2,6 +2,7 @@ package com.example.driveanalysis.emotion.entity;
 
 import com.example.driveanalysis.analysis.entity.Analysis;
 import com.example.driveanalysis.user.entity.SiteUser;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class Emotion {
 
     @Id

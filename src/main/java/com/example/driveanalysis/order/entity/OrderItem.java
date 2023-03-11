@@ -2,6 +2,7 @@ package com.example.driveanalysis.order.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.product.entity.Product;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 // 왜냐하면 장바구니와 주문의 연결 관계를 끊기를 위한 entity 이기 때문이다.
 // 왜 이런 구조를 만드냐면 장바구니는 쉽게 생성 및 삭제가 이루어지지만 주문 같은 경우 실제 결제가 이루어지는 부분이기 때문에 둘의 관계를 가지면 너무 위험하다.
 // 그래서 OrderItem 이라는 테이블을 새로 만들어서 장바구니와 똑같은 용도로 사용하면 된다.
+@EqualsAndHashCode
 public class OrderItem extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment

@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -34,6 +35,7 @@ class AnalysisControllerTest {
     }
 
     @Test
+    @Transactional
     void get_detail_analysis() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/analysis/2/1"))

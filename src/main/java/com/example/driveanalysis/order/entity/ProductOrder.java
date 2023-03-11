@@ -2,6 +2,7 @@ package com.example.driveanalysis.order.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.user.entity.SiteUser;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class ProductOrder extends BaseTimeEntity {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
