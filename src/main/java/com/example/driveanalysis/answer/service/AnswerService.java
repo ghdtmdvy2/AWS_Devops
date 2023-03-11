@@ -8,10 +8,15 @@ import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AnswerService {
     private final AnswerRepository answerRepository;
+    public List<Answer> getAnswers(Long authorId){
+        return answerRepository.findAllByAuthorId(authorId);
+    }
 
     public Answer create(Article article, String content, SiteUser author) {
         Answer answer = new Answer();
