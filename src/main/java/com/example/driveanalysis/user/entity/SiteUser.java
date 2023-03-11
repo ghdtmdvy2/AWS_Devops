@@ -1,10 +1,10 @@
 package com.example.driveanalysis.user.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
+import com.example.driveanalysis.listeners.UserHistoryEntityListeners;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -12,6 +12,7 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
+@EntityListeners(value = UserHistoryEntityListeners.class)
 public class SiteUser extends BaseTimeEntity {
 
     @Id

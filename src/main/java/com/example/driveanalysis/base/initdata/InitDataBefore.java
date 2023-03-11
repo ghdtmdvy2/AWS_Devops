@@ -43,7 +43,7 @@ public interface InitDataBefore {
         testEmotionsCreate(emotionService, analysis1, createConfirm);
         testEmotionsCreate(emotionService, analysis2, createConfirm);
 
-        Product product1 = productService.create("감정 분석 기기", "감정을 분석 할 수 있는 기기입니다.", 10, user1, 150);
+        Product product1 = productService.create("감정 분석 기기", "감정을 분석 할 수 있는 기기입니다.", 100, user1, 150);
         Product product2 = productService.create("기기 성능 업그레이드", "기기 성능을 업그레이드 시켜서 더욱 더 감정을 세밀하게 분석할 수 있습니다.", 5, user1, 150);
         Product product3 = productService.create("제품 조립", "제품 조립을 한 상태로 드립니다.", 3, user2, 150);
         Product product4 = productService.create("제품 설치", "제품을 설치를 할 수 있습니다.", 1, user2, 150);
