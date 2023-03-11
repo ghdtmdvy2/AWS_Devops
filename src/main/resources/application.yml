@@ -2,10 +2,10 @@
 spring:
   environment: "local"
   profiles:
-    active: ${activeProfile:prod}
+    active: ${activeProfile:dev}
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -37,6 +37,12 @@ custom:
     secretKey: "test_sk_dP9BRQmyarYaNnnkNDXrJ07KzLNk"
     clientKey: "test_ck_OyL0qZ4G1VOEJZvgGKw8oWb2MQYg"
 
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 
 
