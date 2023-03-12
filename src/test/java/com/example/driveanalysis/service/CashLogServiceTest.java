@@ -28,11 +28,6 @@ class CashLogServiceTest {
         CashLog cashLog = cashLogService.addCash(user,100_000,"충전");
         List<CashLog> compareCashLogs = cashLogService.getCashLog(user.getId());
         CashLog compareCashLog = compareCashLogs.get(0);
-        SiteUser testUser = new SiteUser();
-        testUser.setId(3L);
-        testUser.setEmail("user3@test.com");
-        testUser.setUsername("user2");
-        testUser.setProductPaid(false);
         assertEquals(cashLog,compareCashLog);
         assertEquals(cashLog.getUser(),compareCashLog.getUser());
     }
