@@ -13,18 +13,11 @@ import javax.persistence.PreUpdate;
 
 @Component
 public class UserHistoryEntityListeners {
-
     @PrePersist
     @PreUpdate
     public void userHistoryInsertAndUpdate(Object o){
-        UserHistoryRepository userHistoryRepository = BeanUtils.getBean(UserHistoryRepository.class);
+        UserHistoryService userHistoryService = BeanUtils.getBean(UserHistoryService.class);
         SiteUser siteUser = (SiteUser) o;
-        UserHistory userHistory = new UserHistory();
-        userHistory.setId(siteUser.getId());
-        userHistory.setEmail(siteUser.getEmail());
-        userHistory.setPassword(siteUser.getPassword());
-        userHistory.setProductPaid(siteUser.isProductPaid());
-        userHistory.setUsername(siteUser.getUsername());
-        userHistoryRepository.save(userHistory);
+        userHistoryService.create(siteUser);
     }
 }
