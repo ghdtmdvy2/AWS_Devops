@@ -13,7 +13,7 @@ public class UserHistoryService {
     private final UserHistoryRepository userHistoryRepository;
     public UserHistory create(SiteUser siteUser) {
         UserHistory userHistory = new UserHistory();
-        userHistory.setId(siteUser.getId());
+        userHistory.setSiteUser(siteUser);
         userHistory.setEmail(siteUser.getEmail());
         userHistory.setPassword(siteUser.getPassword());
         userHistory.setProductPaid(siteUser.isProductPaid());

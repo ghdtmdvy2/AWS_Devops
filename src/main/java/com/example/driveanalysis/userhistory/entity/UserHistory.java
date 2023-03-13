@@ -1,6 +1,7 @@
 package com.example.driveanalysis.userhistory.entity;
 
 import com.example.driveanalysis.base.config.BaseTimeEntity;
+import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,12 +15,13 @@ public class UserHistory extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @OneToOne
+    private SiteUser siteUser;
+
     private String username;
 
     private String password;
 
-    @Column(unique = true)
     private String email;
 
     private boolean isProductPaid;
