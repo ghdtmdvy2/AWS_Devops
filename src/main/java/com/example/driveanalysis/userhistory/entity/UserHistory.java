@@ -4,8 +4,10 @@ import com.example.driveanalysis.base.config.BaseTimeEntity;
 import com.example.driveanalysis.user.entity.SiteUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,7 +17,8 @@ public class UserHistory extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @ToString.Exclude
     private SiteUser siteUser;
 
     private String username;

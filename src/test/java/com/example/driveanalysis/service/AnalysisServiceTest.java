@@ -15,6 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class AnalysisServiceTest {
     @Autowired
     AnalysisService analysisService;
@@ -36,7 +37,7 @@ class AnalysisServiceTest {
         assertThat(analysis.getAuthor()).isEqualTo(user);
     }
 
-    @Transactional
+
     @Test
     void get_analysis(){
         SiteUser user = userService.getUser("user1");

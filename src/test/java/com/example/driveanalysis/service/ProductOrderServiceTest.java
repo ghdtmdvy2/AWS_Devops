@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class ProductOrderServiceTest {
     @Autowired
     ProductOrderService productOrderService;
@@ -39,7 +40,6 @@ class ProductOrderServiceTest {
     CashLogService cashLogService;
 
     @Test
-    @Transactional
     void create_from_cart_productOrder(){
         SiteUser user1 = userService.getUser("user6");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user1);
@@ -56,7 +56,6 @@ class ProductOrderServiceTest {
         assertThat(orderItem3.getAmount()).isEqualTo(1);
     }
     @Test
-    @Transactional
     void pay_toss_payments(){
         SiteUser user = userService.getUser("user3");
         ProductOrder productOrder = productOrderService.createFromCartProductOrder(user);

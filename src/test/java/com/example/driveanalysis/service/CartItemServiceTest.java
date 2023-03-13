@@ -19,6 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class CartItemServiceTest {
     @Autowired
     UserService userService;
@@ -32,7 +33,6 @@ class CartItemServiceTest {
     CartItemRepository cartItemRepository;
 
     @Test
-    @Transactional
     void find_cartItem(){
         SiteUser user = userService.getUser("user4");
         List<CartItem> cartItems = cartItemService.findCartItems(user.getId());
@@ -77,7 +77,6 @@ class CartItemServiceTest {
         assertThat(cartItemAmount).isZero();
     }
     @Test
-    @Transactional
     void increase_cartItems_quantity(){
         SiteUser user = userService.getUser("user4");
         List<CartItem> prevCartItems = cartItemService.findCartItems(user.getId());

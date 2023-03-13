@@ -8,6 +8,8 @@ import com.example.driveanalysis.userhistory.repository.UserHistoryRepository;
 import com.example.driveanalysis.userhistory.service.UserHistoryService;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 

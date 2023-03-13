@@ -54,7 +54,9 @@ public class UserService {
 
     @Transactional
     public void setProductPayTrue(SiteUser orderer) {
-        orderer.setProductPaid(true);
-        userRepository.save(orderer);
+        if (!orderer.isProductPaid()){
+            orderer.setProductPaid(true);
+            userRepository.save(orderer);
+        }
     }
 }

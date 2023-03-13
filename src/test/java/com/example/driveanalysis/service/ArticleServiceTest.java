@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class ArticleServiceTest {
     @Autowired
     ArticleService articleService;
@@ -84,7 +85,7 @@ class ArticleServiceTest {
         }
         assertThat(deleteArticle).isNull();
     }
-    @Transactional
+
     @Test
     void increase_article_voter(){
         SiteUser user1 = userService.getUser("user1");
